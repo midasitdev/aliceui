@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="..Generated">
+      <UniqueIdentifier>{8df6bf7c-49ff-4626-a829-e57ec8e120bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Define">
+      <UniqueIdentifier>{4060ed44-1687-4377-b029-1949a86b1967}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Public">
+      <UniqueIdentifier>{7e76a45f-0e2e-42ed-a7ef-da60390471d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Private %28DO NOT INCLUDE%29">
+      <UniqueIdentifier>{9ee35d65-6005-4f91-9e48-8a1e3ced817f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>..Generated</Filter>
+    </ClInclude>
+    <ClInclude Include="Mi18nDef.h">
+      <Filter>Define</Filter>
+    </ClInclude>
+    <ClInclude Include="MICUCalendarImpl.h">
+      <Filter>Private %28DO NOT INCLUDE%29</Filter>
+    </ClInclude>
+    <ClInclude Include="MICUDateFormatImpl.h">
+      <Filter>Private %28DO NOT INCLUDE%29</Filter>
+    </ClInclude>
+    <ClInclude Include="MICULocaleImpl.h">
+      <Filter>Private %28DO NOT INCLUDE%29</Filter>
+    </ClInclude>
+    <ClInclude Include="MICUPrivateDef.h">
+      <Filter>Private %28DO NOT INCLUDE%29</Filter>
+    </ClInclude>
+    <ClInclude Include="MICUTimeZoneImpl.h">
+      <Filter>Private %28DO NOT INCLUDE%29</Filter>
+    </ClInclude>
+    <ClInclude Include="MICUUtility.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="MICUCalendar.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="MICUDateFormat.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="MICULocale.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="MICUTimeZone.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="MICUCommonDef.h">
+      <Filter>Define</Filter>
+    </ClInclude>
+    <ClInclude Include="MICUSimpleDateFormat.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="MICUSimpleDateFormatImpl.h">
+      <Filter>Private %28DO NOT INCLUDE%29</Filter>
+    </ClInclude>
+    <ClInclude Include="MICUDateFormatSymbols.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="MICUDateFormatSymbolsImpl.h">
+      <Filter>Private %28DO NOT INCLUDE%29</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>..Generated</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>..Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>..Generated</Filter>
+    </ClCompile>
+    <ClCompile Include="MICUCalendarImpl.cpp">
+      <Filter>Private %28DO NOT INCLUDE%29</Filter>
+    </ClCompile>
+    <ClCompile Include="MICUCalendar.cpp">
+      <Filter>Public</Filter>
+    </ClCompile>
+    <ClCompile Include="MICUDateFormat.cpp">
+      <Filter>Public</Filter>
+    </ClCompile>
+    <ClCompile Include="MICULocale.cpp">
+      <Filter>Public</Filter>
+    </ClCompile>
+    <ClCompile Include="MICUTimeZone.cpp">
+      <Filter>Public</Filter>
+    </ClCompile>
+    <ClCompile Include="MICUUtility.cpp">
+      <Filter>Public</Filter>
+    </ClCompile>
+    <ClCompile Include="MICUDateFormatImpl.cpp">
+      <Filter>Private %28DO NOT INCLUDE%29</Filter>
+    </ClCompile>
+    <ClCompile Include="MICULocaleImpl.cpp">
+      <Filter>Private %28DO NOT INCLUDE%29</Filter>
+    </ClCompile>
+    <ClCompile Include="MICUTimeZoneImpl.cpp">
+      <Filter>Private %28DO NOT INCLUDE%29</Filter>
+    </ClCompile>
+    <ClCompile Include="MICUSimpleDateFormat.cpp">
+      <Filter>Public</Filter>
+    </ClCompile>
+    <ClCompile Include="MICUSimpleDateFormatImpl.cpp">
+      <Filter>Private %28DO NOT INCLUDE%29</Filter>
+    </ClCompile>
+    <ClCompile Include="MICUDateFormatSymbols.cpp">
+      <Filter>Public</Filter>
+    </ClCompile>
+    <ClCompile Include="MICUDateFormatSymbolsImpl.cpp">
+      <Filter>Private %28DO NOT INCLUDE%29</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

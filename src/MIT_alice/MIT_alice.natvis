@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <!-- Skia -->
+  <Type Name="SkPoint">
+    <AlternativeType Name="SkIPoint"/>
+    <DisplayString>({fX}, {fY})</DisplayString>
+  </Type>
+  <Type Name="SkSize">
+    <DisplayString>({fWidth}, {fHeight})</DisplayString>
+  </Type>
+  <Type Name="SkRect">
+    <AlternativeType Name="SkIRect"/>
+    <DisplayString>({fLeft}, {fTop}), ({fRight}, {fBottom})</DisplayString>
+  </Type>
+  <Type Name="LogFontTypeface">
+    <DisplayString>{fLogFont.lfFaceName,su}</DisplayString>
+  </Type>
+  <!-- MAUIState -->
+  <Type Name="mit::alice::MAUIState">
+    <Expand>
+      <Item Name="Default">m_States[0]</Item>
+      <Item Name="Created">m_States[1]</Item>
+      <Item Name="Visible">m_States[2]</Item>
+      <Item Name="Freezed">m_States[3]</Item>
+      <Item Name="Pressed">m_States[4]</Item>
+      <Item Name="Ignored">m_States[5]</Item>
+      <Item Name="Draggable">m_States[6]</Item>
+      <Item Name="Dragging">m_States[7]</Item>
+      <Item Name="Focusable">m_States[8]</Item>
+      <Item Name="Focused">m_States[9]</Item>
+      <Item Name="Checkable">m_States[10]</Item>
+      <Item Name="Checked">m_States[11]</Item>
+      <Item Name="CheckIndeterminate">m_States[12]</Item>
+      <Item Name="Selectable">m_States[13]</Item>
+      <Item Name="Selected">m_States[14]</Item>
+      <Item Name="Disabled">m_States[15]</Item>
+      <Item Name="MouseHovered">m_States[16]</Item>
+      <Item Name="MouseLDown">m_States[17]</Item>
+      <Item Name="MouseMDown">m_States[18]</Item>
+      <Item Name="MouseRDown">m_States[19]</Item>
+      <Item Name="Clickable">m_States[20]</Item>
+    </Expand>
+  </Type>
+  <!-- rapidjson::GenericValue - basic support -->
+  <Type Name="rapidjson::GenericValue&lt;*,*&gt;">
+    <DisplayString Condition="(data_.f.flags &amp; kTypeMask) == kNullType">null</DisplayString>
+    <DisplayString Condition="data_.f.flags == kTrueFlag">true</DisplayString>
+    <DisplayString Condition="data_.f.flags == kFalseFlag">false</DisplayString>
+    <DisplayString Condition="data_.f.flags == kShortStringFlag">{data_.ss.str}</DisplayString>
+    <DisplayString Condition="(data_.f.flags &amp; kTypeMask) == kStringType">{(const char*)((size_t)data_.s.str &amp; 0x0000FFFFFFFFFFFF)}</DisplayString>
+    <DisplayString Condition="(data_.f.flags &amp; kNumberIntFlag) == kNumberIntFlag">{data_.n.i.i}</DisplayString>
+    <DisplayString Condition="(data_.f.flags &amp; kNumberUintFlag) == kNumberUintFlag">{data_.n.u.u}</DisplayString>
+    <DisplayString Condition="(data_.f.flags &amp; kNumberInt64Flag) == kNumberInt64Flag">{data_.n.i64}</DisplayString>
+    <DisplayString Condition="(data_.f.flags &amp; kNumberUint64Flag) == kNumberUint64Flag">{data_.n.u64}</DisplayString>
+    <DisplayString Condition="(data_.f.flags &amp; kNumberDoubleFlag) == kNumberDoubleFlag">{data_.n.d}</DisplayString>
+    <DisplayString Condition="data_.f.flags == kObjectType">Object members={data_.o.size}</DisplayString>
+    <DisplayString Condition="data_.f.flags == kArrayType">Array members={data_.a.size}</DisplayString>
+    <Expand>
+      <Item Condition="data_.f.flags == kObjectType" Name="[size]">data_.o.size</Item>
+      <Item Condition="data_.f.flags == kObjectType" Name="[capacity]">data_.o.capacity</Item>
+      <ArrayItems Condition="data_.f.flags == kObjectType">
+        <Size>data_.o.size</Size>
+        <!-- NOTE: Rapidjson stores some extra data in the high bits of pointers, which is why the mask -->
+        <ValuePointer>(rapidjson::GenericMember&lt;$T1,$T2&gt;*)(((size_t)data_.o.members) &amp; 0x0000FFFFFFFFFFFF)</ValuePointer>
+      </ArrayItems>
+
+      <Item Condition="data_.f.flags == kArrayType" Name="[size]">data_.a.size</Item>
+      <Item Condition="data_.f.flags == kArrayType" Name="[capacity]">data_.a.capacity</Item>
+      <ArrayItems Condition="data_.f.flags == kArrayType">
+        <Size>data_.a.size</Size>
+        <!-- NOTE: Rapidjson stores some extra data in the high bits of pointers, which is why the mask -->
+        <ValuePointer>(rapidjson::GenericValue&lt;$T1,$T2&gt;*)(((size_t)data_.a.elements) &amp; 0x0000FFFFFFFFFFFF)</ValuePointer>
+      </ArrayItems>
+
+    </Expand>
+  </Type>
+</AutoVisualizer>

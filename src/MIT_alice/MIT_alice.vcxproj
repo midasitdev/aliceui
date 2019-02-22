@@ -1,0 +1,625 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1AE7F1F0-7924-458A-A839-B16D1604D89D}</ProjectGuid>
+    <RootNamespace>MIT_alice</RootNamespace>
+    <Keyword>MFCDLLProj</Keyword>
+    <ProjectName>MIT_alice</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\mitcommon.props" />
+    <Import Project="..\suppress_warnings.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\skia.props" />
+    <Import Project="..\mitcommon.props" />
+    <Import Project="..\suppress_warnings.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\mitcommon.props" />
+    <Import Project="..\suppress_warnings.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\skia.props" />
+    <Import Project="..\mitcommon.props" />
+    <Import Project="..\suppress_warnings.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>MITALICE_EXPORTS;ALICEUI_EXPORTS;WIN32;_WINDOWS;_DEBUG;_AFXEXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/Zm290 /Zm267 %(AdditionalOptions)</AdditionalOptions>
+      <EnablePREfast>false</EnablePREfast>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <SDLCheck>true</SDLCheck>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>assimp-vc140-mtd.lib;tinyxml2d.lib;OpenGL32.lib;glu32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LargeAddressAware>true</LargeAddressAware>
+      <AdditionalOptions> /ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>MITALICE_EXPORTS;ALICEUI_EXPORTS;WIN32;_WINDOWS;_DEBUG;_AFXEXT;_X64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/Zm290 %(AdditionalOptions)</AdditionalOptions>
+      <EnablePREfast>false</EnablePREfast>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <SDLCheck>true</SDLCheck>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>assimp-vc140-mtd.lib;tinyxml2d.lib;OpenGL32.lib;glu32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LargeAddressAware>true</LargeAddressAware>
+      <AdditionalOptions> /ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>MITALICE_EXPORTS;ALICEUI_EXPORTS;WIN32;_WINDOWS;NDEBUG;_AFXEXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/Zm290 /Zm267 /Zo /Qspectre %(AdditionalOptions)</AdditionalOptions>
+      <EnablePREfast>false</EnablePREfast>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <SDLCheck>true</SDLCheck>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>assimp-vc140-mt.lib;tinyxml2.lib;OpenGL32.lib;glu32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LargeAddressAware>true</LargeAddressAware>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>MITALICE_EXPORTS;ALICEUI_EXPORTS;WIN32;_WINDOWS;NDEBUG;_AFXEXT;_X64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/Zm290 /Zo /Qspectre %(AdditionalOptions)</AdditionalOptions>
+      <EnablePREfast>false</EnablePREfast>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <SDLCheck>true</SDLCheck>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>assimp-vc140-mt.lib;tinyxml2.lib;OpenGL32.lib;glu32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LargeAddressAware>true</LargeAddressAware>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0412</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AUIDebug.cpp" />
+    <ClCompile Include="AUIKeyboardEvent.cpp" />
+    <ClCompile Include="AUIKeycode.cpp" />
+    <ClCompile Include="AUILazyTask.cpp" />
+    <ClCompile Include="AUILazyTaskManager.cpp" />
+    <ClCompile Include="AUILifeState.cpp" />
+    <ClCompile Include="AUIMouseEvent.cpp" />
+    <ClCompile Include="AUIRasterTooltipWidget.cpp" />
+    <ClCompile Include="AUIResourceManager.cpp" />
+    <ClCompile Include="AUIScalar.cpp" />
+    <ClCompile Include="AUISlot.cpp" />
+    <ClCompile Include="AUISlotPool.cpp" />
+    <ClCompile Include="AUIState.cpp" />
+    <ClCompile Include="AUIStringConvert.cpp" />
+    <ClCompile Include="AUIStringUtil.cpp" />
+    <ClCompile Include="AUIAbsoluteLayout.cpp" />
+    <ClCompile Include="AUIArrayAdapter.cpp" />
+    <ClCompile Include="MAUICalendarBodyWidget.cpp" />
+    <ClCompile Include="MAUICalendarChangeButtonWidget.cpp" />
+    <ClCompile Include="MAUICalendarElementWidget.cpp" />
+    <ClCompile Include="MAUICalendarFoldButton.cpp" />
+    <ClCompile Include="MAUICalendarFrameWidget.cpp" />
+    <ClCompile Include="MAUICalendarQuickButtonWidget.cpp" />
+    <ClCompile Include="MAUICalendarRowWidget.cpp" />
+    <ClCompile Include="MAUICalendarTableWidget.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="AUICompass.cpp" />
+    <ClCompile Include="AUISensor.cpp" />
+    <ClCompile Include="MAUI3DDrawableWidget.cpp" />
+    <ClCompile Include="AUIChildHelper.cpp" />
+    <ClCompile Include="MAUICloudImportWidget.cpp" />
+    <ClCompile Include="MAUICloudTemplateWidget.cpp" />
+    <ClCompile Include="MAUICompasses.cpp" />
+    <ClCompile Include="AUIExpandHeaderSpinWidget.cpp" />
+    <ClCompile Include="AUIExpandHeaderTextWidget.cpp" />
+    <ClCompile Include="AUIExpandHeaderWidget.cpp" />
+    <ClCompile Include="AUILinearExpandLayout.cpp" />
+    <ClCompile Include="AUIExpandWidget.cpp" />
+    <ClCompile Include="AUIFlowLayout.cpp" />
+    <ClCompile Include="AUIFlowLayoutWidget.cpp" />
+    <ClCompile Include="AUIFrameLayout.cpp" />
+    <ClCompile Include="AUIGridLayout.cpp" />
+    <ClCompile Include="AUIGridLayoutWidget.cpp" />
+    <ClCompile Include="AUIImageDrawable.cpp" />
+    <ClCompile Include="AUIJsonDrawableParser.cpp" />
+    <ClCompile Include="AUILayoutBase.cpp" />
+    <ClCompile Include="AUILayoutManager.cpp" />
+    <ClCompile Include="AUILevelListDrawable.cpp" />
+    <ClCompile Include="AUILinearLayout.cpp" />
+    <ClCompile Include="AUIProperty.cpp" />
+    <ClCompile Include="AUIRelativeLayout.cpp" />
+    <ClCompile Include="AUIStateListDrawable.cpp" />
+    <ClCompile Include="MAUISensors.cpp" />
+    <ClCompile Include="AUITitleBarWidget.cpp" />
+    <ClCompile Include="AUIStyleNotion.cpp" />
+    <ClCompile Include="AUIWindowTitleBarWidget.cpp" />
+    <ClCompile Include="AUIFloatStringFilter.cpp" />
+    <ClCompile Include="AUIFloatUnitStringFilter.cpp" />
+    <ClCompile Include="AUIRecyclerAdapter.cpp" />
+    <ClCompile Include="AUIAnimationListDrawable.cpp" />
+    <ClCompile Include="AUIAsyncTask.cpp" />
+    <ClCompile Include="AUICheckboxDrawable.cpp" />
+    <ClCompile Include="AUICheckboxWidget.cpp" />
+    <ClCompile Include="AUIColor.cpp" />
+    <ClCompile Include="AUIConsoleWidget.cpp" />
+    <ClCompile Include="AUIDrawableWidget.cpp" />
+    <ClCompile Include="AUIExpandToggleDrawable.cpp" />
+    <ClCompile Include="AUIGalleria.cpp" />
+    <ClCompile Include="AUIGalleriaCache.cpp" />
+    <ClCompile Include="AUIGalleriaImgProc.cpp" />
+    <ClCompile Include="AUIGalleriaParam.cpp" />
+    <ClCompile Include="AUIImageButtonWidget.cpp" />
+    <ClCompile Include="AUIImageCaptionButtonWidget.cpp" />
+    <ClCompile Include="AUIFrameLayoutWidget.cpp" />
+    <ClCompile Include="AUIMFCApplication.cpp" />
+    <ClCompile Include="AUIMFCInstance.cpp" />
+    <ClCompile Include="AUIMFCWidget.cpp" />
+    <ClCompile Include="AUIOpenGL.cpp" />
+    <ClCompile Include="AUIRadioboxDrawable.cpp" />
+    <ClCompile Include="AUIRadioboxWidget.cpp" />
+    <ClCompile Include="AUIRecyclerItemDecorator.cpp" />
+    <ClCompile Include="AUIRecyclerLayoutManager.cpp" />
+    <ClCompile Include="AUIRecyclerLinearLayoutManager.cpp" />
+    <ClCompile Include="AUIRecyclerWidget.cpp" />
+    <ClCompile Include="AUIRelativeLayoutWidget.cpp" />
+    <ClCompile Include="MAUIRulerDrawable.cpp" />
+    <ClCompile Include="MAUIRulerWidget.cpp" />
+    <ClCompile Include="AUIScrollableBarWidget.cpp" />
+    <ClCompile Include="AUIShapedWidget.cpp" />
+    <ClCompile Include="AUISkiaExampleWidget.cpp" />
+    <ClCompile Include="AUISkiaRender.cpp" />
+    <ClCompile Include="AUISliderIndicatorWidget.cpp" />
+    <ClCompile Include="AUISliderWidget.cpp" />
+    <ClCompile Include="AUISpaceWidget.cpp" />
+    <ClCompile Include="AUITabButtonWidget.cpp" />
+    <ClCompile Include="MAUITemplate.cpp" />
+    <ClCompile Include="MAUITemplateProcessor.cpp" />
+    <ClCompile Include="MAUITemplatePool.cpp" />
+    <ClCompile Include="AUIToggleDrawable.cpp" />
+    <ClCompile Include="AUITooltip.cpp" />
+    <ClCompile Include="AUITooltipWidget.cpp" />
+    <ClCompile Include="AUITriangleShape.cpp" />
+    <ClCompile Include="AUIRecyclerWidgetHolder.cpp" />
+    <ClCompile Include="AUIWidgetRootInfo.cpp" />
+    <ClCompile Include="AUIWindow.cpp" />
+    <ClCompile Include="AUIWindowWidget.cpp" />
+    <ClCompile Include="AUIMFCWindowHandle.cpp" />
+    <ClCompile Include="AUIClipboard.cpp" />
+    <ClCompile Include="AUIIntegerStringFilter.cpp" />
+    <ClCompile Include="AUIIntegerUnitStringFilter.cpp" />
+    <ClCompile Include="AUIClipboard_win32.cpp" />
+    <ClCompile Include="AUIStyleSheetUtil.cpp" />
+    <ClCompile Include="AUIAbsoluteLayoutWidget.cpp" />
+    <ClCompile Include="AUIApplication.cpp" />
+    <ClCompile Include="AUIComboAdapter.cpp" />
+    <ClCompile Include="AUIColorDrawable.cpp" />
+    <ClCompile Include="AUIComboItemWidget.cpp" />
+    <ClCompile Include="AUIComboPopupWidget.cpp" />
+    <ClCompile Include="AUIComboWidget.cpp" />
+    <ClCompile Include="AUIForm.cpp" />
+    <ClCompile Include="AUIHandle.cpp" />
+    <ClCompile Include="AUIMFCHandle.cpp" />
+    <ClCompile Include="AUILayerDrawable.cpp" />
+    <ClCompile Include="AUILayoutWidget.cpp" />
+    <ClCompile Include="AUINinePatch.cpp" />
+    <ClCompile Include="AUINinePatchDrawable.cpp" />
+    <ClCompile Include="AUIOvalShape.cpp" />
+    <ClCompile Include="AUIPopup.cpp" />
+    <ClCompile Include="AUIRectShape.cpp" />
+    <ClCompile Include="AUIRoundRectShape.cpp" />
+    <ClCompile Include="AUIShape.cpp" />
+    <ClCompile Include="AUIShapeDrawable.cpp" />
+    <ClCompile Include="AUIStateDrawable.cpp" />
+    <ClCompile Include="AUITab.cpp" />
+    <ClCompile Include="AUIRasterBase.cpp" />
+    <ClCompile Include="AUIRasterInstance.cpp" />
+    <ClCompile Include="AUIRasterWidgetManager.cpp" />
+    <ClCompile Include="AUICanvasHelper.cpp" />
+    <ClCompile Include="AUIInnerGroupWidget.cpp" />
+    <ClCompile Include="AUIScrollableContentWidget.cpp" />
+    <ClCompile Include="AUIScrollableWidget.cpp" />
+    <ClCompile Include="AUIDrawable.cpp" />
+    <ClCompile Include="AUIEditWidget.cpp" />
+    <ClCompile Include="AUIFormWidget.cpp" />
+    <ClCompile Include="AUIGroupWidget.cpp" />
+    <ClCompile Include="AUIImageWidget.cpp" />
+    <ClCompile Include="AUIInstance.cpp" />
+    <ClCompile Include="AUISeparatorWidget.cpp" />
+    <ClCompile Include="MAUISkiaUtil.cpp" />
+    <ClCompile Include="AUITitleBarTitleWidget.cpp" />
+    <ClCompile Include="AUIToggleWidget.cpp" />
+    <ClCompile Include="AUIButtonWidget.cpp" />
+    <ClCompile Include="AUITextWidget.cpp" />
+    <ClCompile Include="AUILinearLayoutWidget.cpp" />
+    <ClCompile Include="AUIAccelDecelInterpolator.cpp" />
+    <ClCompile Include="AUIAccelerateInterpolator.cpp" />
+    <ClCompile Include="AUICursorIcon.cpp" />
+    <ClCompile Include="AUIDecelerateInterpolator.cpp" />
+    <ClCompile Include="AUIInterpolator.cpp" />
+    <ClCompile Include="AUITransitionWidget.cpp" />
+    <ClCompile Include="AUITabBarWidget.cpp" />
+    <ClCompile Include="AUITabWidget.cpp" />
+    <ClCompile Include="AUIWidgetSelection.cpp" />
+    <ClCompile Include="AUISmootherStepInterpolator.cpp" />
+    <ClCompile Include="AUISmoothStepInterpolator.cpp" />
+    <ClCompile Include="AUIWidget.cpp" />
+    <ClCompile Include="AUIWidgetManager.cpp" />
+    <ClCompile Include="AUIWidgetTreeHelper.cpp" />
+    <ClCompile Include="AUIWnd.cpp" />
+    <ClCompile Include="AUIStringFilter.cpp" />
+    <ClCompile Include="AUIUnitString.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="AUIStateFeature.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AUIAutomata.h" />
+    <ClInclude Include="AUIDebug.h" />
+    <ClInclude Include="AUIKeyboardEvent.h" />
+    <ClInclude Include="AUIKeycode.h" />
+    <ClInclude Include="AUILazyTask.h" />
+    <ClInclude Include="AUILazyTaskManager.h" />
+    <ClInclude Include="AUIMouseEvent.h" />
+    <ClInclude Include="AUIRasterTooltipWidget.h" />
+    <ClInclude Include="AUIResourceManager.h" />
+    <ClInclude Include="AUISignal.h" />
+    <ClInclude Include="AUISlot.h" />
+    <ClInclude Include="AUISlotPool.h" />
+    <ClInclude Include="AUIState.h" />
+    <ClInclude Include="AUIStringConvert.h" />
+    <ClInclude Include="AUIStringUtil.h" />
+    <ClInclude Include="AUIAbsoluteLayout.h" />
+    <ClInclude Include="AUIAPIDef.h" />
+    <ClInclude Include="MAUI1DShapeDef.h" />
+    <ClInclude Include="MAUICalendarBodyWidget.h" />
+    <ClInclude Include="MAUICalendarChangeButtonWidget.h" />
+    <ClInclude Include="MAUICalendarCommonDef.h" />
+    <ClInclude Include="MAUICalendarElementWidget.h" />
+    <ClInclude Include="MAUICalendarFoldButton.h" />
+    <ClInclude Include="MAUICalendarFrameWidget.h" />
+    <ClInclude Include="MAUICalendarQuickButtonWidget.h" />
+    <ClInclude Include="MAUICalendarRowWidget.h" />
+    <ClInclude Include="MAUICalendarTableWidget.h" />
+    <ClInclude Include="AUICompass.h" />
+    <ClInclude Include="AUISensor.h" />
+    <ClInclude Include="MAUI3DDrawableWidget.h" />
+    <ClInclude Include="AUIChildHelper.h" />
+    <ClInclude Include="MAUICloudImportWidget.h" />
+    <ClInclude Include="MAUICloudTemplateWidget.h" />
+    <ClInclude Include="MAUICompasses.h" />
+    <ClInclude Include="AUIExpandHeaderSpinWidget.h" />
+    <ClInclude Include="AUIExpandHeaderTextWidget.h" />
+    <ClInclude Include="AUIExpandHeaderWidget.h" />
+    <ClInclude Include="AUILinearExpandLayout.h" />
+    <ClInclude Include="AUIExpandWidget.h" />
+    <ClInclude Include="AUIFlowLayout.h" />
+    <ClInclude Include="AUIFlowLayoutWidget.h" />
+    <ClInclude Include="AUIFrameLayout.h" />
+    <ClInclude Include="AUIGridLayout.h" />
+    <ClInclude Include="AUIGridLayoutWidget.h" />
+    <ClInclude Include="AUIImageDrawable.h" />
+    <ClInclude Include="AUIJsonDrawableParser.h" />
+    <ClInclude Include="AUILayoutBase.h" />
+    <ClInclude Include="AUILayoutManager.h" />
+    <ClInclude Include="AUILevelListDrawable.h" />
+    <ClInclude Include="AUILinearLayout.h" />
+    <ClInclude Include="AUIRelativeLayout.h" />
+    <ClInclude Include="MAUIEllipsoidDef.h" />
+    <ClInclude Include="MAUIPlaneDef.h" />
+    <ClInclude Include="MAUIRulerDrawableDef.h" />
+    <ClInclude Include="AUISkiaPreConfig.h" />
+    <ClInclude Include="AUIStateListDrawable.h" />
+    <ClInclude Include="MAUISensors.h" />
+    <ClInclude Include="AUIStyleNotion.h" />
+    <ClInclude Include="AUITitleBarDefaultValue.h" />
+    <ClInclude Include="AUITitleBarWidget.h" />
+    <ClInclude Include="AUIStateFeature.h" />
+    <ClInclude Include="AUIWidgetStyle.h" />
+    <ClInclude Include="AUIWindowTitleBarWidget.h" />
+    <ClInclude Include="AUIFloatStringFilter.h" />
+    <ClInclude Include="AUIFloatUnitStringFilter.h" />
+    <ClInclude Include="AUIRecyclerAdapter.h" />
+    <ClInclude Include="AUIAnimationListDrawable.h" />
+    <ClInclude Include="AUIAsyncTask.h" />
+    <ClInclude Include="AUICheckboxDrawable.h" />
+    <ClInclude Include="AUICheckboxWidget.h" />
+    <ClInclude Include="AUIColor.h" />
+    <ClInclude Include="AUIConsoleWidget.h" />
+    <ClInclude Include="AUIDrawableWidget.h" />
+    <ClInclude Include="AUIExpandToggleDrawable.h" />
+    <ClInclude Include="AUIGalleria.h" />
+    <ClInclude Include="AUIGalleriaCache.h" />
+    <ClInclude Include="AUIGalleriaImgProc.h" />
+    <ClInclude Include="AUIGalleriaParam.h" />
+    <ClInclude Include="AUIImageButtonWidget.h" />
+    <ClInclude Include="AUIImageCaptionButtonWidget.h" />
+    <ClInclude Include="AUIFrameLayoutWidget.h" />
+    <ClInclude Include="AUIProperty.h" />
+    <ClInclude Include="AUIMFCApplication.h" />
+    <ClInclude Include="AUIMFCInstance.h" />
+    <ClInclude Include="AUIMFCWidget.h" />
+    <ClInclude Include="AUIOpenGL.h" />
+    <ClInclude Include="AUIRadioboxDrawable.h" />
+    <ClInclude Include="AUIRadioboxWidget.h" />
+    <ClInclude Include="AUIRecyclerCommonDef.h" />
+    <ClInclude Include="AUIRecyclerItemDecorator.h" />
+    <ClInclude Include="AUIRecyclerLayoutManager.h" />
+    <ClInclude Include="AUIRecyclerLinearLayoutManager.h" />
+    <ClInclude Include="AUIRecyclerWidget.h" />
+    <ClInclude Include="AUIRelativeLayoutWidget.h" />
+    <ClInclude Include="MAUIRulerDrawable.h" />
+    <ClInclude Include="MAUIRulerWidget.h" />
+    <ClInclude Include="AUIScalar.h" />
+    <ClInclude Include="AUIScrollableBarWidget.h" />
+    <ClInclude Include="AUIShapedWidget.h" />
+    <ClInclude Include="AUISkiaConfig.h" />
+    <ClInclude Include="AUISkiaExampleWidget.h" />
+    <ClInclude Include="AUISkiaRender.h" />
+    <ClInclude Include="AUISliderIndicatorWidget.h" />
+    <ClInclude Include="AUISliderWidget.h" />
+    <ClInclude Include="AUILifeState.h" />
+    <ClInclude Include="AUISpaceWidget.h" />
+    <ClInclude Include="AUITabButtonWidget.h" />
+    <ClInclude Include="MAUITabTemplateDef.h" />
+    <ClInclude Include="MAUITemplate.h" />
+    <ClInclude Include="MAUITemplateDef.h" />
+    <ClInclude Include="MAUITemplateProcessor.h" />
+    <ClInclude Include="MAUITemplatePool.h" />
+    <ClInclude Include="AUIToggleDrawable.h" />
+    <ClInclude Include="AUITooltip.h" />
+    <ClInclude Include="AUITooltipWidget.h" />
+    <ClInclude Include="AUITriangleShape.h" />
+    <ClInclude Include="AUIRecyclerWidgetHolder.h" />
+    <ClInclude Include="AUIWidgetRootInfo.h" />
+    <ClInclude Include="AUIWindow.h" />
+    <ClInclude Include="AUIWindowWidget.h" />
+    <ClInclude Include="AUIMFCWindowHandle.h" />
+    <ClInclude Include="AUIClipboard.h" />
+    <ClInclude Include="AUIIntegerStringFilter.h" />
+    <ClInclude Include="AUIIntegerUnitStringFilter.h" />
+    <ClInclude Include="AUIClipboard_win32.h" />
+    <ClInclude Include="AUIStyleSheetUtil.h" />
+    <ClInclude Include="AUIAbsoluteLayoutWidget.h" />
+    <ClInclude Include="AUIApplication.h" />
+    <ClInclude Include="AUIArrayAdapter.h" />
+    <ClInclude Include="AUIComboAdapter.h" />
+    <ClInclude Include="AUIBasicEnumDef.h" />
+    <ClInclude Include="AUIForm.h" />
+    <ClInclude Include="AUIHandle.h" />
+    <ClInclude Include="AUIMFCHandle.h" />
+    <ClInclude Include="AUIColorDrawable.h" />
+    <ClInclude Include="AUIComboItemWidget.h" />
+    <ClInclude Include="AUIComboPopupWidget.h" />
+    <ClInclude Include="AUIComboWidget.h" />
+    <ClInclude Include="AUILayerDrawable.h" />
+    <ClInclude Include="AUILayoutWidget.h" />
+    <ClInclude Include="AUINinePatch.h" />
+    <ClInclude Include="AUINinePatchDrawable.h" />
+    <ClInclude Include="AUIOvalShape.h" />
+    <ClInclude Include="AUIPopup.h" />
+    <ClInclude Include="AUIRectShape.h" />
+    <ClInclude Include="AUIRoundRectShape.h" />
+    <ClInclude Include="AUIShape.h" />
+    <ClInclude Include="AUIShapeDrawable.h" />
+    <ClInclude Include="AUIStateDrawable.h" />
+    <ClInclude Include="AUITab.h" />
+    <ClInclude Include="AUIRasterBase.h" />
+    <ClInclude Include="AUIRasterInstance.h" />
+    <ClInclude Include="AUIRasterWidgetManager.h" />
+    <ClInclude Include="AUICanvasHelper.h" />
+    <ClInclude Include="AUIInnerGroupWidget.h" />
+    <ClInclude Include="AUIScrollableContentWidget.h" />
+    <ClInclude Include="AUIScrollableWidget.h" />
+    <ClInclude Include="AUIColorDef.h" />
+    <ClInclude Include="AUIDrawable.h" />
+    <ClInclude Include="AUIEditWidget.h" />
+    <ClInclude Include="AUIFormWidget.h" />
+    <ClInclude Include="AUIGroupWidget.h" />
+    <ClInclude Include="AUIImageWidget.h" />
+    <ClInclude Include="AUIInstance.h" />
+    <ClInclude Include="AUISeparatorWidget.h" />
+    <ClInclude Include="MAUISkiaUtil.h" />
+    <ClInclude Include="AUITitleBarTitleWidget.h" />
+    <ClInclude Include="AUIToggleWidget.h" />
+    <ClInclude Include="AUIButtonWidget.h" />
+    <ClInclude Include="AUITextWidget.h" />
+    <ClInclude Include="AUILinearLayoutWidget.h" />
+    <ClInclude Include="AUIAccelDecelInterpolator.h" />
+    <ClInclude Include="AUIAccelerateInterpolator.h" />
+    <ClInclude Include="AUICursorIcon.h" />
+    <ClInclude Include="AUIDecelerateInterpolator.h" />
+    <ClInclude Include="AUIInterpolator.h" />
+    <ClInclude Include="AUICommonDef.h" />
+    <ClInclude Include="AUITransitionWidget.h" />
+    <ClInclude Include="AUITabBarWidget.h" />
+    <ClInclude Include="AUITabWidget.h" />
+    <ClInclude Include="AUIWidgetSelection.h" />
+    <ClInclude Include="AUISmootherStepInterpolator.h" />
+    <ClInclude Include="AUISmoothStepInterpolator.h" />
+    <ClInclude Include="AUIDeviceEvents.h" />
+    <ClInclude Include="AUIWidget.h" />
+    <ClInclude Include="AUIWidgetManager.h" />
+    <ClInclude Include="AUIWidgetTreeHelper.h" />
+    <ClInclude Include="AUIWnd.h" />
+    <ClInclude Include="MITAliceDef.h" />
+    <ClInclude Include="AUIStringFilter.h" />
+    <ClInclude Include="AUIUnitString.h" />
+    <ClInclude Include="MIT_aliceRes.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+    <None Include="res\GLSL\2D\2DFrag.glsl" />
+    <None Include="res\GLSL\2D\2DVert.glsl" />
+    <None Include="res\MIT_alice.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MIT_alice.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MIT_i18n\MIT_i18n.vcxproj">
+      <Project>{08dca097-fac2-4f73-908a-f0f0788469fd}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="MIT_alice.natvis" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

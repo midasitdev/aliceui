@@ -1,0 +1,1560 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="..Documentation">
+      <UniqueIdentifier>{a6846d7e-d3e1-4d6e-a28e-5cfd0bb39aea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Defines">
+      <UniqueIdentifier>{86211825-677b-4e48-a0fb-533a22e6db5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core">
+      <UniqueIdentifier>{7ce7bbd0-6f01-4a11-90b3-3940c27877db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Widget Manager">
+      <UniqueIdentifier>{fa7e8d9b-4599-4d4b-b0fd-e1ce224de9c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Instance">
+      <UniqueIdentifier>{a014261b-1589-447e-af9b-1556cdc2a7ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra">
+      <UniqueIdentifier>{aad7c3b5-8b5e-4923-bab0-9afa938a22ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\Cursor Icon">
+      <UniqueIdentifier>{a98dd9a4-ae1c-4a80-835f-8f27881e869e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\Widget Selection">
+      <UniqueIdentifier>{33f79ae0-179d-4783-b689-7acd2c3ad213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\Interpolator">
+      <UniqueIdentifier>{0fb2bf82-55d8-4668-9f93-9cd97cdc34ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\Interpolator\SmoothStep">
+      <UniqueIdentifier>{7cf2e30f-7421-4a15-896c-344e93baf99d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\Interpolator\SmootherStep">
+      <UniqueIdentifier>{8a10e27f-4ed4-4518-acbb-d0fa15ae985f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\Interpolator\Accelerate">
+      <UniqueIdentifier>{6ae60451-c54e-46bf-b285-8f8c9e5542cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\Interpolator\Decelerate">
+      <UniqueIdentifier>{1edffe2b-0403-4040-b275-36a6fe191c59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\Interpolator\Accelerate+Decelerate">
+      <UniqueIdentifier>{daee89db-1aee-40f4-a6a0-7d43e9029144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\OpenGL">
+      <UniqueIdentifier>{9e12db50-d73e-4612-b32e-8111b7dc16ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\Skia">
+      <UniqueIdentifier>{70f2abe2-37b2-48cf-a607-1ea13d40694d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\Skia\NinePatch">
+      <UniqueIdentifier>{5e20152b-c112-4649-9e8b-a7b429fde7ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\Skia\Render">
+      <UniqueIdentifier>{8039d1a2-6198-4657-ae51-bac7abe9dfd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Midas Style Sheet">
+      <UniqueIdentifier>{5747584f-7527-4bc7-90d9-bb201409794e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation">
+      <UniqueIdentifier>{31785336-aaca-47f4-a7d1-5fd5a77ad6b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Drawables">
+      <UniqueIdentifier>{9a4124e3-e0b1-44c8-a8a4-3e267baa5767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Drawables\Color">
+      <UniqueIdentifier>{b8b1bd41-ba1c-499d-a14d-7d28e5b05221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Drawables\Shape">
+      <UniqueIdentifier>{f6559857-1502-4985-9263-d9c275075e06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Drawables\NinePatch">
+      <UniqueIdentifier>{61a770b8-8061-4521-bb18-8931afb091e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Drawables\Layer">
+      <UniqueIdentifier>{16607984-ef92-4c47-aa95-071f08e47d03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Drawables\State">
+      <UniqueIdentifier>{66ec7764-717e-4d54-b209-c5efe56ed548}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Shapes">
+      <UniqueIdentifier>{55efd18b-8eca-44a8-ab56-469947ef7cee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Shapes\Base">
+      <UniqueIdentifier>{467eae71-78ce-4c2b-9a99-091dd4626b9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Shapes\Rect">
+      <UniqueIdentifier>{c1a2aa09-d9d6-414d-9741-27b740792771}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Shapes\Round Rect">
+      <UniqueIdentifier>{ce856441-1de4-4a93-9283-472e1b847566}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Shapes\Oval">
+      <UniqueIdentifier>{8f5f00d7-a660-4a40-8c73-816dc4390bf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets">
+      <UniqueIdentifier>{20163c24-36c3-4fa0-a672-37d26962bceb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable">
+      <UniqueIdentifier>{571c846c-eec9-4d45-af8d-addbbbbee986}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Button">
+      <UniqueIdentifier>{7e1bc3a5-3416-4432-baf3-6520effc2cfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Edit">
+      <UniqueIdentifier>{0ae9f32b-2c35-42a8-933c-b3efbbe64b24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Form">
+      <UniqueIdentifier>{2eae62b9-f402-4ba2-88e3-43020546db9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Image">
+      <UniqueIdentifier>{f0390e39-9034-403b-b3fa-c359e36c9bfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\TitleBar">
+      <UniqueIdentifier>{63fe76d8-b30c-4bd3-aec0-60251c25e5b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Scrollable">
+      <UniqueIdentifier>{3aebf3c1-3611-47ea-8d6c-137bd5017051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Expandable">
+      <UniqueIdentifier>{47b15264-9fdd-4846-87fe-c5d569fdf097}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Layout">
+      <UniqueIdentifier>{7a8d8a58-c392-4a0d-ad4f-9adf7d96ccee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Layout\Base">
+      <UniqueIdentifier>{8901f76b-ceb6-422c-b62a-6481230a3389}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Layout\Linear">
+      <UniqueIdentifier>{47449730-f729-44e4-b219-d39181391fe7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Layout\Absolute">
+      <UniqueIdentifier>{a3e52470-0e7d-4e70-b55d-b01bd70a4526}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Tab">
+      <UniqueIdentifier>{50dea101-8aa3-49b0-a7b5-23ab55d92fa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Transition">
+      <UniqueIdentifier>{5737af88-ebf1-44f0-be8b-ff8728a0ba63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Combo">
+      <UniqueIdentifier>{a7662644-3404-4fce-84c7-264461f04430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Combo\Popup">
+      <UniqueIdentifier>{d08c3989-4768-44a3-8056-e4e8feaad934}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Shapes\Triangle">
+      <UniqueIdentifier>{8c867070-58d0-4001-a859-552a69ab986c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Window">
+      <UniqueIdentifier>{3d6fdafb-edd4-40dc-8452-f06663adcfc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Text">
+      <UniqueIdentifier>{151142ce-abe9-4a0f-a6aa-182ca52bb9b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Midas Style Sheet\Style Sheet">
+      <UniqueIdentifier>{d9b11e7d-ad54-4125-895a-869995b6435f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Midas Style Sheet\Util">
+      <UniqueIdentifier>{53ccf5c8-6edc-48dd-a0f3-7464ea4051b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Color">
+      <UniqueIdentifier>{e2eea134-eef4-4fed-811d-44f51c614279}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Framework">
+      <UniqueIdentifier>{9c60eefa-033d-4e10-8b58-72bbc88477a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Framework\Form">
+      <UniqueIdentifier>{67f89576-e9ab-42ac-a5e9-e41c95213c85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Framework\Window">
+      <UniqueIdentifier>{5d85704c-d9b9-4236-9ad3-b26a91f67faa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Framework\Application">
+      <UniqueIdentifier>{c633c62f-a932-4a4f-8d37-f63aab64dadb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Separator">
+      <UniqueIdentifier>{3513f6b2-19b2-4a71-98f6-45844458ee00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Popup">
+      <UniqueIdentifier>{57bd52d8-bdbf-441a-b2c4-425e500a9895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Layout\Frame">
+      <UniqueIdentifier>{c285b6a3-4573-48f6-ad44-9fca087df0e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\Skia\Canvas Helper">
+      <UniqueIdentifier>{6ffab43a-45f2-4679-882d-4f92a81c0f95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Slider">
+      <UniqueIdentifier>{baf3fb98-b019-4c81-b982-042e6515ac04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Slider\Indicator">
+      <UniqueIdentifier>{3b28ffc2-f53e-4e2a-b887-490ce11221df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Layout\Relative">
+      <UniqueIdentifier>{69dc6785-92c6-45ad-b592-59816f0232ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Space">
+      <UniqueIdentifier>{b4e96fdd-85a5-4b4c-bd09-5192de9e15e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Shaped">
+      <UniqueIdentifier>{3b49fe87-a996-4f9f-983c-237c6615b49d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Platform Support">
+      <UniqueIdentifier>{41d3352e-3fab-4622-b036-817147f7e3bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Platform Support\Win32">
+      <UniqueIdentifier>{0d4bdc69-bf0b-406c-8359-0b83c43912a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Scrollable\Content">
+      <UniqueIdentifier>{0f5e3e33-5148-41a2-b173-3740de9b2b46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Check">
+      <UniqueIdentifier>{6584a799-f127-40d6-81fd-09a179173fae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Check\Box">
+      <UniqueIdentifier>{557f3d5f-3379-4c06-abd3-a2e66913dd67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Check\Toggle">
+      <UniqueIdentifier>{23077ba5-170c-4987-aa97-de85c5d63da9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Check\Radio">
+      <UniqueIdentifier>{747b8bae-770b-4708-93b7-e0b70e009c29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Image\Image Button">
+      <UniqueIdentifier>{f0fccd08-c939-4d46-9841-2fb2bf8fb6a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Image\Image Caption Button">
+      <UniqueIdentifier>{941bee5d-2b3c-424a-ac3a-4858fe84f6bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Galleria">
+      <UniqueIdentifier>{ca1e41da-8c64-4c62-b8ac-d25dff883301}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Galleria\Engine %28Private%29">
+      <UniqueIdentifier>{4c18c4a5-0f42-47a5-9801-ace524322d2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Tooltip">
+      <UniqueIdentifier>{ae4460a7-bebd-46c3-8b14-5e25ec24e02f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Console">
+      <UniqueIdentifier>{1a3555d3-2c5e-48fe-aa52-adcfeddaac6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Scrollable\ScrollBar">
+      <UniqueIdentifier>{f5d86e8f-b372-46f3-b428-e53811ed09b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Drawable">
+      <UniqueIdentifier>{f6811a98-8dab-4048-8606-f8eb6962846f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Drawables\Animation">
+      <UniqueIdentifier>{af82ce08-3877-4182-b696-ff1da7d41ac1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Drawables\LevelList">
+      <UniqueIdentifier>{023b06b9-6848-4183-823a-a6dc1437e89f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Drawables\StateList">
+      <UniqueIdentifier>{16c46916-839c-4a78-8f65-9392a684a7bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Parsers">
+      <UniqueIdentifier>{701267b1-1cdb-44ae-b171-09364b215b3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Recycler">
+      <UniqueIdentifier>{1abd8288-f2ee-45af-8df2-318c523d1573}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\Event">
+      <UniqueIdentifier>{0678f321-a1e8-4627-a9a2-4d3434bf67b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Combo\Adapter">
+      <UniqueIdentifier>{101ad642-d7a3-402b-bd68-9b1d6b4f0952}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Drawables\Image">
+      <UniqueIdentifier>{261ba098-c321-47b5-9e2d-153786aab7fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Widget">
+      <UniqueIdentifier>{24542fc9-59ca-469a-a92c-6ae51f718894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Widget\Widget Tree Helper">
+      <UniqueIdentifier>{29f1f2b1-a586-4b66-8620-b0819d9034ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Widget\Widget">
+      <UniqueIdentifier>{281a4457-af23-44bc-a294-201646bb5e28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Widget\Compass">
+      <UniqueIdentifier>{4480abcd-77b4-4492-bf00-3fed5f27aea5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Widget\Sensor">
+      <UniqueIdentifier>{854be083-1b87-4145-8483-1f6680727509}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Layout">
+      <UniqueIdentifier>{ae0c60de-3634-47e5-832c-922a6ebf965a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Layout\Flow">
+      <UniqueIdentifier>{551c4531-d36f-4b4e-8da7-a1f923e9c94a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Layout\Grid">
+      <UniqueIdentifier>{f4bb4ebb-4090-42bf-9d15-6c033ff1ad07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Drawable\Layout\LinearExpand">
+      <UniqueIdentifier>{99566993-be34-43f6-9885-4542a8a41ef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..Precomp">
+      <UniqueIdentifier>{9648959b-7132-405a-9c9e-d77b8a4d3985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Platform Support\Win32\03. MFC">
+      <UniqueIdentifier>{975b41c6-3766-47e4-86b4-9ca4b7aa71be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Platform Support\Win32\03. MFC\Wnd">
+      <UniqueIdentifier>{ee279014-5518-42fa-9478-b617ff7a0e15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Platform Support\Win32\03. MFC\Handle">
+      <UniqueIdentifier>{a06ec4a7-ed9e-4456-81bf-1ece52fffae8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Platform Support\Win32\03. MFC\Application">
+      <UniqueIdentifier>{6b992256-1764-4c0e-ae73-9a68e805510c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Platform Support\Win32\03. MFC\Widget">
+      <UniqueIdentifier>{6fd3b2fc-1cf6-476b-b246-682c3426c1bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Platform Support\Win32\03. MFC\Instance">
+      <UniqueIdentifier>{96d5c647-65b9-46eb-9beb-da75f6c456b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Signal &amp; Slot">
+      <UniqueIdentifier>{602c6f22-e5d3-486c-8e9b-4fd6dd9cf808}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Clipboard">
+      <UniqueIdentifier>{a0dd34d6-4cfa-4252-8528-bd5b238fc32a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Examples">
+      <UniqueIdentifier>{8aaa932d-6e6e-4a57-b68b-c4ee6cbd59fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Types">
+      <UniqueIdentifier>{1ed62b61-a43c-460c-9140-f016c91d56fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\String Utility">
+      <UniqueIdentifier>{9ef48c79-14b7-4e9d-9754-26df8e72ae0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\String Filter">
+      <UniqueIdentifier>{816fdb5e-597c-4464-a8a8-1380cdb4cb41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Widget Internal">
+      <UniqueIdentifier>{dced234d-bd46-4171-9636-98721d927183}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Async Task">
+      <UniqueIdentifier>{55029c72-753d-462a-87d6-17b0e314bfaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Lazy Task">
+      <UniqueIdentifier>{87df53bd-32a6-4e45-ba16-232ef1d0a7ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Platform Support\Win32\01. WinAPI">
+      <UniqueIdentifier>{b458a0eb-cfd8-47e6-891d-8e390f865e1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Platform Support\Win32\01. WinAPI\Clipboard">
+      <UniqueIdentifier>{76e66a89-9885-4858-a57a-45c69efd52bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. MIT_alice">
+      <UniqueIdentifier>{08207d1f-3845-4147-98fb-d21e03dfbd1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. MIT_alice\Drawable">
+      <UniqueIdentifier>{2e6bafe9-69a4-4f92-997a-9b94e29f811f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. MIT_alice\Drawable\Ruler">
+      <UniqueIdentifier>{52d753a7-02ae-4f3b-bf8c-a021b64c5508}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. MIT_alice\Sensor">
+      <UniqueIdentifier>{799f416c-c043-437d-bc81-8088975ff19a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. MIT_alice\Compass">
+      <UniqueIdentifier>{4e53273b-29ca-4e91-a5ba-12dd9eace367}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Extra\Skia\Util">
+      <UniqueIdentifier>{db0e455e-060b-43dc-ac6e-e0cca49ff84a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Implementation\Widgets\Group">
+      <UniqueIdentifier>{4384a364-2273-4f3b-ba9c-9a6cb051045a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. MIT_alice\Widgets">
+      <UniqueIdentifier>{4aded813-ee86-405f-90ce-b91016d89db9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. MIT_alice\Widgets\2D">
+      <UniqueIdentifier>{f08e82b8-33fc-458b-a5ed-6a5e59336a0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. MIT_alice\Widgets\2D\Ruler">
+      <UniqueIdentifier>{11982283-9bf0-4791-ba0d-ff1fc1417368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. MIT_alice\Widgets\2D\CloudTemplate">
+      <UniqueIdentifier>{0a4e33af-2b36-49d3-b967-f7ef572f8688}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. MIT_alice\Widgets\2D\Calendar">
+      <UniqueIdentifier>{6a964fe3-56ec-4827-9100-1ac382666f90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Platform Support\Raster Core">
+      <UniqueIdentifier>{23c06bf4-7dba-4a5c-b6b5-fde88e0f5b19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. MIT_alice\00. Resource">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="10. MIT_alice\00. Resource\Resource Files">
+      <UniqueIdentifier>{37d259aa-5c21-43c0-a06f-7adf29474eda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. MIT_alice\00. Resource\Resource Files\GLSL">
+      <UniqueIdentifier>{4f6285a9-bd5d-4c39-8934-092d327958eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. MIT_alice\00. Resource\Resource Files\GLSL\2D">
+      <UniqueIdentifier>{64772366-26ad-45f9-b6b8-d17dc15cecc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. MIT_alice\Template">
+      <UniqueIdentifier>{969446d1-773c-47ba-9ee5-f59312134c01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Resource">
+      <UniqueIdentifier>{cdf9d0bf-396f-4cbb-bf9d-1988c59f56d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Debug">
+      <UniqueIdentifier>{62c93e2c-8d71-4420-a2a8-c3c60c9f304c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Automata">
+      <UniqueIdentifier>{d75002b1-cba1-4bcc-8055-b3437e4fb156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Defines\..etc">
+      <UniqueIdentifier>{756089e3-e745-4a1b-8a8c-a573626cfd08}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MAUIRulerWidget.cpp">
+      <Filter>10. MIT_alice\Widgets\2D\Ruler</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUIRulerDrawable.cpp">
+      <Filter>10. MIT_alice\Drawable\Ruler</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUITemplate.cpp">
+      <Filter>10. MIT_alice\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUITemplatePool.cpp">
+      <Filter>10. MIT_alice\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUITemplateProcessor.cpp">
+      <Filter>10. MIT_alice\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUI3DDrawableWidget.cpp">
+      <Filter>10. MIT_alice\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUICalendarChangeButtonWidget.cpp">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUICalendarFrameWidget.cpp">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUICalendarFoldButton.cpp">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUICalendarQuickButtonWidget.cpp">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUICalendarBodyWidget.cpp">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUICalendarTableWidget.cpp">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUICalendarRowWidget.cpp">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUICalendarElementWidget.cpp">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUICloudTemplateWidget.cpp">
+      <Filter>10. MIT_alice\Widgets\2D\CloudTemplate</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUICloudImportWidget.cpp">
+      <Filter>10. MIT_alice\Widgets\2D\CloudTemplate</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>..Precomp</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISlot.cpp">
+      <Filter>01. Core\Signal &amp; Slot</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISlotPool.cpp">
+      <Filter>01. Core\Signal &amp; Slot</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIScalar.cpp">
+      <Filter>01. Core\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIStringConvert.cpp">
+      <Filter>01. Core\String Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIStringUtil.cpp">
+      <Filter>01. Core\String Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="AUILifeState.cpp">
+      <Filter>01. Core\Widget Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIProperty.cpp">
+      <Filter>01. Core\Widget Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIState.cpp">
+      <Filter>01. Core\Widget Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIColor.cpp">
+      <Filter>01. Core\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="AUILazyTaskManager.cpp">
+      <Filter>01. Core\Lazy Task</Filter>
+    </ClCompile>
+    <ClCompile Include="AUILazyTask.cpp">
+      <Filter>01. Core\Lazy Task</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIAsyncTask.cpp">
+      <Filter>01. Core\Async Task</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIClipboard.cpp">
+      <Filter>01. Core\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIClipboard_win32.cpp">
+      <Filter>03. Platform Support\Win32\01. WinAPI\Clipboard</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIStyleSheetUtil.cpp">
+      <Filter>01. Core\Midas Style Sheet\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIDrawable.cpp">
+      <Filter>01. Core\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIAnimationListDrawable.cpp">
+      <Filter>02. Implementation\Drawables\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIColorDrawable.cpp">
+      <Filter>02. Implementation\Drawables\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIImageDrawable.cpp">
+      <Filter>02. Implementation\Drawables\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="AUILayerDrawable.cpp">
+      <Filter>02. Implementation\Drawables\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="AUILevelListDrawable.cpp">
+      <Filter>02. Implementation\Drawables\LevelList</Filter>
+    </ClCompile>
+    <ClCompile Include="AUINinePatchDrawable.cpp">
+      <Filter>02. Implementation\Drawables\NinePatch</Filter>
+    </ClCompile>
+    <ClCompile Include="AUINinePatch.cpp">
+      <Filter>01. Core\Extra\Skia\NinePatch</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIGalleria.cpp">
+      <Filter>01. Core\Galleria</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIShapeDrawable.cpp">
+      <Filter>02. Implementation\Drawables\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIShape.cpp">
+      <Filter>02. Implementation\Shapes\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIStateDrawable.cpp">
+      <Filter>02. Implementation\Drawables\State</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIStateListDrawable.cpp">
+      <Filter>02. Implementation\Drawables\StateList</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIStateFeature.cpp">
+      <Filter>01. Core\Midas Style Sheet\Style Sheet</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIGalleriaParam.cpp">
+      <Filter>01. Core\Galleria</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIGalleriaImgProc.cpp">
+      <Filter>01. Core\Galleria\Engine %28Private%29</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIGalleriaCache.cpp">
+      <Filter>01. Core\Galleria\Engine %28Private%29</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIInstance.cpp">
+      <Filter>01. Core\Instance</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIWidgetManager.cpp">
+      <Filter>01. Core\Widget Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="AUICompass.cpp">
+      <Filter>01. Core\Widget\Compass</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISensor.cpp">
+      <Filter>01. Core\Widget\Sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUISensors.cpp">
+      <Filter>10. MIT_alice\Sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUICompasses.cpp">
+      <Filter>10. MIT_alice\Compass</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIWidgetRootInfo.cpp">
+      <Filter>01. Core\Widget\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIWidgetTreeHelper.cpp">
+      <Filter>01. Core\Widget\Widget Tree Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIWidget.cpp">
+      <Filter>01. Core\Widget\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="AUITooltip.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Tooltip</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIStyleNotion.cpp">
+      <Filter>01. Core\Midas Style Sheet\Style Sheet</Filter>
+    </ClCompile>
+    <ClCompile Include="AUICursorIcon.cpp">
+      <Filter>01. Core\Extra\Cursor Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIApplication.cpp">
+      <Filter>01. Core\Framework\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIWindow.cpp">
+      <Filter>01. Core\Framework\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIForm.cpp">
+      <Filter>01. Core\Framework\Form</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIHandle.cpp">
+      <Filter>01. Core\Framework\Form</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIWindowWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIPopup.cpp">
+      <Filter>01. Core\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="AUICanvasHelper.cpp">
+      <Filter>01. Core\Extra\Skia\Canvas Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="MAUISkiaUtil.cpp">
+      <Filter>01. Core\Extra\Skia\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIOpenGL.cpp">
+      <Filter>01. Core\Extra\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISkiaRender.cpp">
+      <Filter>01. Core\Extra\Skia\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIWidgetSelection.cpp">
+      <Filter>01. Core\Extra\Widget Selection</Filter>
+    </ClCompile>
+    <ClCompile Include="AUILayoutBase.cpp">
+      <Filter>01. Core\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="AUILayoutManager.cpp">
+      <Filter>01. Core\Layout</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIStringFilter.cpp">
+      <Filter>01. Core\String Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIFloatStringFilter.cpp">
+      <Filter>01. Core\String Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIFloatUnitStringFilter.cpp">
+      <Filter>01. Core\String Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIIntegerStringFilter.cpp">
+      <Filter>01. Core\String Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIIntegerUnitStringFilter.cpp">
+      <Filter>01. Core\String Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIUnitString.cpp">
+      <Filter>01. Core\String Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISkiaExampleWidget.cpp">
+      <Filter>02. Implementation\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIJsonDrawableParser.cpp">
+      <Filter>02. Implementation\Parsers</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIOvalShape.cpp">
+      <Filter>02. Implementation\Shapes\Oval</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRoundRectShape.cpp">
+      <Filter>02. Implementation\Shapes\Round Rect</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRectShape.cpp">
+      <Filter>02. Implementation\Shapes\Rect</Filter>
+    </ClCompile>
+    <ClCompile Include="AUITriangleShape.cpp">
+      <Filter>02. Implementation\Shapes\Triangle</Filter>
+    </ClCompile>
+    <ClCompile Include="AUITooltipWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Tooltip</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIDrawableWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="AUITextWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="AUITransitionWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Transition</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIFrameLayoutWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="AUILayoutWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIGroupWidget.cpp">
+      <Filter>02. Implementation\Widgets\Group</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIInnerGroupWidget.cpp">
+      <Filter>02. Implementation\Widgets\Group</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIFrameLayout.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIFlowLayoutWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Flow</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIFlowLayout.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Flow</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIAbsoluteLayoutWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Absolute</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISliderIndicatorWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Slider\Indicator</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIAbsoluteLayout.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Absolute</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIGridLayoutWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIGridLayout.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="AUILinearLayoutWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Linear</Filter>
+    </ClCompile>
+    <ClCompile Include="AUILinearLayout.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Linear</Filter>
+    </ClCompile>
+    <ClCompile Include="AUILinearExpandLayout.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\LinearExpand</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRelativeLayoutWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Relative</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRelativeLayout.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Relative</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRecyclerWidgetHolder.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRecyclerWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRecyclerLinearLayoutManager.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRecyclerLayoutManager.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRecyclerItemDecorator.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRecyclerAdapter.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIChildHelper.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIScrollableWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Scrollable</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIScrollableBarWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Scrollable\ScrollBar</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIScrollableContentWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Scrollable\Content</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISeparatorWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Separator</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIShapedWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Shaped</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISliderWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Slider</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISpaceWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Space</Filter>
+    </ClCompile>
+    <ClCompile Include="AUITabWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Tab</Filter>
+    </ClCompile>
+    <ClCompile Include="AUITabButtonWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Tab</Filter>
+    </ClCompile>
+    <ClCompile Include="AUITabBarWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Tab</Filter>
+    </ClCompile>
+    <ClCompile Include="AUITab.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Tab</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIWindowTitleBarWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIImageButtonWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Image\Image Button</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIImageWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIImageCaptionButtonWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Image\Image Caption Button</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIFormWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Form</Filter>
+    </ClCompile>
+    <ClCompile Include="AUITitleBarTitleWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\TitleBar</Filter>
+    </ClCompile>
+    <ClCompile Include="AUITitleBarWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\TitleBar</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIExpandWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Expandable</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIExpandToggleDrawable.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Expandable</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIExpandHeaderWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Expandable</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIExpandHeaderTextWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Expandable</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIExpandHeaderSpinWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Expandable</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIEditWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Edit</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIConsoleWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIComboWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Combo</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIComboPopupWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Combo\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIComboItemWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Combo\Popup</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIComboAdapter.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Combo\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIArrayAdapter.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Combo\Adapter</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIButtonWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIToggleWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Check\Toggle</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIToggleDrawable.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Check\Toggle</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRadioboxWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Check\Radio</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRadioboxDrawable.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Check\Radio</Filter>
+    </ClCompile>
+    <ClCompile Include="AUICheckboxWidget.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Check\Box</Filter>
+    </ClCompile>
+    <ClCompile Include="AUICheckboxDrawable.cpp">
+      <Filter>02. Implementation\Widgets\Drawable\Check\Box</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIInterpolator.cpp">
+      <Filter>01. Core\Extra\Interpolator</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISmoothStepInterpolator.cpp">
+      <Filter>01. Core\Extra\Interpolator\SmoothStep</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISmootherStepInterpolator.cpp">
+      <Filter>01. Core\Extra\Interpolator\SmootherStep</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIDecelerateInterpolator.cpp">
+      <Filter>01. Core\Extra\Interpolator\Decelerate</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIAccelDecelInterpolator.cpp">
+      <Filter>01. Core\Extra\Interpolator\Accelerate+Decelerate</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIAccelerateInterpolator.cpp">
+      <Filter>01. Core\Extra\Interpolator\Accelerate</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIKeyboardEvent.cpp">
+      <Filter>01. Core\Extra\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIKeycode.cpp">
+      <Filter>01. Core\Extra\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIMouseEvent.cpp">
+      <Filter>01. Core\Extra\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRasterBase.cpp">
+      <Filter>03. Platform Support\Raster Core</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRasterInstance.cpp">
+      <Filter>03. Platform Support\Raster Core</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRasterWidgetManager.cpp">
+      <Filter>03. Platform Support\Raster Core</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIMFCInstance.cpp">
+      <Filter>03. Platform Support\Win32\03. MFC\Instance</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIMFCHandle.cpp">
+      <Filter>03. Platform Support\Win32\03. MFC\Handle</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIMFCWidget.cpp">
+      <Filter>03. Platform Support\Win32\03. MFC\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIWnd.cpp">
+      <Filter>03. Platform Support\Win32\03. MFC\Wnd</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIMFCWindowHandle.cpp">
+      <Filter>03. Platform Support\Win32\03. MFC\Wnd</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIMFCApplication.cpp">
+      <Filter>03. Platform Support\Win32\03. MFC\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>10. MIT_alice</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIResourceManager.cpp">
+      <Filter>01. Core\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIRasterTooltipWidget.cpp">
+      <Filter>03. Platform Support\Raster Core</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIDebug.cpp">
+      <Filter>01. Core\Debug</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MIT_aliceRes.h">
+      <Filter>10. MIT_alice\00. Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUIRulerWidget.h">
+      <Filter>10. MIT_alice\Widgets\2D\Ruler</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUIRulerDrawable.h">
+      <Filter>10. MIT_alice\Drawable\Ruler</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUITemplate.h">
+      <Filter>10. MIT_alice\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUITemplatePool.h">
+      <Filter>10. MIT_alice\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUITemplateProcessor.h">
+      <Filter>10. MIT_alice\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUITemplateDef.h">
+      <Filter>10. MIT_alice\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUITabTemplateDef.h">
+      <Filter>10. MIT_alice\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUI3DDrawableWidget.h">
+      <Filter>10. MIT_alice\Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUICalendarChangeButtonWidget.h">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUICalendarFrameWidget.h">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUICalendarFoldButton.h">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUICalendarQuickButtonWidget.h">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUICalendarBodyWidget.h">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUICalendarTableWidget.h">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUICalendarRowWidget.h">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUICalendarElementWidget.h">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUICalendarCommonDef.h">
+      <Filter>10. MIT_alice\Widgets\2D\Calendar</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUICloudTemplateWidget.h">
+      <Filter>10. MIT_alice\Widgets\2D\CloudTemplate</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUICloudImportWidget.h">
+      <Filter>10. MIT_alice\Widgets\2D\CloudTemplate</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUIRulerDrawableDef.h">
+      <Filter>10. MIT_alice\Drawable\Ruler</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>..Precomp</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISignal.h">
+      <Filter>01. Core\Signal &amp; Slot</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISlot.h">
+      <Filter>01. Core\Signal &amp; Slot</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISlotPool.h">
+      <Filter>01. Core\Signal &amp; Slot</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIScalar.h">
+      <Filter>01. Core\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIStringConvert.h">
+      <Filter>01. Core\String Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIStringUtil.h">
+      <Filter>01. Core\String Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIAPIDef.h">
+      <Filter>00. Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="AUILifeState.h">
+      <Filter>01. Core\Widget Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIProperty.h">
+      <Filter>01. Core\Widget Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIState.h">
+      <Filter>01. Core\Widget Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIBasicEnumDef.h">
+      <Filter>00. Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICommonDef.h">
+      <Filter>00. Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISkiaPreConfig.h">
+      <Filter>00. Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISkiaConfig.h">
+      <Filter>00. Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIColor.h">
+      <Filter>01. Core\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIColorDef.h">
+      <Filter>01. Core\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="AUILazyTaskManager.h">
+      <Filter>01. Core\Lazy Task</Filter>
+    </ClInclude>
+    <ClInclude Include="AUILazyTask.h">
+      <Filter>01. Core\Lazy Task</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIAsyncTask.h">
+      <Filter>01. Core\Async Task</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIClipboard.h">
+      <Filter>01. Core\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIClipboard_win32.h">
+      <Filter>03. Platform Support\Win32\01. WinAPI\Clipboard</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIStyleSheetUtil.h">
+      <Filter>01. Core\Midas Style Sheet\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIDrawable.h">
+      <Filter>01. Core\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIAnimationListDrawable.h">
+      <Filter>02. Implementation\Drawables\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIColorDrawable.h">
+      <Filter>02. Implementation\Drawables\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIImageDrawable.h">
+      <Filter>02. Implementation\Drawables\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="AUILayerDrawable.h">
+      <Filter>02. Implementation\Drawables\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="AUILevelListDrawable.h">
+      <Filter>02. Implementation\Drawables\LevelList</Filter>
+    </ClInclude>
+    <ClInclude Include="AUINinePatchDrawable.h">
+      <Filter>02. Implementation\Drawables\NinePatch</Filter>
+    </ClInclude>
+    <ClInclude Include="AUINinePatch.h">
+      <Filter>01. Core\Extra\Skia\NinePatch</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIGalleria.h">
+      <Filter>01. Core\Galleria</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIShapeDrawable.h">
+      <Filter>02. Implementation\Drawables\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIShape.h">
+      <Filter>02. Implementation\Shapes\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIStateDrawable.h">
+      <Filter>02. Implementation\Drawables\State</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIStateListDrawable.h">
+      <Filter>02. Implementation\Drawables\StateList</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIStateFeature.h">
+      <Filter>01. Core\Midas Style Sheet\Style Sheet</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIGalleriaParam.h">
+      <Filter>01. Core\Galleria</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIGalleriaImgProc.h">
+      <Filter>01. Core\Galleria\Engine %28Private%29</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIGalleriaCache.h">
+      <Filter>01. Core\Galleria\Engine %28Private%29</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIInstance.h">
+      <Filter>01. Core\Instance</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIWidgetManager.h">
+      <Filter>01. Core\Widget Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICompass.h">
+      <Filter>01. Core\Widget\Compass</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISensor.h">
+      <Filter>01. Core\Widget\Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUISensors.h">
+      <Filter>10. MIT_alice\Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="MITAliceDef.h">
+      <Filter>10. MIT_alice</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUICompasses.h">
+      <Filter>10. MIT_alice\Compass</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIWidgetRootInfo.h">
+      <Filter>01. Core\Widget\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIWidgetTreeHelper.h">
+      <Filter>01. Core\Widget\Widget Tree Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIWidget.h">
+      <Filter>01. Core\Widget\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITooltip.h">
+      <Filter>02. Implementation\Widgets\Drawable\Tooltip</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIStyleNotion.h">
+      <Filter>01. Core\Midas Style Sheet\Style Sheet</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIWidgetStyle.h">
+      <Filter>01. Core\Midas Style Sheet\Style Sheet</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICursorIcon.h">
+      <Filter>01. Core\Extra\Cursor Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIApplication.h">
+      <Filter>01. Core\Framework\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIWindow.h">
+      <Filter>01. Core\Framework\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIForm.h">
+      <Filter>01. Core\Framework\Form</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIHandle.h">
+      <Filter>01. Core\Framework\Form</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIWindowWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIPopup.h">
+      <Filter>01. Core\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICanvasHelper.h">
+      <Filter>01. Core\Extra\Skia\Canvas Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUISkiaUtil.h">
+      <Filter>01. Core\Extra\Skia\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIOpenGL.h">
+      <Filter>01. Core\Extra\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISkiaRender.h">
+      <Filter>01. Core\Extra\Skia\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIWidgetSelection.h">
+      <Filter>01. Core\Extra\Widget Selection</Filter>
+    </ClInclude>
+    <ClInclude Include="AUILayoutBase.h">
+      <Filter>01. Core\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="AUILayoutManager.h">
+      <Filter>01. Core\Layout</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIStringFilter.h">
+      <Filter>01. Core\String Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIFloatStringFilter.h">
+      <Filter>01. Core\String Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIFloatUnitStringFilter.h">
+      <Filter>01. Core\String Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIIntegerStringFilter.h">
+      <Filter>01. Core\String Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIIntegerUnitStringFilter.h">
+      <Filter>01. Core\String Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIUnitString.h">
+      <Filter>01. Core\String Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISkiaExampleWidget.h">
+      <Filter>02. Implementation\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIJsonDrawableParser.h">
+      <Filter>02. Implementation\Parsers</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIOvalShape.h">
+      <Filter>02. Implementation\Shapes\Oval</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRoundRectShape.h">
+      <Filter>02. Implementation\Shapes\Round Rect</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRectShape.h">
+      <Filter>02. Implementation\Shapes\Rect</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITriangleShape.h">
+      <Filter>02. Implementation\Shapes\Triangle</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITooltipWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Tooltip</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIDrawableWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITextWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITransitionWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Transition</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIFrameLayoutWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="AUILayoutWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIGroupWidget.h">
+      <Filter>02. Implementation\Widgets\Group</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIInnerGroupWidget.h">
+      <Filter>02. Implementation\Widgets\Group</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIFrameLayout.h">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIFlowLayoutWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIFlowLayout.h">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Flow</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIAbsoluteLayoutWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Absolute</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISliderIndicatorWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Slider\Indicator</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIAbsoluteLayout.h">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Absolute</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIGridLayoutWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIGridLayout.h">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="AUILinearLayoutWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Linear</Filter>
+    </ClInclude>
+    <ClInclude Include="AUILinearLayout.h">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Linear</Filter>
+    </ClInclude>
+    <ClInclude Include="AUILinearExpandLayout.h">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\LinearExpand</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRelativeLayoutWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Relative</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRelativeLayout.h">
+      <Filter>02. Implementation\Widgets\Drawable\Layout\Relative</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRecyclerWidgetHolder.h">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRecyclerWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRecyclerLinearLayoutManager.h">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRecyclerLayoutManager.h">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRecyclerItemDecorator.h">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRecyclerCommonDef.h">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRecyclerAdapter.h">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIChildHelper.h">
+      <Filter>02. Implementation\Widgets\Drawable\Recycler</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIScrollableWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Scrollable</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIScrollableBarWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Scrollable\ScrollBar</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIScrollableContentWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Scrollable\Content</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISeparatorWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Separator</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIShapedWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Shaped</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISliderWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Slider</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISpaceWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Space</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITabWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Tab</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITabButtonWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Tab</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITabBarWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Tab</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITab.h">
+      <Filter>02. Implementation\Widgets\Drawable\Tab</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIWindowTitleBarWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIImageButtonWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Image\Image Button</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIImageWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIImageCaptionButtonWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Image\Image Caption Button</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIFormWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Form</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITitleBarTitleWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\TitleBar</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITitleBarDefaultValue.h">
+      <Filter>02. Implementation\Widgets\Drawable\TitleBar</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITitleBarWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\TitleBar</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIExpandWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Expandable</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIExpandToggleDrawable.h">
+      <Filter>02. Implementation\Widgets\Drawable\Expandable</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIExpandHeaderWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Expandable</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIExpandHeaderTextWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Expandable</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIExpandHeaderSpinWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Expandable</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIEditWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Edit</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIConsoleWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIComboWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Combo</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIComboPopupWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Combo\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIComboItemWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Combo\Popup</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIComboAdapter.h">
+      <Filter>02. Implementation\Widgets\Drawable\Combo\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIArrayAdapter.h">
+      <Filter>02. Implementation\Widgets\Drawable\Combo\Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIButtonWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIToggleWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Check\Toggle</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIToggleDrawable.h">
+      <Filter>02. Implementation\Widgets\Drawable\Check\Toggle</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRadioboxWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Check\Radio</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRadioboxDrawable.h">
+      <Filter>02. Implementation\Widgets\Drawable\Check\Radio</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICheckboxWidget.h">
+      <Filter>02. Implementation\Widgets\Drawable\Check\Box</Filter>
+    </ClInclude>
+    <ClInclude Include="AUICheckboxDrawable.h">
+      <Filter>02. Implementation\Widgets\Drawable\Check\Box</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIInterpolator.h">
+      <Filter>01. Core\Extra\Interpolator</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISmoothStepInterpolator.h">
+      <Filter>01. Core\Extra\Interpolator\SmoothStep</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISmootherStepInterpolator.h">
+      <Filter>01. Core\Extra\Interpolator\SmootherStep</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIDecelerateInterpolator.h">
+      <Filter>01. Core\Extra\Interpolator\Decelerate</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIAccelDecelInterpolator.h">
+      <Filter>01. Core\Extra\Interpolator\Accelerate+Decelerate</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIAccelerateInterpolator.h">
+      <Filter>01. Core\Extra\Interpolator\Accelerate</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIKeyboardEvent.h">
+      <Filter>01. Core\Extra\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIKeycode.h">
+      <Filter>01. Core\Extra\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIMouseEvent.h">
+      <Filter>01. Core\Extra\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIDeviceEvents.h">
+      <Filter>01. Core\Extra\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRasterBase.h">
+      <Filter>03. Platform Support\Raster Core</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRasterInstance.h">
+      <Filter>03. Platform Support\Raster Core</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRasterWidgetManager.h">
+      <Filter>03. Platform Support\Raster Core</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIMFCInstance.h">
+      <Filter>03. Platform Support\Win32\03. MFC\Instance</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIMFCHandle.h">
+      <Filter>03. Platform Support\Win32\03. MFC\Handle</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIMFCWidget.h">
+      <Filter>03. Platform Support\Win32\03. MFC\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIWnd.h">
+      <Filter>03. Platform Support\Win32\03. MFC\Wnd</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIMFCWindowHandle.h">
+      <Filter>03. Platform Support\Win32\03. MFC\Wnd</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIMFCApplication.h">
+      <Filter>03. Platform Support\Win32\03. MFC\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>10. MIT_alice</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIResourceManager.h">
+      <Filter>01. Core\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIRasterTooltipWidget.h">
+      <Filter>03. Platform Support\Raster Core</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIDebug.h">
+      <Filter>01. Core\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIAutomata.h">
+      <Filter>01. Core\Automata</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUIEllipsoidDef.h">
+      <Filter>00. Defines\..etc</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUI1DShapeDef.h">
+      <Filter>00. Defines\..etc</Filter>
+    </ClInclude>
+    <ClInclude Include="MAUIPlaneDef.h">
+      <Filter>00. Defines\..etc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\MIT_alice.rc2">
+      <Filter>10. MIT_alice\00. Resource</Filter>
+    </None>
+    <None Include="res\GLSL\2D\2DVert.glsl">
+      <Filter>10. MIT_alice\00. Resource\Resource Files\GLSL\2D</Filter>
+    </None>
+    <None Include="res\GLSL\2D\2DFrag.glsl">
+      <Filter>10. MIT_alice\00. Resource\Resource Files\GLSL\2D</Filter>
+    </None>
+    <None Include="README.md">
+      <Filter>..Documentation</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MIT_alice.rc">
+      <Filter>10. MIT_alice\00. Resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="MIT_alice.natvis">
+      <Filter>..Documentation</Filter>
+    </Natvis>
+  </ItemGroup>
+</Project>
