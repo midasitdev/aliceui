@@ -1,6 +1,6 @@
 # Alice UI Framework
 
-AliceUI is a widget based UI middleware which can be used with other windowing systems. 
+AliceUI is a widget based UI middleware which can be used with other window systems. 
 
 # Building AliceUI
 
