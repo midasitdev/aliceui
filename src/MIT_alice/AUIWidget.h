@@ -383,9 +383,9 @@ public:
     }
     bool IsMouseRDown() const noexcept {
         return m_UIState.IsMouseRDown();
-    }
-    void SetVisible(bool state) noexcept { m_UIState.SetVisible(state); OnSetVisible(state); NotifyUIStateChange(); Invalidate(); }
-    void SetFreeze(bool state) noexcept { m_UIState.SetFreeze(state); NotifyUIStateChange(); Invalidate(); }
+	}
+	void SetVisible(bool state) noexcept { m_UIState.SetVisible(state); OnSetVisible(state); _invalidate_ui_state(); Invalidate(); }
+	void SetFreeze(bool state) noexcept { m_UIState.SetFreeze(state); _invalidate_ui_state(); Invalidate(); }
     void MakeVisible() noexcept {
         SetVisible(true);
     }
@@ -416,14 +416,14 @@ public:
     }
     void SetIgnored(bool state) {
         m_UIState.SetIgnored(state);
-        OnSetIgnored(state);
-        NotifyUIStateChange();
+		OnSetIgnored(state);
+		_invalidate_ui_state();
         Invalidate();
     }
     void SetDisabled(bool state) {
-        m_UIState.SetDisabled(state);
-        OnSetDisabled(state);
-        NotifyUIStateChange();
+		m_UIState.SetDisabled(state);
+		OnSetDisabled(state);
+		_invalidate_ui_state();
         Invalidate();
     }
     bool IsClickable() const noexcept {
@@ -1100,8 +1100,9 @@ public:
         return m_aSensors;
     }
 
-    void _invalidate_sensor();
-    //const AUISensor* GetCurSensor() const;
+	void _invalidate_sensor();
+	void _invalidate_ui_state();
+	//const AUISensor* GetCurSensor() const;
 private:
     //AUISensorManager* GetSensorManager();
     std::vector<std::shared_ptr<AUISensor>> m_aSensors;

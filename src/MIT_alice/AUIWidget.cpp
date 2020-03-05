@@ -1363,6 +1363,13 @@ void AUIWidget::_invalidate_sensor()
         GetWidgetManager()->InvalidateSensor(this);
 }
 
+void AUIWidget::_invalidate_ui_state()
+{
+	if (IsInstanced())
+		GetWidgetManager()->InvalidateUIState(this);
+	NotifyUIStateChange();
+}
+
 void AUIWidget::AddCompass(const std::shared_ptr< AUICompass >& pCompass)
 {
 	m_aCompasses.emplace_back(pCompass);

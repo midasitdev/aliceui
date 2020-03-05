@@ -193,7 +193,8 @@ private:
 
  public:
      AUISensorManager* GetSensorManager(AUICoordSpace eType) { return m_aSensorManager[(size_t)eType].get(); }
-     void InvalidateSensor(AUIWidget* pWidget);
+	 void InvalidateSensor(AUIWidget* pWidget);
+	 void InvalidateUIState(AUIWidget* pWidget);
  private:
     std::unique_ptr<AUISensorManager> m_aSensorManager[AUICoordSpaceNum];
     //////////////////////////////////////////////////////////////////////////

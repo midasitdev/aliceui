@@ -586,7 +586,12 @@ void AUIWidgetManager::InvalidateSensor(AUIWidget* pWidget)
      if(auto pSensorManager = GetSensorManager(rootcoord))
             pSensorManager->_invalidate_sensor(pWidget->shared_from_this());
 }
-
+void AUIWidgetManager::InvalidateUIState(AUIWidget* pWidget)
+{
+	auto rootcoord = pWidget->GetRootTargetCoord();
+	if (auto pSensorManager = GetSensorManager(rootcoord))
+		pSensorManager->_invalidate_buffer();
+}
 bool AUIWidgetManager::UpdateAllInstance()
 {
     m_bDirty = false;
