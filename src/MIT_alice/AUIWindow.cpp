@@ -66,6 +66,21 @@ void AUIWindow::SetTitle( const std::wstring& title )
     m_Form.SetTitle( title );
 }
 
+void AUIWindow::SetTitleColor(SkColor titleColor)
+{
+    m_pWindow->SetTitleColor(titleColor);
+}
+
+void AUIWindow::SetTitleStyle(SkFontStyle titleStyle)
+{
+    m_pWindow->SetTitleStyle(titleStyle);
+}
+
+void AUIWindow::SetTitleFontName(std::wstring fontName)
+{
+    m_pWindow->SetTitleFontName(fontName);
+}
+
 std::wstring AUIWindow::GetTitle() const
 {
     return m_Form.GetTitle();
@@ -128,7 +143,7 @@ void AUIWindow::OnDragEnd( AUIWidget* const )
     //m_Form.ReleaseMouseEvent();
 }
 
-void AUIWindow::OnDragging( AUIWidget*, float dx, float dy )
+void AUIWindow::OnDragging( AUIWidget*)
 {
     int curMouseX;
     int curMouseY;

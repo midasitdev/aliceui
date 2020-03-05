@@ -130,7 +130,7 @@ bool AUIWidgetTreeHelper::AddChild( AUIWidget* pParent, AUIWidget* pChild )
     } while ( false );
 
 
-    pChild->m_spRootInfo = pParent->m_spRootInfo;
+    //pChild->m_spRootInfo = pParent->m_spRootInfo;
 
     auto& childInfo = m_mapWidgetRelation.find( pChild )->second;
     childInfo.fParentWidget = pParent;
@@ -203,7 +203,7 @@ bool AUIWidgetTreeHelper::AddChildAt( AUIWidget* pParent, size_t pos, AUIWidget*
     } while ( false );
 
 
-    pChild->m_spRootInfo = pParent->m_spRootInfo;
+    //pChild->m_spRootInfo = pParent->m_spRootInfo;
 
     auto& childInfo = m_mapWidgetRelation.find( pChild )->second;
     childInfo.fParentWidget = pParent;
@@ -261,7 +261,7 @@ bool AUIWidgetTreeHelper::DelChild( AUIWidget* pParent, AUIWidget* pChild )
             AUIDebugPrint(L"[ERROR] Can't find parent info\n");
             return false;
         }
-        pChild->m_spRootInfo = std::make_shared<AUIWidgetRootInfo>();
+        //pChild->m_spRootInfo = std::make_shared<AUIWidgetRootInfo>();
         childInfo.fParentWidget = nullptr;
     } while ( false );
 
@@ -320,7 +320,7 @@ bool AUIWidgetTreeHelper::ClearChild( AUIWidget* pParent )
             continue;
         }
 
-        pChild->m_spRootInfo = std::make_shared< AUIWidgetRootInfo >();
+        //pChild->m_spRootInfo = std::make_shared< AUIWidgetRootInfo >();
         childInfo.fParentWidget = nullptr;
 
         if ( pParent->IsInstanced() )

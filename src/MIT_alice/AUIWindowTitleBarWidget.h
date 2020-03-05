@@ -35,7 +35,7 @@ private:
 public:
     AUISignal<void(AUIWidget*)> DragPressSignal;
     AUISignal<void(AUIWidget*)> DragReleaseSignal;
-    AUISignal<void(AUIWidget*, float, float)> DragMoveSignal;
+    AUISignal<void(AUIWidget*)> DragMoveSignal;
 
     //////////////////////////////////////////////////////////////////////////
     // Widgets

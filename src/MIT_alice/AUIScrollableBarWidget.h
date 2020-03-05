@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AUIDrawableWidget.h"
+#include "AUICompass.h"
 
 class ALICEUI_API AUIScrollableBarWidget : public AUIDrawableWidget
 {
@@ -44,6 +45,7 @@ private:
     SkScalar m_ContentHeight;
     SkScalar m_ScrollPos;
     std::shared_ptr< AUIDrawable > m_pThumbDrawable;
+    std::shared_ptr<AUIPlaneCompass> m_pPlaneCompass;
 
     //////////////////////////////////////////////////////////////////////////
     // Thumb
@@ -55,6 +57,6 @@ public:
     bool IsScrollable() const;
 private:
     AUIState m_ThumbState;
-    SkPoint m_PrevLDownPos = { 0, 0 };
+    glm::vec2 m_PrevLDownPos = { 0, 0 };
     bool m_bShowThumbOnHit;
 };

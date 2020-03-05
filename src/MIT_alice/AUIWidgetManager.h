@@ -4,6 +4,7 @@
 #include "AUICommonDef.h"
 #include "AUIDeviceEvents.h"
 #include "AUICursorIcon.h"
+#include "AUISensorManager.h"
 
 
 class AUIWidget;
@@ -89,9 +90,10 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // Camera Info
 public:
-    virtual glm::mat4 GetViewingMatrix() const { return glm::mat4(); }
-    virtual glm::mat4 GetProjectionMatrix() const { return glm::mat4(); }
-    virtual glm::vec4 GetViewport() const { return glm::vec4(); }
+    void InvalidateCamera();
+    virtual glm::mat4 GetViewingMatrix() const { return glm::mat4(1.f); }
+    virtual glm::mat4 GetProjectionMatrix() const { return glm::mat4(1.f); }
+    virtual glm::vec4 GetViewport() const { return glm::vec4(0.f); }
 	virtual double GetPixelSize() const { return 0.; }
 
 private:
@@ -112,20 +114,20 @@ public:
     void SendTickTimeEvent(const std::chrono::milliseconds& prevTick, const std::chrono::milliseconds& curTick);
     bool SendSetCursorEvent(AUICursorIcon& cursoricon);
 
-    glm::dvec2 GetMousePos() const { return glm::vec2(m_MousePosX, m_MousePosY); }
+    glm::dvec2 GetMousePos() const { return glm::dvec2(m_MousePosX, m_MousePosY); }
     glm::dvec3 GetMouseOrg() const { return m_MouseOrg; }
 	glm::dvec3 GetMouseDir() const { return m_MouseDir; }
 
 private:
-    bool SendMouseHoverEventToWidget(AUIInstance* const pInstance, const MAUIMouseEvent& evt);
+    bool SendMouseHoverEventToWidget(const MAUIMouseEvent& evt);
     bool SendMouseEventToWidget(AUIInstance* const pInstance, const MAUIMouseEvent& evt);
     bool SendKeyboardEventToWidget(AUIInstance* const pInstance, const AUIKeyboardEvent& evt);
     void SendTickTimeToWidget(AUIInstance* const pInstance, const std::chrono::milliseconds& prevTick, const std::chrono::milliseconds& curTick);
     bool SendSetCursorEventToWidget(AUIInstance* const pInstance, AUICursorIcon& cursoricon);
     int m_MousePosX;
     int m_MousePosY;
-    glm::vec3 m_MouseOrg;
-    glm::vec3 m_MouseDir;
+    glm::dvec3 m_MouseOrg;
+    glm::dvec3 m_MouseDir;
 
 
 
@@ -155,19 +157,7 @@ private:
     // Hit Test Buffer
 private:
     void RefreshHitTestBuffer(int x, int y);
-    struct HitBufferData
-    {
-        float fDistance = 0.0f;
-        std::weak_ptr<AUIInstance> fInstance;
 
-        HitBufferData(const float dist, std::weak_ptr<AUIInstance> inst) noexcept : fDistance(dist), fInstance(std::move(inst)) {}
-
-        HitBufferData() noexcept = default;
-        HitBufferData(const HitBufferData&) noexcept = default;
-        HitBufferData(HitBufferData&&) noexcept = default;
-        HitBufferData& operator=(const HitBufferData&) noexcept = default;
-        HitBufferData& operator=(HitBufferData&&) noexcept = default;
-    };
     //std::multimap< float, std::weak_ptr< MAUIInstance > > m_HitTestBuffer;
     std::vector<HitBufferData> m_HitTestBuffer;
 
@@ -180,11 +170,11 @@ public:
     size_t GetInstanceCount() const { return m_mapWidget2Instance.size(); }
     AUIInstance* const FindInstance(AUIWidget* const pWidget);
     const AUIInstance* const FindInstance(AUIWidget* const pWidget) const;
+    void GetInstances(std::vector<std::shared_ptr<AUIInstance>>& arrInstances) const;
 protected:
     virtual std::shared_ptr< AUIInstance > OnRegisterWidget(const std::shared_ptr< AUIWidget >& pWidget);
     std::vector< std::shared_ptr< AUIInstance > >::const_iterator InstBegin() const { return m_Instances.cbegin(); }
     std::vector< std::shared_ptr< AUIInstance > >::const_iterator InstEnd() const { return m_Instances.cend(); }
-    void GetInstances(std::vector<std::shared_ptr<AUIInstance>>& arrInstances) const;
     virtual void OnPreRegisterWidget() { /* Implement in subclass */ }
     virtual void OnPostRegisterWidget() { /* Implement in subclass */ }
     virtual void OnPreUnregisterWidget() { /* Implement in subclass */ }
@@ -194,9 +184,19 @@ private:
     void UnregisterWidget(const std::shared_ptr< AUIWidget >& pWidget);
     mutable std::recursive_mutex m_mtxInstances;
     std::vector< std::shared_ptr< AUIInstance > > m_Instances;
+    std::vector< std::weak_ptr< AUIInstance > > m_HoverInstances;
+
     std::unordered_map< AUIWidget*, std::shared_ptr< AUIInstance > > m_mapWidget2Instance;
 
 
+
+
+ public:
+     AUISensorManager* GetSensorManager(AUICoordSpace eType) { return m_aSensorManager[(size_t)eType].get(); }
+	 void InvalidateSensor(AUIWidget* pWidget);
+	 void InvalidateUIState(AUIWidget* pWidget);
+ private:
+    std::unique_ptr<AUISensorManager> m_aSensorManager[AUICoordSpaceNum];
     //////////////////////////////////////////////////////////////////////////
     // Update
 public:

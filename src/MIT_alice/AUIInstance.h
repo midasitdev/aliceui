@@ -6,6 +6,23 @@ class AUIWidgetManager;
 class AUIWidget;
 class AUISensor;
 class AUICompass;
+//
+//
+//class  ALICEUI_API AUISensorInstance
+//{
+//    glm::vec2 fAABBMin;
+//    glm::vec2 fAABBMax;
+//    std::weak_ptr<AUISensor> fSensor;
+//    std::weak_ptr< AUIWidgetRootInfo> fRootInfo;
+//};
+//
+//class  ALICEUI_API AUIRectangleSensorInstance : AUISensorInstance
+//{
+//
+//};
+
+
+
 
 
 class ALICEUI_API AUIInstance
@@ -19,7 +36,6 @@ public:
     //////////////////////////////////////////////////////////////////////////
     // Coordinate
 public:
-    virtual void OnSetCoordSpace() {}
     virtual void OnSetRootMatrix() {}
     virtual void OnSetPosition() {}
 
@@ -58,12 +74,12 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // Camera Info
 
-public:
-    virtual glm::mat4 GetRootMatrix() const;
-    virtual glm::mat4 GetViewingMatrix() const;
-    virtual glm::mat4 GetProjectionMatrix() const;
-    virtual glm::vec4 GetViewport() const;
-    glm::mat4 GetLocalMatrix();
+//public:
+//    virtual glm::mat4 GetRootMatrix() const;
+//    virtual glm::mat4 GetViewingMatrix() const;
+//    virtual glm::mat4 GetProjectionMatrix() const;
+//    virtual glm::vec4 GetViewport() const;
+    //glm::mat4 GetLocalMatrix();
 
     //////////////////////////////////////////////////////////////////////////
     // Hit Test
@@ -75,23 +91,29 @@ public:
     float GetHitDistance() const noexcept {
         return m_fHitDist;
     }
-    const AUISensor* GetCurSensor() const noexcept {
-        return m_wpCurSensor.lock().get();
-    }
-protected:
-    void SetHit(bool bHIt, float fHitDist = 0.f) {
-        m_bHit = bHIt;
-        m_fHitDist = fHitDist;
-    }
+    //const AUISensor* GetCurSensor() const noexcept {
+    //    return m_wpCurSensor.lock().get();
+    //}
 public:
-    void UpdateCompass(AUICompass* pCompass);
+
+    inline void SetNotHit ()
+    {
+        m_bHit = false;
+        m_fHitDist = FLT_MAX;
+    }
+    inline void SetHit( float fHitDist = FLT_MAX ) {
+        m_bHit = true;
+        if( m_fHitDist > fHitDist)
+            m_fHitDist = fHitDist;
+    }
+
 private:
-    void UpdateHitData(int sx, int sy);
+    //inline void UpdateHitData(int sx, int sy);
     bool m_bHit = false;
     float m_fHitDist;
-    glm::vec3 m_vLocalOrg;
-    glm::vec3 m_vLocalDir;
-    std::weak_ptr<AUISensor> m_wpCurSensor;
+    //glm::vec3 m_vLocalOrg;
+    //glm::vec3 m_vLocalDir;
+   // std::weak_ptr<AUISensor> m_wpCurSensor;
 
 
     //////////////////////////////////////////////////////////////////////////

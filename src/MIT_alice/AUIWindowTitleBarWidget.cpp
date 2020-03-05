@@ -18,7 +18,7 @@ class MaximizeButtonWidget : public AUIImageButtonWidget
 public:
     MaximizeButtonWidget()
     {
-        SetDefaultSize(TitleBar::SysButton::kWidth, TitleBar::SysButton::kHeight);
+        SetDefaultSize(TitleBar::SysButton::kBGWidth, TitleBar::SysButton::kBGHeight);
         SetSizePolicy(TitleBar::SysButton::kWidthPolicy, TitleBar::SysButton::kHeightPolicy);
 
         OnPostMeasureSize();
@@ -73,8 +73,13 @@ class CloseButtonWidget : public AUIImageButtonWidget
 public:
     CloseButtonWidget()
     {
-        SetDefaultSize(TitleBar::SysButton::kWidth, TitleBar::SysButton::kHeight);
+        SetDefaultSize(TitleBar::SysButton::kBGWidth, TitleBar::SysButton::kBGHeight);
         SetSizePolicy(TitleBar::SysButton::kWidthPolicy, TitleBar::SysButton::kHeightPolicy);
+
+        //background
+        AUIJsonDrawableParser parser;
+        if (auto refDrawable = parser.LoadFromPathByResource(TitleBar::SysButton::kBackground))
+            SetBackgroundDrawable(*refDrawable);
 
         AUIGalleria galleria;
 
@@ -83,11 +88,6 @@ public:
         pDefaultDrawable->SetImage(pDefaultIcon);
         pDefaultDrawable->SetImageStretch(AUIImageStretch::kOriginal);
         SetImageDrawable(pDefaultDrawable);
-
-        //background
-        AUIJsonDrawableParser parser;
-        if (auto refDrawable = parser.LoadFromPathByResource(TitleBar::SysButton::kBackground))
-            SetBackgroundDrawable(*refDrawable);
     }
 };
 class HideButtonWidget : public AUIImageButtonWidget
@@ -95,7 +95,7 @@ class HideButtonWidget : public AUIImageButtonWidget
 public:
     HideButtonWidget()
     {
-        SetDefaultSize(TitleBar::SysButton::kWidth, TitleBar::SysButton::kHeight);
+        SetDefaultSize(TitleBar::SysButton::kBGWidth, TitleBar::SysButton::kBGHeight);
         SetSizePolicy(TitleBar::SysButton::kWidthPolicy, TitleBar::SysButton::kHeightPolicy);
 
         AUIGalleria galleria;
@@ -118,7 +118,7 @@ class TitleTextWidget : public AUITextWidget
 public:
     TitleTextWidget() : AUITextWidget(L"Title")
     {
-        SetDefaultSize(TitleBar::SysButton::kWidth, TitleBar::SysButton::kHeight);
+        SetDefaultSize(TitleBar::SysButton::kBGWidth, TitleBar::SysButton::kBGHeight);
         SetSizePolicy(AUISizePolicy::kContent, AUISizePolicy::kParent);
     }
 };
@@ -128,7 +128,7 @@ class MainIconWidget : public AUIImageWidget
 public:
     MainIconWidget()
     {
-        SetDefaultSize(TitleBar::SysButton::kWidth, TitleBar::SysButton::kHeight);
+        SetDefaultSize(TitleBar::SysButton::kBGWidth, TitleBar::SysButton::kBGHeight);
         SetSizePolicy(AUISizePolicy::kFixed, AUISizePolicy::kFixed);
     }
 };
@@ -156,9 +156,9 @@ AUIWindowTitleBarWidget::AUIWindowTitleBarWidget()
     m_pCloseButton->SetPropParentRight(true);
     m_pCloseButton->SetMarginRight(TitleBar::SysButton::kMarginRightMost);
     m_pMaximizeButton->SetPropParentRight(true);
-    m_pMaximizeButton->SetMarginRight(TitleBar::SysButton::kWidth + TitleBar::SysButton::kMarginRight + TitleBar::SysButton::kMarginRightMost);
+    m_pMaximizeButton->SetMarginRight(TitleBar::SysButton::kBGWidth + TitleBar::SysButton::kMarginRight + TitleBar::SysButton::kMarginRightMost);
     m_pMinimizeButton->SetPropParentRight(true);
-    m_pMinimizeButton->SetMarginRight(2.0f * (TitleBar::SysButton::kWidth + TitleBar::SysButton::kMarginRight) + TitleBar::SysButton::kMarginRightMost);
+    m_pMinimizeButton->SetMarginRight(2.0f * (TitleBar::SysButton::kBGWidth + TitleBar::SysButton::kMarginRight) + TitleBar::SysButton::kMarginRightMost);
     //m_pMaximizeButton->SetPropToLeftOf(m_pCloseButton->GetRuntimeID());
     //m_pMinimizeButton->SetPropToLeftOf(m_pMaximizeButton->GetRuntimeID());
 
@@ -180,8 +180,8 @@ bool AUIWindowTitleBarWidget::OnMouseLBtnDown(MAUIMouseEvent::EventFlag flag)
 {
     SuperWidget::OnMouseLBtnDown(flag);
 
-    m_fAbsPrevX = GetMouseAbsPosX();
-    m_fAbsPrevY = GetMouseAbsPosY();
+    //m_fAbsPrevX = GetMouseAbsPosX();
+    //m_fAbsPrevY = GetMouseAbsPosY();
 
     DragPressSignal.Send(this);
 
@@ -201,20 +201,21 @@ bool AUIWindowTitleBarWidget::OnDragging()
 {
     SuperWidget::OnDragging();
 
-    const auto curAbsX = GetMouseAbsPosX();
-    const auto curAbsY = GetMouseAbsPosY();
+    //const auto curAbsX = GetMouseAbsPosX();
+    //const auto curAbsY = GetMouseAbsPosY();
 
-    if (m_fAbsPrevX < 0.0f)
-        m_fAbsPrevX = curAbsX;
-    if (m_fAbsPrevY < 0.0f)
-        m_fAbsPrevY = curAbsY;
-    const auto diffX = curAbsX - m_fAbsPrevX;
-    const auto diffY = curAbsY - m_fAbsPrevY;
+    //if (m_fAbsPrevX < 0.0f)
+    //    m_fAbsPrevX = curAbsX;
+    //if (m_fAbsPrevY < 0.0f)
+    //    m_fAbsPrevY = curAbsY;
+    //const auto diffX = curAbsX - m_fAbsPrevX;
+    //const auto diffY = curAbsY - m_fAbsPrevY;
 
-    m_fAbsPrevX = curAbsX;
-    m_fAbsPrevY = curAbsY;
+    //m_fAbsPrevX = curAbsX;
+    //m_fAbsPrevY = curAbsY;
 
-    DragMoveSignal.Send(this, diffX, diffY);
+    //DragMoveSignal.Send(this, diffX, diffY);
+    DragMoveSignal.Send(this);
 
     return true;
 }

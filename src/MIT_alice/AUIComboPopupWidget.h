@@ -39,6 +39,14 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // TODO : Content
 public:
+    void SetPopupItemBG(const std::wstring& itemBG) { m_wsItemBG = itemBG; }
+    const std::wstring& GetPopupItemBG() const { return m_wsItemBG; }
+private:
+    std::wstring m_wsItemBG = L"";
+    //////////////////////////////////////////////////////////////////////////
+    // TODO : Content
+public:
+    void ResetContentWidgetPadding(SkScalar leftPadding = 0, SkScalar topPadding = 0, SkScalar rightPadding = 0, SkScalar bottomPadding = 0);
 protected:
     AUILinearLayoutWidget* const GetContentWidget() const { return m_pContent.get(); }
     virtual void OnItemClicked(AUIWidget*, size_t pos);

@@ -21,7 +21,6 @@ public:
 protected:
     virtual void OnDraw(SkCanvas* canvas) { /* Implement in subclass */ }
 
-
     //////////////////////////////////////////////////////////////////////////
     // UI State
 public:

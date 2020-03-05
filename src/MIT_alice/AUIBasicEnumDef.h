@@ -14,6 +14,7 @@ enum class AUICoordSpace
     kSteadyScale,   // 3D with scale preserved
     kScreenSpace,   // 2D screen space
 };
+#define AUICoordSpaceNum 4
 
 //////////////////////////////////////////////////////////////////////////
 // Size policy

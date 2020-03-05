@@ -12,7 +12,6 @@ public:
     //////////////////////////////////////////////////////////////////////////
     // Coordinate
 public:
-    virtual void OnSetCoordSpace() override;
     virtual void OnSetRootMatrix() override;
     virtual void OnSetPosition() override;
 

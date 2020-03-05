@@ -35,6 +35,10 @@ public:
     // Window Title
 public:
     void SetTitle(const std::wstring& title);
+    void SetTitleColor(SkColor titleColor);
+    void SetTitleStyle(SkFontStyle titleStyle);
+    void SetTitleFontName(std::wstring fontName);
+
     std::wstring GetTitle() const;
 
 
@@ -63,6 +67,7 @@ public:
     void SetResizeable(bool val);
     bool IsResizeable() const;
 
+
     //////////////////////////////////////////////////////////////////////////
     // Form
 private:
@@ -80,14 +85,13 @@ private:
 
 
     //////////////////////////////////////////////////////////////////////////
-    // Dragging
+    // Title Dragging
 private:
     void OnDragStart(AUIWidget*);
     void OnDragEnd(AUIWidget*);
-    void OnDragging(AUIWidget*, float dx, float dy);
+    void OnDragging(AUIWidget*);
     int m_iPrevMouseX;
     int m_iPrevMouseY;
-
 
     //////////////////////////////////////////////////////////////////////////
     // Window Widget

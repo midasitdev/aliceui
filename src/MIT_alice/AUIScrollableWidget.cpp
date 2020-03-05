@@ -165,12 +165,10 @@ void AUIScrollableWidget::OnDraw( SkCanvas * const canvas )
 
 void AUIScrollableWidget::OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, SkScalar height, AUIMeasureSpec heightSpec)
 {
-
     const auto spWidth = GetSizePolicyWidth();
     const auto spHeight = GetSizePolicyHeight();
 
     const auto defaultSize = GetDefaultSize();
-
 
     auto targetWidth = defaultSize.fX;
     auto targetHeight = defaultSize.fY;

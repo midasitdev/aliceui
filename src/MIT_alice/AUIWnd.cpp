@@ -497,8 +497,21 @@ void AUIWnd::SetLayeredWindow(bool val)
         SetWindowLong(GetSafeHwnd(), GWL_EXSTYLE, GetWindowLong(GetSafeHwnd(), GWL_EXSTYLE) | WS_EX_LAYERED);
         if (m_bLayeredWindow)
         {
-            SetLayeredWindowAttributes(RGB(0, 0, 0), 0, LWA_COLORKEY);
-            this->SetBackgroundColor(SkColorSetARGB(0, 0, 0, 0));
+            switch (GetSubWindowType())
+            {
+            case SUB_WINDOW_TYPE::WND_CONTEXTMENU:
+                SetLayeredWindowAttributes(RGB(0, 0, 0), 0, LWA_COLORKEY);
+                this->SetBackgroundColor(SkColorSetARGB(0, 0, 0, 0));
+                break;
+            case SUB_WINDOW_TYPE::WND_MSGPRINTER:
+                SetLayeredWindowAttributes(RGB(255, 255, 255), 217, LWA_COLORKEY | LWA_ALPHA); // 오르비스 : 앞에 저 색은 안된다!!, 뒤 숫자는 알파값
+                this->SetBackgroundColor(SkColorSetARGB(0, 0, 0, 0));
+                break;
+            default:
+                SetLayeredWindowAttributes(RGB(0, 0, 0), 0, LWA_COLORKEY);
+                this->SetBackgroundColor(SkColorSetARGB(0, 0, 0, 0));
+                break;
+            }
         }
         else
         {

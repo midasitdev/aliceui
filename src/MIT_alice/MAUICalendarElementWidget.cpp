@@ -42,7 +42,7 @@ MAUICalendarElementWidget::MAUICalendarElementWidget(const std::wstring& dayofWe
 	SetClickable(false);
 	SetDefaultSize(30.0f, 20.0f);
 	SetCaption(dayofWeek);
-	SetCaptionColor(kAUIColorWhite);
+	SetCaptionColor(kAUIColorBlack);
 
 	MICULocale locale;
 	locale.SetDefault();

@@ -13,7 +13,7 @@
 namespace {
     constexpr wchar_t DefaultCaption[] = L"";
     constexpr wchar_t DefaultCaptionHint[] = L"Insert Here";
-    constexpr SkColor DefaultCaptionColor = SkColorSetRGB( 17, 17, 17 ); // default text color
+    constexpr SkColor TrueStateCaptionColor = SkColorSetRGB( 201, 211, 219 ); // default text color
 
     constexpr bool DefaultTabToChar = false;
     constexpr bool DefaultReturnToChar = false;
@@ -24,7 +24,7 @@ namespace {
     constexpr SkColor DefaultCaptionCompColor = SkColorSetRGB( 66, 151, 255 ); // cursor color 어따 쓰는지 몰겠
     constexpr SkColor DefaultSelectBackgroundColor = SkColorSetRGB( 130, 186, 255 ); // select 시 background color
     constexpr SkColor DefaultCaptionSelectColor = SkColorSetRGB( 255, 255, 255 ); // select 시 text color
-    constexpr SkColor DefaultCaptionHintColor = kAUIColorGray; // SkColorSetRGB( 17, 17, 17 ); // hint text color
+    constexpr SkColor DefaultCaptionHintColor = kAUIColorGray; // SkColorSetRGB( 201, 211, 219 ); // hint text color
     constexpr SkScalar DefaultCaptionHintSize = 13.0f;
 
     constexpr std::chrono::milliseconds AnimTickLength( 300 );
@@ -117,7 +117,7 @@ AUIEditWidget::AUIEditWidget()
     , m_CaptionCompColor( DefaultCaptionCompColor )
     , m_bPassword( false )
 {
-    SetCaptionColor( DefaultCaptionColor );
+    SetCaptionColor( TrueStateCaptionColor );
     SetFocusable( DefaultFocusable );
 
     SetCaptionSize( 13.0f );
@@ -147,7 +147,7 @@ AUIEditWidget::AUIEditWidget( const std::wstring& captionhint )
     , m_CaptionCompColor( DefaultCaptionCompColor )
     , m_bPassword( false )
 {
-    SetCaptionColor( DefaultCaptionColor );
+    SetCaptionColor( TrueStateCaptionColor );
     SetFocusable( DefaultFocusable );
 
     SetCaptionSize( 13.0f );

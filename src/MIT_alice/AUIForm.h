@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AUICommonDef.h"
+#include "AUIWnd.h"
 
 class AUIHandle;
 class AUIWidget;
@@ -103,6 +104,8 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // Transparency
 public:
+    void SetSubWindowType(const SUB_WINDOW_TYPE& type);
+    SUB_WINDOW_TYPE GetSubWindowType() const;
     void SetTransparent(bool val);
     bool IsTransparent() const;
 };

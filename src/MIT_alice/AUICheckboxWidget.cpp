@@ -148,12 +148,16 @@ bool AUICheckboxWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
     if ( IsCheckable() == false )
         return true;
 
-    const auto curChecked = IsChecked();
-    if ( IsUseIndeterminate() )
+
+    if (false == IsDisabled() && IsMouseLDown())
     {
-        SetCheckedIndeterminate( false );
+        const auto curChecked = IsChecked();
+        if (IsUseIndeterminate())
+        {
+            SetCheckedIndeterminate(false);
+        }
+        SetChecked(!IsChecked());
     }
-    SetChecked( !IsChecked() );
 
     Invalidate();
 

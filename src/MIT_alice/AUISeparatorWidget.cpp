@@ -94,8 +94,8 @@ bool AUISeparatorWidget::OnChangeCursorIcon( AUICursorIcon& cursoricon )
 bool AUISeparatorWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
 {
 
-    m_fAbsPrevX = GetMouseAbsPosX();
-    m_fAbsPrevY = GetMouseAbsPosY();
+    //m_fAbsPrevX = GetMouseAbsPosX();
+    //m_fAbsPrevY = GetMouseAbsPosY();
     SuperWidget::OnMouseLBtnDown( flag );
 
     DragPressSignal.Send( this );
@@ -116,20 +116,21 @@ bool AUISeparatorWidget::OnDragging()
 {
 
 
-    const auto curAbsX = GetMouseAbsPosX();
-    const auto curAbsY = GetMouseAbsPosY();
+    //const auto curAbsX = GetMouseAbsPosX();
+    //const auto curAbsY = GetMouseAbsPosY();
 
-    if ( m_fAbsPrevX < 0.0f )
-        m_fAbsPrevX = curAbsX;
-    if ( m_fAbsPrevY < 0.0f )
-        m_fAbsPrevY = curAbsY;
-    const auto diffX = curAbsX - m_fAbsPrevX;
-    const auto diffY = curAbsY - m_fAbsPrevY;
+    //if ( m_fAbsPrevX < 0.0f )
+    //    m_fAbsPrevX = curAbsX;
+    //if ( m_fAbsPrevY < 0.0f )
+    //    m_fAbsPrevY = curAbsY;
+    //const auto diffX = curAbsX - m_fAbsPrevX;
+    //const auto diffY = curAbsY - m_fAbsPrevY;
 
-    m_fAbsPrevX = curAbsX;
-    m_fAbsPrevY = curAbsY;
+    //m_fAbsPrevX = curAbsX;
+    //m_fAbsPrevY = curAbsY;
 
-    DragMoveSignal.Send( this, diffX, diffY );
+    //DragMoveSignal.Send( this, diffX, diffY );
+    DragMoveSignal.Send(this);
 
     return true;
 }

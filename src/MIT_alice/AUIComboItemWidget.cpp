@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "AUIComboItemWidget.h"
+#include "AUIComboDefaultValue.h"
 #include "AUIColorDrawable.h"
 #include "AUIStateDrawable.h"
 #include "AUIJsonDrawableParser.h"
@@ -12,10 +13,12 @@ AUIComboItemWidget::AUIComboItemWidget()
 {
     SetClickable( true );
 
-    SetMinimumSize({ 0.0f, 23.0f });
+    SetMinimumSize({ COMBO::ITEM::kComboItemMinWidth, COMBO::ITEM::kComboItemMinHeight });
     SetSizePolicy(AUISizePolicy::kParent, AUISizePolicy::kContent);
-
-
+    SetMarginLTRB(COMBO::ITEM::kComboItemMarginLeft,
+                    COMBO::ITEM::kComboItemMarginTop,
+                    COMBO::ITEM::kComboItemMarginRight,
+                    COMBO::ITEM::kComboItemMarginBottom);
     /*auto pHoverBG = std::make_shared< AUIColorDrawable >();
     pHoverBG->SetColor( SkColorSetRGB( 144, 194, 255 ) );
 
@@ -31,11 +34,44 @@ AUIComboItemWidget::AUIComboItemWidget()
     SetBackgroundDrawable( pStateDrawable );
 */
 	AUIJsonDrawableParser parser;
-	if (auto refDrawable = parser.LoadFromPath(L"drawable/mp_combo_list.json"))
+	if (auto refDrawable = parser.LoadFromPathByResource(COMBO::ITEM::kComboItemBackground))
 		SetBackgroundDrawable(*refDrawable);
 
     m_pContent->SetSizePolicy(AUISizePolicy::kParent, AUISizePolicy::kContent);
     AddSubWidget( m_pContent );
+
+    // Don't catch event
+    m_pContent->Freeze();
+}
+
+AUIComboItemWidget::AUIComboItemWidget(const std::wstring& bgPath)
+    : m_pContent(std::make_shared< AUIAbsoluteLayoutWidget >())
+    , m_ItemPos(0)
+    , m_bUseMarquee(false)
+{
+    SetClickable(true);
+
+    SetMinimumSize({ COMBO::ITEM::kComboItemMinWidth, COMBO::ITEM::kComboItemMinHeight });
+    SetSizePolicy(AUISizePolicy::kParent, AUISizePolicy::kContent);
+    SetMarginLTRB(COMBO::ITEM::kComboItemMarginLeft,
+        COMBO::ITEM::kComboItemMarginTop,
+        COMBO::ITEM::kComboItemMarginRight,
+        COMBO::ITEM::kComboItemMarginBottom);
+
+    AUIJsonDrawableParser parser;
+    if (bgPath != L"")
+    {
+        if (auto refDrawable = parser.LoadFromPathByResource(bgPath))
+            SetBackgroundDrawable(*refDrawable);
+    }
+    else
+    {
+        if (auto refDrawable = parser.LoadFromPathByResource(COMBO::ITEM::kComboItemBackground))
+            SetBackgroundDrawable(*refDrawable);
+    }
+
+    m_pContent->SetSizePolicy(AUISizePolicy::kParent, AUISizePolicy::kContent);
+    AddSubWidget(m_pContent);
 
     // Don't catch event
     m_pContent->Freeze();

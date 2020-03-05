@@ -18,10 +18,6 @@ AUIMFCInstance::~AUIMFCInstance()
 
 }
 
-void AUIMFCInstance::OnSetCoordSpace()
-{
-
-}
 
 void AUIMFCInstance::OnSetRootMatrix()
 {

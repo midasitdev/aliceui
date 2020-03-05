@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AUISensor.h"
 #include "AUIScalar.h"
+#include "AUIWidget.h"
 
 namespace
 {
@@ -20,13 +21,23 @@ namespace
     }
 }
 
-void AUIRectangleSensor::SetMatrix(const glm::mat4& matSensor)
+void AUISensor::Invalidate()
 {
-    m_matSensorInv = glm::inverse(matSensor);
-    m_IsBasePlane = glm::isIdentity(m_matSensorInv, glm::epsilon<float>());
+    if (auto pWidget = m_pWidget)
+    {
+        pWidget->_invalidate_sensor();
+    }
 }
 
-bool AUIRectangleSensor::UpdateHit( const glm::vec3& vRayOrg, const glm::vec3& vRayDir )
+void AUIRectangleSensor::SetMatrix(const glm::mat4& matSensor)
+{
+    m_matSensor = matSensor;
+    m_matSensorInv = glm::inverse(matSensor);
+    m_IsBasePlane = glm::isIdentity(m_matSensorInv, glm::epsilon<float>());
+    Invalidate();
+}
+
+bool AUIRectangleSensor::UpdateHit( const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fScale)
 {
     // 2D Optimization
     const auto isDefaultPlane = (std::abs(vRayDir.z - (-1.0f)) < glm::epsilon<float>()) && glm::isNormalized(vRayDir, glm::epsilon<float>());
@@ -53,8 +64,7 @@ bool AUIRectangleSensor::UpdateHit( const glm::vec3& vRayOrg, const glm::vec3& v
 		return false;
 	}
 
-	auto vHitPos = vLocalEyePos +  vLocalEyeDir * m_fHitDistance;
-	vHitPos = glm::vec4(vHitPos,1);
+	auto vHitPos = glm::vec2(vLocalEyePos +  vLocalEyeDir * m_fHitDistance);
 	if( vHitPos.x < m_vRectangle[0] ||
 		vHitPos.x >= m_vRectangle[2] ||
 		vHitPos.y < m_vRectangle[1] ||
@@ -64,17 +74,18 @@ bool AUIRectangleSensor::UpdateHit( const glm::vec3& vRayOrg, const glm::vec3& v
 	return true;
 }
 
-bool AUIBoxSensor::UpdateHit( const glm::vec3& vRayOrg, const glm::vec3& vRayDir )
+
+bool AUIBoxSensor::UpdateHit( const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fScale)
 {
 	auto vLocalRayOrg = glm::vec3(m_matSensorInv * glm::vec4(vRayOrg,1));
 	auto vLocalRayDir = glm::vec3(m_matSensorInv * glm::vec4(vRayDir,0));
 	bool bHit = false;
 
-	glm::vec3 vHitPos;
+	glm::vec3 vHitPos(0.f);
     float fHitDistance = (std::numeric_limits<float>::max)();
 	for( int i =0; i< 3; i++)
     {
-        glm::vec3 vPlaneAxis, vPlanePos;
+        glm::vec3 vPlaneAxis(0.f), vPlanePos(0.f);
 
 		vPlaneAxis[i] = 1;
 

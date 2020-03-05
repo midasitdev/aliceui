@@ -17,6 +17,7 @@ public:
     // Popup Widget
 public:
     void SetPopupWidget(const std::shared_ptr< AUIWidget >& pWidget);
+    AUIWidget* GetPopupWidget() { return m_pPopupWidget.get(); }
 private:
     std::shared_ptr< AUIWidget > m_pPopupWidget;
 

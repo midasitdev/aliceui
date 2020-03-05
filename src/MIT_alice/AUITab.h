@@ -27,8 +27,8 @@ public:
     // MSS Support
 public:
     void SetButtonStyleSheet(std::shared_ptr<const AUIWidgetStyle> style);
-    void SetTextStyleSheet(std::shared_ptr<const AUIWidgetStyle> style);
     void SetImageStyleSheet(std::shared_ptr<const AUIWidgetStyle> style);
+    void SetTextStyleSheet(std::shared_ptr<const AUIWidgetStyle> style);
 
 	//////////////////////////////////////////////////////////////////////////
     // Tab 순서를 위한 대환장의 몸짓

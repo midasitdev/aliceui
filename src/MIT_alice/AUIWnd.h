@@ -4,6 +4,13 @@
 #include "AUIRasterBase.h"
 #include "AUISlotPool.h"
 
+enum class SUB_WINDOW_TYPE
+{
+    WND_MSGPRINTER,
+    WND_CONTEXTMENU,
+    NONE
+};
+
 class ALICEUI_API AUIWnd : public CWnd, public AUIRasterBase
 {
     using SuperClass = CWnd;
@@ -22,10 +29,14 @@ private:
 
     //////////////////////////////////////////////////////////////////////////
     // Layered window
+
 public:
+    void SetSubWindowType(const SUB_WINDOW_TYPE& type) { m_eSubWndType = type; }
+    const SUB_WINDOW_TYPE& GetSubWindowType() const { return m_eSubWndType; }
     void SetLayeredWindow(bool val);
     bool IsLayeredWindow() const;
 private:
+    SUB_WINDOW_TYPE m_eSubWndType = SUB_WINDOW_TYPE::NONE;
     bool m_bLayeredWindow = false;
 
     //////////////////////////////////////////////////////////////////////////

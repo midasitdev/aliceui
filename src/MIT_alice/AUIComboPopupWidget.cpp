@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AUIComboPopupWidget.h"
 #include "AUIComboAdapter.h"
+#include "AUIComboDefaultValue.h"
 #include "AUIWidgetManager.h"
 #include "AUIColorDrawable.h"
 #include "AUIComboItemWidget.h"
@@ -10,11 +11,7 @@
 #include "AUILayerDrawable.h"
 #include "AUILinearLayoutWidget.h"
 #include "AUIScrollableBarWidget.h"
-
-
-namespace {
-    constexpr SkScalar DefaultComboItemHeight = 23.0f;
-}
+#include "AUIJsonDrawableParser.h"
 
 AUIComboPopupWidget::AUIComboPopupWidget()
     : m_pContent( std::make_shared< AUILinearLayoutWidget >() )
@@ -23,19 +20,26 @@ AUIComboPopupWidget::AUIComboPopupWidget()
     SetSizePolicy(AUISizePolicy::kFixed, AUISizePolicy::kContent);
     m_pContent->SetSizePolicy(AUISizePolicy::kParent, AUISizePolicy::kContent);
 
+    AUIJsonDrawableParser parser;
+    if (auto refDrawable = parser.LoadFromPathByResource(COMBO::POPUP::kComboPopupBackground))
+        SetBackgroundDrawable(*refDrawable);
     AddSubWidget( m_pContent );
 
-    // TODO : change bg
-    auto pBG = std::make_shared< AUIColorDrawable >();
-    pBG->SetColor( SkColorSetRGB( 245, 245, 245 ) );
-    auto pBorder = std::make_shared< AUIShapeDrawable >( std::make_shared< AUIRectShape >() );
-    pBorder->SetColor( SkColorSetRGB( 197, 197, 197 ) );
-    pBorder->SetStrokeStyle( SkPaint::kStroke_Style );
-    auto pBGDrawable = std::make_shared< AUILayerDrawable >();
-    pBGDrawable->InsertLayer( pBG );
-    pBGDrawable->InsertLayer( pBorder );
-    SetBackgroundDrawable( pBGDrawable );
-
+    m_pContent->SetPaddingLTRB(COMBO::POPUP::kComboPopupPaddingLeft,
+                                COMBO::POPUP::kComboPopupPaddingTop,
+                                COMBO::POPUP::kComboPopupPaddingRight,
+                                COMBO::POPUP::kComboPopupPaddingBottom);
+    //SetMarginLTRB(2, 2, 2, 2);
+    //// TODO : change bg
+    //auto pBG = std::make_shared< AUIColorDrawable >();
+    //pBG->SetColor( SkColorSetRGB( 245, 245, 245 ) );
+    //auto pBorder = std::make_shared< AUIShapeDrawable >( std::make_shared< AUIRectShape >() );
+    //pBorder->SetColor( SkColorSetRGB( 197, 197, 197 ) );
+    //pBorder->SetStrokeStyle( SkPaint::kStroke_Style );
+    //auto pBGDrawable = std::make_shared< AUILayerDrawable >();
+    //pBGDrawable->InsertLayer( pBG );
+    //pBGDrawable->InsertLayer( pBorder );
+    //SetBackgroundDrawable( pBGDrawable );
 
     Connect(GetScrollBarWidget()->FocusOutSignal, [this](AUIWidget*) {
         this->OnFocusOut();
@@ -77,8 +81,8 @@ void AUIComboPopupWidget::OnAdapterDataChanged(AUIComboAdapter*)
     const auto totalCount = m_pAdapter->GetCount();
     for ( auto idx = 0 ; idx < totalCount ; idx++ )
     {
-        auto pItemWidget = std::make_shared< AUIComboItemWidget >();
-        pItemWidget->SetDefaultSize( GetWidth(), DefaultComboItemHeight );
+        auto pItemWidget = std::make_shared< AUIComboItemWidget >(GetPopupItemBG());
+        pItemWidget->SetDefaultSize(GetWidth(), COMBO::ITEM::kComboItemDefaultHeight);
         pItemWidget->SetUseMarquee( m_bUseMarquee );
 
         Connect( pItemWidget->ClickSignal, this, &AUIComboPopupWidget::OnItemClicked );
@@ -97,7 +101,7 @@ void AUIComboPopupWidget::OnAdapterDataChanged(AUIComboAdapter*)
 
         GetContentWidget()->AddSubWidget( pItemWidget ); 
     }
-    this->SetDefaultHeight(totalCount * DefaultComboItemHeight);
+    this->SetDefaultHeight(totalCount * COMBO::ITEM::kComboItemDefaultHeight);
     GetContentWidget()->UpdateSize();
     GetContentWidget()->UpdateChildPosition();
 }
@@ -106,6 +110,11 @@ void AUIComboPopupWidget::OnItemClicked( AUIWidget*, size_t pos )
 {
     AUIAssert( m_pAdapter );
     m_pAdapter->ClickItemSignal.Send(m_pAdapter.get(), pos );
+
+    const auto children = GetContentWidget()->GetChildren();
+    bool childHasFocus = IsFocused();
+    for (auto& child : children)
+        child->SetHovered(false);
 }
 
 void AUIComboPopupWidget::OnItemFocusChange( AUIWidget* )
@@ -119,6 +128,11 @@ void AUIComboPopupWidget::OnItemFocusChange( AUIWidget* )
     }
     if ( childHasFocus == false )
         PopupFocusLostSignal.Send();
+}
+
+void AUIComboPopupWidget::ResetContentWidgetPadding(SkScalar leftPadding, SkScalar topPadding, SkScalar rightPadding, SkScalar bottomPadding)
+{
+   m_pContent->SetPaddingLTRB(leftPadding, topPadding, rightPadding, bottomPadding);
 }
 
 void AUIComboPopupWidget::OnFocusOut()

@@ -427,6 +427,18 @@
     <Filter Include="00. Defines\..etc">
       <UniqueIdentifier>{756089e3-e745-4a1b-8a8c-a573626cfd08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Core\SensorManager">
+      <UniqueIdentifier>{7222c287-9395-4fc6-a7c5-a91603791a07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Font">
+      <UniqueIdentifier>{83ab67c4-80d6-4b26-baae-75d40e3ad7dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Font\FontManager">
+      <UniqueIdentifier>{100b4717-26c8-40f2-b0c6-aaded10bebc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Core\Font\Typeface">
+      <UniqueIdentifier>{c6f8fc69-3bd2-4a9e-af80-1d18c537fe80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAUIRulerWidget.cpp">
@@ -947,6 +959,27 @@
     </ClCompile>
     <ClCompile Include="AUIDebug.cpp">
       <Filter>01. Core\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIScreenSensorManager.cpp">
+      <Filter>01. Core\SensorManager</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISensorManager.cpp">
+      <Filter>01. Core\SensorManager</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIWorldPanelSensorManager.cpp">
+      <Filter>01. Core\SensorManager</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIWorldSensorManager.cpp">
+      <Filter>01. Core\SensorManager</Filter>
+    </ClCompile>
+    <ClCompile Include="AUISteadyScaleSensorManager.cpp">
+      <Filter>01. Core\SensorManager</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIFontManager.cpp">
+      <Filter>01. Core\Font\FontManager</Filter>
+    </ClCompile>
+    <ClCompile Include="AUITypeface.cpp">
+      <Filter>01. Core\Font\Typeface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1531,6 +1564,30 @@
     </ClInclude>
     <ClInclude Include="MAUIPlaneDef.h">
       <Filter>00. Defines\..etc</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISensorManager.h">
+      <Filter>01. Core\SensorManager</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIScreenSensorManager.h">
+      <Filter>01. Core\SensorManager</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIWorldPanelSensorManager.h">
+      <Filter>01. Core\SensorManager</Filter>
+    </ClInclude>
+    <ClInclude Include="AUISteadyScaleSensorManager.h">
+      <Filter>01. Core\SensorManager</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIWorldSensorManager.h">
+      <Filter>01. Core\SensorManager</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIComboDefaultValue.h">
+      <Filter>02. Implementation\Widgets\Drawable\Combo</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIFontManager.h">
+      <Filter>01. Core\Font\FontManager</Filter>
+    </ClInclude>
+    <ClInclude Include="AUITypeface.h">
+      <Filter>01. Core\Font\Typeface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

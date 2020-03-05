@@ -27,6 +27,7 @@
 #include <skia/core/SkTextBlob.h>
 #include <skia/core/SkRSXform.h>
 #include <skia/core/SkFontMgr.h>
+#include <skia/core/SkFontTypes.h>
 #include <skia/core/SkGraphics.h>
 
 // Effects

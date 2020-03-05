@@ -445,4 +445,3 @@ void AUIImageCaptionButtonWidget::SetImageCaptionStyle( AUIImageCaptionStyle sty
     UpdateSize();
     UpdateChildPosition();
 }
-

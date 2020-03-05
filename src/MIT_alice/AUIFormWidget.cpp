@@ -85,10 +85,10 @@ void AUIFormWidget::InitWidget()
 //    GetTitleBarWidget()->SetSize( width, GetTitleBarWidget()->GetHeight() );
 //}
 
-void AUIFormWidget::OnDraggingTitleBar( AUIWidget* const, float dx, float dy )
+void AUIFormWidget::OnDraggingTitleBar( AUIWidget* const )
 {
-    if ( IsMoveable() )
-        SetPosition( GetPosition() + AUIScalar3( dx, dy, 0.0f ) );
+    //if ( IsMoveable() )
+     //   SetPosition( GetPosition() + AUIScalar3( dx, dy, 0.0f ) );
 }
 
 void AUIFormWidget::SetTitleCaption( const std::wstring& text )

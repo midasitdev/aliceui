@@ -19,7 +19,7 @@ public:
     AUISignal<void(AUIWidget*)>& GetTitleBarDblClickSignal() const;
     AUISignal<void(AUIWidget*)>& GetDragStartSignal() const;
     AUISignal<void(AUIWidget*)>& GetDragEndSignal() const;
-    AUISignal<void(AUIWidget*, float, float)>& GetDraggingSignal() const;
+    AUISignal<void(AUIWidget*)>& GetDraggingSignal() const;
     AUISignal<void(AUIWidget*)>& GetMinimizeSignal() const;
     AUISignal<void(AUIWidget*)>& GetMaximizeSignal() const;
     AUISignal<void(AUIWidget*)>& GetCloseSignal() const;

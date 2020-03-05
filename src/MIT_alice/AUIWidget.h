@@ -13,6 +13,7 @@
 #include "AUISlotPool.h"
 #include "AUIStyleNotion.h"
 #include "AUIDebug.h"
+#include "AUISensorManager.h"
 
 class AUIDrawable;
 class AUIWidgetManager;
@@ -24,6 +25,7 @@ class AUITooltip;
 class AUIWidgetStyle;
 class AUIStyleUpdator;
 class AUICursorIcon;
+class AUISensorManager;
 
 class ALICEUI_API AUIWidget : public AUISlotPool, public std::enable_shared_from_this<AUIWidget>
 {
@@ -196,17 +198,17 @@ public:
     AUIWidget* const GetParent() const;
     AUIWidget* const GetRoot() const;
     bool IsRoot() const;
-    bool IsHitTestAffectedByParent() const noexcept {
-        return m_bHitTestAffectedByParent;
+    bool IsHitTestAffectToChild() const noexcept {
+        return m_bHitTestAffectToChild;
     }
 protected:
     virtual bool OnSetParent(AUIWidget* const pParent);
-    void SetHitTestAffectedByParent(bool val) noexcept {
-        m_bHitTestAffectedByParent = val;
+    void SetHitTestAffectToChild(bool val) noexcept {
+        m_bHitTestAffectToChild = val;
         Invalidate();
     }
 private:
-    bool m_bHitTestAffectedByParent = false;
+    bool m_bHitTestAffectToChild = false;
 
 
     //////////////////////////////////////////////////////////////////////////
@@ -256,13 +258,17 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // Coordinate
 public:
+
+
+
     void SetRootTargetCoord(AUICoordSpace eTargetCoord);
     void SetRootMatrix(const glm::mat4& mat);
     bool IsRootCoord()const;
 
+    const AUIWidgetRootInfo* GetRootCoordInfo() const;
     AUICoordSpace GetRootTargetCoord() const;
     const glm::mat4& GetRootMatrix() const;
-    const glm::mat4 GetAccumulatedMatrix() const;
+    //const glm::mat4 GetAccumulatedMatrix() const;
 
     // const glm::vec3& GetRootCoord();
     void SetForceDepthTest(bool state) noexcept {
@@ -281,6 +287,7 @@ public:
     }
 private:
     std::shared_ptr< AUIWidgetRootInfo > m_spRootInfo;
+	const static AUIWidgetRootInfo s_DefualtRootInfo;
     bool m_bForceDepthTest;
     bool m_bForceDepthMask;
 
@@ -376,9 +383,9 @@ public:
     }
     bool IsMouseRDown() const noexcept {
         return m_UIState.IsMouseRDown();
-    }
-    void SetVisible(bool state) noexcept { m_UIState.SetVisible(state); OnSetVisible(state); NotifyUIStateChange(); Invalidate(); }
-    void SetFreeze(bool state) noexcept { m_UIState.SetFreeze(state); NotifyUIStateChange(); Invalidate(); }
+	}
+	void SetVisible(bool state) noexcept { m_UIState.SetVisible(state); OnSetVisible(state); _invalidate_ui_state(); Invalidate(); }
+	void SetFreeze(bool state) noexcept { m_UIState.SetFreeze(state); _invalidate_ui_state(); Invalidate(); }
     void MakeVisible() noexcept {
         SetVisible(true);
     }
@@ -409,14 +416,14 @@ public:
     }
     void SetIgnored(bool state) {
         m_UIState.SetIgnored(state);
-        OnSetIgnored(state);
-        NotifyUIStateChange();
+		OnSetIgnored(state);
+		_invalidate_ui_state();
         Invalidate();
     }
     void SetDisabled(bool state) {
-        m_UIState.SetDisabled(state);
-        OnSetDisabled(state);
-        NotifyUIStateChange();
+		m_UIState.SetDisabled(state);
+		OnSetDisabled(state);
+		_invalidate_ui_state();
         Invalidate();
     }
     bool IsClickable() const noexcept {
@@ -944,10 +951,10 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // Mouse status
 public:
-    SkScalar GetMouseAbsPosX() const;
-    SkScalar GetMouseAbsPosY() const;
-    SkPoint GetMouseAbsPos() const;
-    bool HasMouseAbsPos() const;
+    //SkScalar GetMouseAbsPosX() const;
+    //SkScalar GetMouseAbsPosY() const;
+    //SkPoint GetMouseAbsPos() const;
+    //bool HasMouseAbsPos() const;
     SkScalar GetMouseLocPosX() const;
     SkScalar GetMouseLocPosY() const;
     SkPoint GetMouseLocPos() const;
@@ -1079,16 +1086,25 @@ private:
     //  Sensor
 public:
     void AddSensor(const std::shared_ptr< AUISensor >& pSensor) {
+        if (IsInstanced())
+            throw;
+        pSensor->_set_owner_widget(this);
         m_aSensors.emplace_back(pSensor);
     }
     void ClearSensors() {
+        if (IsInstanced())
+            throw;
         m_aSensors.clear();
     }
     const std::vector<std::shared_ptr<AUISensor>>& GetSensors() const {
         return m_aSensors;
     }
-    const AUISensor* GetCurSensor() const;
+
+	void _invalidate_sensor();
+	void _invalidate_ui_state();
+	//const AUISensor* GetCurSensor() const;
 private:
+    //AUISensorManager* GetSensorManager();
     std::vector<std::shared_ptr<AUISensor>> m_aSensors;
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1102,6 +1118,7 @@ public:
         return m_aCompasses;
     }
 private:
+    void UpdateCompass();
     std::vector<std::shared_ptr<AUICompass>> m_aCompasses;
 
 
@@ -1114,7 +1131,7 @@ public:
     void UpdateDefault2DSensorSize();
 private:
     bool m_bDefault2DSensor;
-    bool m_bDefault2DCompass;
+    //bool m_bDefault2DCompass;
 
 
 

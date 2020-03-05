@@ -38,6 +38,6 @@ public:
     void SetTitleCaption(const std::wstring& text);
     AUITitleBarTitleWidget* const GetTitleBarWidget() const { return m_pTitleBar.get(); }
 private:
-    void OnDraggingTitleBar(AUIWidget* const, float dx, float dy);
+    void OnDraggingTitleBar(AUIWidget* const);
     std::shared_ptr< AUITitleBarTitleWidget > m_pTitleBar;
 };

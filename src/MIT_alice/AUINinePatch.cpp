@@ -1,15 +1,15 @@
 #include "pch.h"
 #include "AUINinePatch.h"
 
-AUINinePatch::AUINinePatch( const SkBitmap& bitmap )
+AUINinePatch::AUINinePatch(const SkBitmap& bitmap)
 {
     SetNinePatchImage(SkImage::MakeFromBitmap(bitmap));
 }
 
-AUINinePatch::AUINinePatch( const SkBitmap& bitmap, const SkIRect& center, const SkIRect& content )
+AUINinePatch::AUINinePatch(const SkBitmap& bitmap, const SkIRect& center, const SkIRect& content)
     : m_pImage(SkImage::MakeFromBitmap(bitmap))
-    , m_Center( center )
-    , m_Content( content )
+    , m_Center(center)
+    , m_Content(content)
 {
 
 }
@@ -27,7 +27,7 @@ AUINinePatch::AUINinePatch(const sk_sp<SkImage>& image, const SkIRect& center, c
 
 }
 
-void AUINinePatch::Draw( SkCanvas* const canvas, const SkRect& rect, SkPaint* paint )
+void AUINinePatch::Draw(SkCanvas* const canvas, const SkRect& rect, SkPaint* paint)
 {
     if (!m_pImage)
     {
@@ -92,7 +92,10 @@ void AUINinePatch::SetNinePatchImage(const sk_sp<SkImage>& image)
         if (scaleHeightStarted == false)
             scaleTop++;
     }
-    m_Center = SkIRect::MakeLTRB(scaleLeft, scaleTop, scaleRight, scaleBottom);
+    if (scaleTop > scaleBottom)
+        m_Center = SkIRect::MakeLTRB(scaleLeft, scaleBottom, scaleRight, scaleTop);
+    else
+        m_Center = SkIRect::MakeLTRB(scaleLeft, scaleTop, scaleRight, scaleBottom);
 
 
     // Find content width
@@ -123,7 +126,11 @@ void AUINinePatch::SetNinePatchImage(const sk_sp<SkImage>& image)
         if (contentHeightStarted == false)
             contentTop++;
     }
-    m_Content = SkIRect::MakeLTRB(contentLeft, contentTop, contentRight, contentBottom);
+
+    if (contentTop > contentBottom)
+        m_Content = SkIRect::MakeLTRB(contentLeft, contentBottom, contentRight, contentTop);
+    else
+        m_Content = SkIRect::MakeLTRB(contentLeft, contentTop, contentRight, contentBottom);
 
     SkIRect region(pixmap.bounds());
     region.inset(1, 1);

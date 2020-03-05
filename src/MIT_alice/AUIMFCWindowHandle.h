@@ -33,10 +33,10 @@ public:
     //////////////////////////////////////////////////////////////////////////
     // Transparency
 public:
+    void SetSubWindowType(const SUB_WINDOW_TYPE& type) override;
+    SUB_WINDOW_TYPE GetSubWindowType() const override;
     void SetTransparent(bool val) override;
     bool IsTransparent() const override;
-
-
     //////////////////////////////////////////////////////////////////////////
     // AUIWnd
 private:
