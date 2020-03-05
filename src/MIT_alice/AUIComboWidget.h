@@ -2,6 +2,9 @@
 
 #include "AUIFrameLayoutWidget.h"
 #include "AUIPopup.h"
+#include "AUIImageWidget.h"
+#include "AUIJsonDrawableParser.h"
+#include "AUIComboPopupWidget.h"
 
 class AUIComboAdapter;
 class AUIComboPopupWidget;
@@ -66,6 +69,9 @@ public:
     AUISignal<void(AUIComboWidget*)> ComboPopupSignal;     // Popup invoke callback
     void SetCurPos(size_t pos);
     static size_t InvalidPos;
+    void SetArrowDirection(const bool& val) { m_bArrowDirection = val; }
+    const bool& GetArrowDirection() { return m_bArrowDirection; }
+
 protected:
     virtual void OnClickPopup(AUIComboWidget*);
     virtual void OnItemClicked(AUIComboAdapter*, size_t pos);
@@ -74,7 +80,7 @@ private:
     void RefreshLabel();
     AUISlotPool m_spoolItemClick;
     size_t m_curPos;
-
+    bool m_bArrowDirection; // true일 때 아래
 
     //////////////////////////////////////////////////////////////////////////
     // Combo Popup
@@ -98,6 +104,17 @@ public:
     AUIPopupPos GetPopupOpt() const {
         return m_PopupOpt;
     }
+    void SetPopupBG(const std::wstring& bgPath) {
+        AUIJsonDrawableParser parser;
+        if (auto refDrawable = parser.LoadFromPathByResource(bgPath))
+            m_pPopup->SetBackgroundDrawable(*refDrawable);
+    }
+
+    void SetPopupItemBG(const std::wstring& bgPath) {
+        m_pPopup->SetPopupItemBG(bgPath);
+    }
+
+
 protected:
     void SetLabel(const std::shared_ptr< AUIWidget >& pLabel);
     std::shared_ptr< AUIWidget > GetLabel() const { return m_pLabel.lock(); }
@@ -108,6 +125,4 @@ private:
     SkRect m_PopupHitRect = SkRect::MakeEmpty();
     bool m_bUsePopuptHitRect;
     AUIPopupPos m_PopupOpt = AUIPopupPos::kOptimal;
-
-	std::shared_ptr<AUIDrawable> m_pArrowDrawable;
 };

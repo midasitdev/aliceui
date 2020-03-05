@@ -1,12 +1,12 @@
 #include "pch.h"
 #include "AUIDrawable.h"
 
-void AUIDrawable::Draw( int x, int y, int width, int height )
+void AUIDrawable::Draw(int x, int y, int width, int height)
 {
     width = width - x;
     height = height - y;
 
-    if ( width <= 0 || height <= 0 )
+    if (width <= 0 || height <= 0)
         return;
 
     const SkSurfaceProps defaultProps(0, SkPixelGeometry::kUnknown_SkPixelGeometry);

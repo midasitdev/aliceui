@@ -12,9 +12,9 @@
 #include "AUIWidgetSelection.h"
 #include "AUIWidgetStyle.h"
 
-
 constexpr float DefaultWheelDelta = 120.0f;
 static AUIRuntimeID gNextRuntimeId = 1;
+const AUIWidgetRootInfo AUIWidget::s_DefualtRootInfo;
 
 AUIWidget::AUIWidget()
 	: m_bUpdateChildPosition(false)
@@ -29,7 +29,7 @@ AUIWidget::AUIWidget()
 	, m_bUseHotkeyCopy(false)
 	, m_bUseHotkeyPaste(false)
 	, m_bUseHotkeyCut(false)
-	, m_bDefault2DCompass(false)
+	//, m_bDefault2DCompass(false)
 	, m_bDefault2DSensor(false)
 	, m_ScrollX(0.0f)
 	, m_ScrollY(0.0f)
@@ -42,8 +42,7 @@ AUIWidget::AUIWidget()
     , m_bForceDepthMask(false)
     , m_RuntimeID(gNextRuntimeId++)
 {
-	m_spRootInfo = std::make_shared<AUIWidgetRootInfo>();
-
+	//m_spRootInfo = std::make_shared<AUIWidgetRootInfo>();
 
 	// Register widget
     if (AUIApplication::Instance().IsInitialized())
@@ -114,9 +113,11 @@ AUIWidget* const AUIWidget::GetRoot() const
 
 void AUIWidget::SetPosition(const AUIScalar3& pos)
 {
-	m_vPos = pos;
+    m_vPos = pos;
+    if (m_bDefault2DSensor)
+        UpdateDefault2DSensorSize();
 	OnPositionChange();
-	//if (IsInstanced())
+    //if (IsInstanced())
 	{
 		if (auto pInst = GetInstance())
 			pInst->OnSetPosition();
@@ -129,6 +130,8 @@ AUIScalar3 AUIWidget::GetPositionAtRoot() const
 	for (auto pWidget = GetParent(); pWidget; pWidget = pWidget->GetParent())
 	{
 		pos += pWidget->GetPosition();
+        if (pWidget->IsRootCoord())
+            break;
 	}
 	return pos;
 }
@@ -240,45 +243,55 @@ void AUIWidget::CallOnUpdateChildPosition(AUIWidget* const pWidget)
 
 void AUIWidget::SetRootTargetCoord(AUICoordSpace eTargetCoord)
 {
-	if (m_spRootInfo)
-	{
-		m_spRootInfo = std::make_shared<AUIWidgetRootInfo>(*m_spRootInfo);
-		m_spRootInfo->SetTargetCoord(eTargetCoord);
-    }
+    //if (!IsRoot())
+    //    throw;
     if (auto pInst = GetInstance())
-        pInst->OnSetCoordSpace();
+        throw; // can not change target coordinate system during it has instance.
+    if (m_spRootInfo)
+        m_spRootInfo = std::make_shared<AUIWidgetRootInfo>(*m_spRootInfo);
+	else
+		m_spRootInfo = std::make_shared<AUIWidgetRootInfo>();
+	m_spRootInfo->SetTargetCoord(eTargetCoord);
 }
 
 void AUIWidget::SetRootMatrix(const glm::mat4& mat)
 {
+    //if (!IsRoot())
+    //    throw;
+
 	if (m_spRootInfo)
-	{
 		m_spRootInfo = std::make_shared<AUIWidgetRootInfo>(*m_spRootInfo);
-		m_spRootInfo->SetMatrix(mat);
-	}
+	else
+		m_spRootInfo = std::make_shared<AUIWidgetRootInfo>();
+	m_spRootInfo->SetMatrix(mat);
     if (auto pInst = GetInstance())
         pInst->OnSetRootMatrix();
 }
 
 AUICoordSpace AUIWidget::GetRootTargetCoord() const
 {
-	AUIAssert(m_spRootInfo);
-	return m_spRootInfo->GetTargetCoord();
+	return GetRootCoordInfo()->GetTargetCoord();
 }
 
 const glm::mat4& AUIWidget::GetRootMatrix() const
 {
-	AUIAssert(m_spRootInfo);
-	return m_spRootInfo->GetMatrix();
+	//AUIAssert(m_spRootInfo);
+	//if (m_spRootInfo)
+	//	return m_spRootInfo->GetMatrix();
+	//else if (auto pParent = GetParent())
+	//	return pParent->GetRootMatrix();
+	//else
+ //       return s_DefualtRootInfo.GetMatrix();
+    return GetRootCoordInfo()->GetMatrix();
 }
 
-const glm::mat4 AUIWidget::GetAccumulatedMatrix() const
-{
-	if (IsRoot())
-		return GetRootMatrix();
-
-	return GetParent()->GetAccumulatedMatrix() * GetRootMatrix();
-}
+//const glm::mat4 AUIWidget::GetAccumulatedMatrix() const
+//{
+//	if (IsRoot())
+//		return GetRootMatrix();
+//
+//	return GetParent()->GetAccumulatedMatrix() * GetRootMatrix();
+//}
 
 AUIWidgetManager* AUIWidget::GetWidgetManager() const noexcept
 {
@@ -327,9 +340,25 @@ bool AUIWidget::IsRootCoord() const
 	auto pParent = GetParent();
 	if (pParent == nullptr)
 		return true;
-	else if (pParent->m_spRootInfo != m_spRootInfo)
+	else if (m_spRootInfo)
 		return true;
 	return false;
+}
+
+const AUIWidgetRootInfo* AUIWidget::GetRootCoordInfo() const
+{
+    //AUIAssert(m_spRootInfo);
+    if (m_spRootInfo)
+    	return m_spRootInfo.get();
+    auto pRootInfo = m_spRootInfo.get();
+    auto pParent = GetParent();
+
+    while (!pRootInfo && pParent)
+    {
+        pRootInfo = pParent->m_spRootInfo.get();
+        pParent = pParent->GetParent();
+    }
+    return pRootInfo?pRootInfo:&s_DefualtRootInfo;
 }
 
 void AUIWidget::SetScrollTo(const SkScalar& x, const SkScalar& y)
@@ -409,56 +438,47 @@ bool AUIWidget::HitTest(glm::vec3& hit) const
 	return false;
 }
 
-SkPoint AUIWidget::GetMouseAbsPos() const
-{
-	AUIAssert(m_bDefault2DCompass);
-	AUIAssert(0 < m_aCompasses.size());
-    const auto pos = m_aCompasses[0]->GetPosition();
-    return SkPoint::Make(pos.x, pos.y);
-}
-
-bool AUIWidget::HasMouseAbsPos() const
-{
-    AUIAssert(0 < m_aCompasses.size());
-    return m_bDefault2DCompass;
-}
-
 SkPoint AUIWidget::GetMouseLocPos() const
 {
-	AUIAssert(m_bDefault2DSensor);
-    const auto pSensor = GetCurSensor();
-    if (nullptr == pSensor)
-    {
-        return SkPoint::Make(0.0f, 0.0f);
-    }
-    const auto pos = pSensor->GetHitPos();
-    return SkPoint::Make(pos.x, pos.y);
+    AUIAssert(m_bDefault2DSensor);
+    AUIAssert(0 < m_aSensors.size());
+    auto pSensor = static_cast<AUIRectangleSensor*>(m_aSensors[0].get());
+    const auto pos = pSensor->GetHitPosOnRect();
+    return SkPoint::Make(pos.x, pos.y) ;
 }
 
 bool AUIWidget::HasMouseLocPos() const
 {
-    AUIAssert(0 < m_aCompasses.size());
+    AUIAssert(0 < m_aSensors.size());
     return m_bDefault2DSensor;
 }
 
-SkScalar AUIWidget::GetMouseAbsPosX() const
-{
-    return this->GetMouseAbsPos().fX;
-}
-
-SkScalar AUIWidget::GetMouseAbsPosY() const
-{
-    return this->GetMouseAbsPos().fY;
-}
+//SkScalar AUIWidget::GetMouseAbsPosX() const
+//{
+//    return this->GetMouseAbsPos().fX;
+//}
+//
+//SkScalar AUIWidget::GetMouseAbsPosY() const
+//{
+//    return this->GetMouseAbsPos().fY;
+//}
 
 SkScalar AUIWidget::GetMouseLocPosX() const
 {
-    return this->GetMouseLocPos().fX;
+    AUIAssert(m_bDefault2DSensor);
+    AUIAssert(0 < m_aSensors.size());
+    auto pSensor = static_cast<AUIRectangleSensor*>(m_aSensors[0].get());
+    const auto pos = pSensor->GetHitPosOnRect();
+    return pos.x;
 }
 
 SkScalar AUIWidget::GetMouseLocPosY() const
 {
-    return this->GetMouseLocPos().fY;
+    AUIAssert(m_bDefault2DSensor);
+    AUIAssert(0 < m_aSensors.size());
+    auto pSensor = static_cast<AUIRectangleSensor*>(m_aSensors[0].get());
+    const auto pos = pSensor->GetHitPosOnRect();
+    return pos.y;
 }
 
 void AUIWidget::NotifyUIStateChange()
@@ -506,15 +526,12 @@ void AUIWidget::SetStyleNotion(const AUIStyleNotion& notion)
 		auto& key = itr.first;
 		auto& value = itr.second;
 
-
 		OnSetStyleNotion(key, value);
 	}
-
 }
 
 void AUIWidget::OnSetStyleNotion(unsigned int uiKey, const AUIStyleNotionValue& value)
 {
-
 	bool bState;
 	int iState;
 	float fState;
@@ -761,7 +778,6 @@ void AUIWidget::CallMeasureAndUpdateSize(AUIWidget* const pWidget)
 	// Recursive call
 	OnCallMeasureAndUpdateSize(pWidget, width, widthSpec, height, heightSpec);
 
-
 	pWidget->m_bNeedUpdateSize = false;
 	pWidget->m_bUpdateChildPosition = true;
 	pWidget->Invalidate();
@@ -824,7 +840,6 @@ AUIScalar2 AUIWidget::GetDefaultMeasureSize(const SkScalar width, AUIMeasureSpec
 	res = AUIScalar2::Smaller(res, GetMaximumSize());
 
 	return res;
-
 }
 
 void AUIWidget::OnPreMeasureSize()
@@ -859,13 +874,10 @@ void AUIWidget::OnCallMeasureAndUpdateSize(AUIWidget* const pWidget, SkScalar wi
 	pWidget->OnPostMeasureSize();
 
 	pWidget->OnAfterMeasureSize(pWidget->GetWidth(), pWidget->GetHeight());
-	if (pWidget->m_bDefault2DSensor)
-		pWidget->UpdateDefault2DSensorSize();
 }
 
 bool AUIWidget::IsGrabMouseEvent()
 {
-
 	if (IsInstanced() == false)
 		return false;
 	AUIAssert(GetWidgetManager());
@@ -880,7 +892,6 @@ void AUIWidget::GrabMouseEvent()
 	GetWidgetManager()->GetWidgetSelection().Clear();
 	GetWidgetManager()->GetWidgetSelection().PushBack(shared_from_this());
 	GetWidgetManager()->SetGrabMouseEvent(true);
-
 }
 
 void AUIWidget::ReleaseMouseEvent()
@@ -927,6 +938,7 @@ bool AUIWidget::OnMouseEvent(const MAUIMouseEvent& evt)
 {
 	if (IsFreezed())
 		return false;
+    UpdateCompass();
 
 	bool handled = false;
 
@@ -974,7 +986,6 @@ bool AUIWidget::OnMouseEvent(const MAUIMouseEvent& evt)
 	}
 
 	return handled;
-
 }
 
 bool AUIWidget::OnKeyboardEvent(const AUIKeyboardEvent& evt)
@@ -1011,7 +1022,6 @@ bool AUIWidget::OnKeyboardEvent(const AUIKeyboardEvent& evt)
 	}
 
 	return handled;
-
 }
 
 void AUIWidget::OnTickTimeEvent(const std::chrono::milliseconds& prevTickTime, const std::chrono::milliseconds& curTickTime)
@@ -1021,7 +1031,6 @@ void AUIWidget::OnTickTimeEvent(const std::chrono::milliseconds& prevTickTime, c
 
 	m_CurTimeTick = curTickTime;
 	TickTime(prevTickTime, curTickTime);
-
 }
 
 bool AUIWidget::OnSetCursorEvent(AUICursorIcon& cursoricon)
@@ -1034,7 +1043,6 @@ bool AUIWidget::OnSetCursorEvent(AUICursorIcon& cursoricon)
 	handled = OnChangeCursorIcon(cursoricon);
 
 	return handled;
-
 }
 
 bool AUIWidget::OnChangeCursorIcon(AUICursorIcon& cursoricon)
@@ -1053,7 +1061,6 @@ void AUIWidget::MouseEnter()
 
 void AUIWidget::MouseLeave()
 {
-
 	AUIAssert(IsMouseHover() == true);
 
 	OnMouseLeave();
@@ -1066,7 +1073,6 @@ void AUIWidget::MouseLeave()
 
 void AUIWidget::MouseHover()
 {
-
 	AUIAssert(IsMouseHover() == true);
 
 	OnMouseHover();
@@ -1118,9 +1124,7 @@ bool AUIWidget::MouseLBtnDown(MAUIMouseEvent::EventFlag flag)
 		}
 	}
 
-
 	return handled;
-
 }
 
 bool AUIWidget::MouseLBtnUp(MAUIMouseEvent::EventFlag flag)
@@ -1148,8 +1152,9 @@ bool AUIWidget::MouseLBtnUp(MAUIMouseEvent::EventFlag flag)
 
 	SetMouseLDown(false);
 	SetPressed(false);
-	return handled;
+    SetHovered(false);
 
+	return handled;
 }
 
 bool AUIWidget::MouseRBtnDblClk(MAUIMouseEvent::EventFlag flag)
@@ -1158,7 +1163,6 @@ bool AUIWidget::MouseRBtnDblClk(MAUIMouseEvent::EventFlag flag)
 	handled = OnMouseRBtnDblClk(flag);
 	SetMouseRDown(false);
 	return handled;
-
 }
 
 bool AUIWidget::MouseRBtnDown(MAUIMouseEvent::EventFlag flag)
@@ -1168,7 +1172,6 @@ bool AUIWidget::MouseRBtnDown(MAUIMouseEvent::EventFlag flag)
 	SetPressed(true);
 	handled = OnMouseRBtnDown(flag);
 	return handled;
-
 }
 
 bool AUIWidget::MouseRBtnUp(MAUIMouseEvent::EventFlag flag)
@@ -1187,7 +1190,6 @@ bool AUIWidget::MouseRBtnUp(MAUIMouseEvent::EventFlag flag)
 	SetMouseRDown(false);
 	SetPressed(false);
 	return handled;
-
 }
 
 bool AUIWidget::MouseMBtnDblClk(MAUIMouseEvent::EventFlag flag)
@@ -1196,7 +1198,6 @@ bool AUIWidget::MouseMBtnDblClk(MAUIMouseEvent::EventFlag flag)
 	handled = OnMouseMBtnDblClk(flag);
 	SetMouseMDown(false);
 	return handled;
-
 }
 
 bool AUIWidget::MouseMBtnDown(MAUIMouseEvent::EventFlag flag)
@@ -1206,7 +1207,6 @@ bool AUIWidget::MouseMBtnDown(MAUIMouseEvent::EventFlag flag)
 	SetPressed(true);
 	handled = OnMouseMBtnDown(flag);
 	return handled;
-
 }
 
 bool AUIWidget::MouseMBtnUp(MAUIMouseEvent::EventFlag flag)
@@ -1216,7 +1216,6 @@ bool AUIWidget::MouseMBtnUp(MAUIMouseEvent::EventFlag flag)
 	SetMouseMDown(false);
 	SetPressed(false);
 	return handled;
-
 }
 
 bool AUIWidget::MouseMove(MAUIMouseEvent::EventFlag flag)
@@ -1242,7 +1241,7 @@ bool AUIWidget::MouseMove(MAUIMouseEvent::EventFlag flag)
 		{
 			OnDragging();
 			DragSignal.Send(this);
-			//         SetPrevDragPos( GetMouseAbsPosX(), GetMouseAbsPosY() );
+			//SetPrevDragPos( GetMouseAbsPosX(), GetMouseAbsPosY() );
 			//SetPrevDragLocPos( GetMouseLocPosX(), GetMouseLocPosY() );
 			//glm::vec3 Pos; glm::vec3 Norm;
 			//GetCurMouseLocalRay( Pos, Norm);
@@ -1252,7 +1251,6 @@ bool AUIWidget::MouseMove(MAUIMouseEvent::EventFlag flag)
 	}
 
 	return handled;
-
 }
 
 bool AUIWidget::MouseWheel(MAUIMouseEvent::EventFlag flag, float delta)
@@ -1260,13 +1258,11 @@ bool AUIWidget::MouseWheel(MAUIMouseEvent::EventFlag flag, float delta)
 	bool handled = false;
 	handled = OnMouseWheel(flag, delta);
 	return handled;
-
 }
 
 bool AUIWidget::KeyDown(AUIKeyboardEvent::MaskCode mask, unsigned int keycode, unsigned int repcount, unsigned int charcode)
 {
 	return OnKeyDown(mask, keycode, repcount, charcode);
-
 }
 
 bool AUIWidget::KeyUp(AUIKeyboardEvent::MaskCode mask, unsigned int keycode, unsigned int repcount, unsigned int charcode)
@@ -1290,38 +1286,31 @@ bool AUIWidget::KeyUp(AUIKeyboardEvent::MaskCode mask, unsigned int keycode, uns
 	if (handled == false)
 		return OnKeyUp(mask, keycode, repcount, charcode);
 	return handled;
-
 }
 
 bool AUIWidget::KeyChar(AUIKeyboardEvent::MaskCode mask, unsigned int charcode, unsigned int repcount, unsigned int flag)
 {
 	return OnChar(mask, charcode, repcount, flag);
-
 }
 
 bool AUIWidget::KeyIMEStart()
 {
 	return OnKeyIMEStart();
-
 }
 
 bool AUIWidget::KeyIMEComp(unsigned int charcode, int64_t param)
 {
 	return OnKeyIMEComp(charcode, param);
-
 }
 
 bool AUIWidget::KeyIMEEnd()
 {
 	return OnKeyIMEEnd();
-
-
 }
 
 bool AUIWidget::KeyIMEChar(unsigned int charcode, int64_t param)
 {
 	return OnKeyIMEChar(charcode, param);
-
 }
 
 void AUIWidget::TickTime(const std::chrono::milliseconds& prevTime, const std::chrono::milliseconds& curTime)
@@ -1341,7 +1330,6 @@ void AUIWidget::TickTime(const std::chrono::milliseconds& prevTime, const std::c
 			}
 		}
 	}
-
 }
 
 void AUIWidget::OnTickTime(const std::chrono::milliseconds& prevTime, const std::chrono::milliseconds& curTime)
@@ -1369,12 +1357,27 @@ void AUIWidget::ResetAnimRunning()
     Invalidate();
 }
 
+void AUIWidget::_invalidate_sensor()
+{
+    if (IsInstanced())
+        GetWidgetManager()->InvalidateSensor(this);
+}
+
 void AUIWidget::AddCompass(const std::shared_ptr< AUICompass >& pCompass)
 {
 	m_aCompasses.emplace_back(pCompass);
+    UpdateCompass();
+}
+void AUIWidget::UpdateCompass()
+{
+    auto pWidgetManager = GetWidgetManager();
+    if (!pWidgetManager)
+        return;
+    const auto org = glm::vec3(pWidgetManager->GetMouseOrg());
+    const auto dir = glm::vec3(pWidgetManager->GetMouseDir());
 
-	if (auto pInst = GetInstance())
-		pInst->UpdateCompass(pCompass.get());
+    for (auto& pCompass : m_aCompasses)
+        pCompass->CalcControlPosition(org, dir);
 }
 
 void AUIWidget::UpdateSize()
@@ -1385,26 +1388,25 @@ void AUIWidget::UpdateSize()
 	pRootWidget->m_bNeedUpdateSize = true;
 	if (pRootWidget->IsCreated() == false)
 		CallMeasureAndUpdateSize(this);
-
 }
 
-const AUISensor* AUIWidget::GetCurSensor() const
-{
-	auto pInst = GetInstance();
-	if (!pInst)
-		return nullptr;
-
-	return pInst->GetCurSensor();
-}
+//const AUISensor* AUIWidget::GetCurSensor() const
+//{
+//	auto pInst = GetInstance();
+//	if (!pInst)
+//		return nullptr;
+//
+//	return pInst->GetCurSensor();
+//}
 
 void AUIWidget::LoadDefault2DSensor()
 {
-	m_bDefault2DCompass = true;
+	//m_bDefault2DCompass = true;
 	m_bDefault2DSensor = true;
 
-	auto pPlaneCompass = std::make_shared<AUIPlaneCompass>();
-	pPlaneCompass->SetPlane(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1), glm::vec3(1, 0, 0));
-	AddCompass(pPlaneCompass);
+	//auto pPlaneCompass = std::make_shared<AUIPlaneCompass>();
+	//pPlaneCompass->SetPlane(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1), glm::vec3(1, 0, 0));
+	//AddCompass(pPlaneCompass);
 
 	auto pRectangleSensor = std::make_shared<AUIRectangleSensor>();
 	AddSensor(pRectangleSensor);
@@ -1416,7 +1418,12 @@ void AUIWidget::UpdateDefault2DSensorSize()
 {
 	AUIAssert(m_bDefault2DSensor);
     AUIAssert(0 < m_aSensors.size());
-    m_aSensors[0]->SetAABB(0.0f, 0.0f, GetWidth(), GetHeight(), 0.0f, 0.0f);
+    auto pRectSensor = static_cast<AUIRectangleSensor*>(m_aSensors[0].get());
+
+    auto pos = GetPositionAtRoot();
+
+    pRectSensor->SetRectangle(pos.fX, pos.fY, GetWidth(), GetHeight());
+    //m_aSensors[0]->SetAABB(0.0f, 0.0f, GetWidth(), GetHeight(), 0.0f, 0.0f);
 }
 
 AUIInstance* AUIWidget::GetInstance() const

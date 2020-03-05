@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AUIComboWidget.h"
 #include "AUIComboPopupWidget.h"
+#include "AUIComboDefaultValue.h"
 #include "AUIWidgetManager.h"
 #include "AUIComboAdapter.h"
 #include "AUIStateDrawable.h"
@@ -13,24 +14,12 @@
 #include "AUIDrawableWidget.h"
 
 
-namespace {
-    constexpr SkScalar DefaultWidth = 100.0f;
-    constexpr SkScalar DefaultHeight = 23.0f;
-
-
-	std::shared_ptr< AUIDrawable > GetArrowDrawable()
-	{
-		AUIJsonDrawableParser parser;
-		if (auto refDrawable = parser.LoadFromPathByResource(L"drawable/combo_arrow.json"))
-			return *refDrawable;
-		else
-			return nullptr;
-	}
-
+namespace
+{
     std::shared_ptr< AUIDrawable > GetComboDrawable()
     {
         AUIJsonDrawableParser parser;
-        if (auto refDrawable = parser.LoadFromPathByResource(L"drawable/combo.json"))
+        if (auto refDrawable = parser.LoadFromPathByResource(L"drawable/mp_btn.json"))
             return *refDrawable;
 
         auto pDefaultBG = std::make_shared< AUIShapeDrawable >( std::make_shared< AUIRectShape >() );
@@ -101,10 +90,10 @@ AUIComboWidget::AUIComboWidget()
     , m_curPos( InvalidPos )
     , m_PopupMaxHeight( -1.0f )
     , m_bUsePopuptHitRect(false)
-	, m_pArrowDrawable(::GetArrowDrawable())
+    , m_bArrowDirection(true)
 {
     SetSizePolicy(AUISizePolicy::kFixed, AUISizePolicy::kFixed);
-    SetDefaultSize( DefaultWidth, DefaultHeight );
+    SetDefaultSize( COMBO::kDefaultWidth, COMBO::kDefaultHeight );
 
     SetPopupWidget( m_pPopup );
 
@@ -125,29 +114,27 @@ void AUIComboWidget::OnDraw( SkCanvas* const canvas )
 {
     SuperWidget::OnDraw( canvas );
 
-
     const auto rect = GetDrawBound();
-    const auto trioffset = 5.0f;
-    const auto trisize = 5.0f;// (std::max)( rect.height() - 2.0f * trioffset, trioffset );
-    const auto triOffsetY = rect.height() * 0.5f - trisize * 0.5f;
+    const auto triOffsetY = rect.height() * 0.5f - COMBO::ARROW::kComboArrowSize * 0.5f;
 
     // TOOD : Designed shape
     static auto pTriShape = std::make_shared< AUITriangleShape >();
     static auto pTriangle = std::make_shared< AUIShapeDrawable >( pTriShape );
-    pTriShape->SetAngle( 180.0f );
+    if (GetArrowDirection())
+        pTriShape->SetAngle( 180.0f );
     pTriangle->SetUseAA( true );
-    pTriangle->SetDrawBound( SkRect::MakeWH( trisize, trisize ) );
-    pTriangle->SetColor( SkColorSetRGB( 197, 197, 197 ) );
-    canvas->translate( GetWidth() - trisize - trioffset, triOffsetY );
+    pTriangle->SetDrawBound( SkRect::MakeWH(COMBO::ARROW::kComboArrowSize, COMBO::ARROW::kComboArrowSize) );
+    pTriangle->SetColor( COMBO::ARROW::kComboArrowColor );
+    canvas->translate( GetWidth() - COMBO::ARROW::kComboArrowSize - COMBO::ARROW::kComboArrowOffset, triOffsetY );
     pTriangle->Draw( canvas );
 }
 
 void AUIComboWidget::OnAfterMeasureSize(SkScalar width, SkScalar height)
 {
-    const auto trioffset = 5.0f;
-    const auto trisize = 5.0f;
     const auto trioffsetleft = 5.0f;
-    SetPopupHitRect(SkRect::MakeLTRB(width - trisize - trioffset - trioffsetleft, 0.0f, width, height));
+    SetPopupHitRect(SkRect::MakeLTRB(width - COMBO::ARROW::kComboArrowSize
+                                     - COMBO::ARROW::kComboArrowOffset
+                                     - trioffsetleft, 0.0f, width, height));
 }
 
 void AUIComboWidget::OnMouseEnter()
@@ -175,20 +162,14 @@ bool AUIComboWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
     if ( false == IsDisabled() )
     {
         if (false == IsUsePopupHitRect())
-        {
             ComboPopupSignal.Send(this);
-        }
         else
         {
             // Check Hit Test
             if (m_PopupHitRect.isEmpty() || AUISkiaUtil::IsInRect(m_PopupHitRect, GetMouseLocPos()))
-            {
                 ComboPopupSignal.Send(this);
-            }
             else
-            {
                 ComboClickSignal.Send(this);
-            }
         }
     }
 

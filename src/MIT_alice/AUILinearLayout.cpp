@@ -228,10 +228,14 @@ void AUILinearLayout::OnMeasureSize(SkScalar width, AUIMeasureSpec widthSpec, Sk
 
     if (isHorizontal)
     {
+        if (availableWidth < 0)
+            availableWidth = 0;
         requiredWidth = targetWidth - availableWidth;
     }
     else
     {
+        if (availableHeight < 0)
+            availableHeight = 0;
         requiredHeight = targetHeight - availableHeight;
     }
 

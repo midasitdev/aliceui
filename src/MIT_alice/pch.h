@@ -54,6 +54,8 @@
 
 //////////////////////////////////////////////////////////////////////////
 // GLM Header
+//#define GLM_FORCE_CTOR_INIT
+//#define GLM_FORCE_EXPLICIT_CTOR
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 #include <glm/gtx/matrix_query.hpp>

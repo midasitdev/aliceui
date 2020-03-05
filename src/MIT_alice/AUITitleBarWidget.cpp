@@ -11,7 +11,7 @@
 
 static void SetSysButtonStyle(AUIImageButtonWidget* pBtn)
 {
-	pBtn->SetDefaultSize(TitleBar::SysButton::kWidth, TitleBar::SysButton::kHeight);
+	pBtn->SetDefaultSize(TitleBar::SysButton::kBGWidth, TitleBar::SysButton::kBGHeight);
     pBtn->SetSizePolicy(TitleBar::SysButton::kWidthPolicy, TitleBar::SysButton::kHeightPolicy);
 	pBtn->SetMarginLTRB(
 		TitleBar::SysButton::kMarginLeft,
@@ -162,44 +162,37 @@ AUISignal< void(AUIWidget* ) >& AUITitleBarWidget::GetTitleBarDblClickSignal() c
 
 AUISignal< void(AUIWidget* ) >& AUITitleBarWidget::GetDragStartSignal() const
 {
-
 	return m_pTitleBar->DragPressSignal;
 }
 
 AUISignal< void(AUIWidget* ) >& AUITitleBarWidget::GetDragEndSignal() const
 {
-
 	return m_pTitleBar->DragReleaseSignal;
 }
 
-AUISignal< void(AUIWidget* , float, float) >& AUITitleBarWidget::GetDraggingSignal() const
+AUISignal< void(AUIWidget* ) >& AUITitleBarWidget::GetDraggingSignal() const
 {
-
 	return m_pTitleBar->DragMoveSignal;
 }
 
 AUISignal< void(AUIWidget* ) >& AUITitleBarWidget::GetMinimizeSignal() const
 {
-
 	return m_pMinimizeButton->ClickSignal;
 }
 
 AUISignal< void(AUIWidget* ) >& AUITitleBarWidget::GetMaximizeSignal() const
 {
-
 	return m_pMaximizeButton->ClickSignal;
 }
 
 AUISignal< void(AUIWidget* ) >& AUITitleBarWidget::GetCloseSignal() const
 {
-
 	return m_pCloseButton->ClickSignal;
 }
 
 void AUITitleBarWidget::SetTitle(const std::wstring& caption)
 {
 	m_pTitleBar->SetCaption(caption);
-
 }
 
 std::wstring AUITitleBarWidget::GetTitle() const

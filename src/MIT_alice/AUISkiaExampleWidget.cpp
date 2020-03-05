@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AUISkiaExampleWidget.h"
 #include "AUIGalleria.h"
+#include "SkFontMgr.h"
 
 
 namespace {
@@ -57,12 +58,10 @@ void AUISkiaExampleWidget::OnDraw( SkCanvas * const canvas )
     auto pAliceBitmap = galleria.GetFromResource( L"basic_images/no_image.png" );
     //////////////////////////////////////////////////////////////////////////
 
-
-
     //////////////////////////////////////////////////////////////////////////
     // Text
     AUICanvasHelper canvasHelper( canvas );
-    canvasHelper.drawText( L"Hello, World!", 0.0f, 15.0f, textPaint );
+    canvasHelper.drawText( L"1st Milestone", 0.0f, 15.0f, textPaint );
     // Text by bound
     SkRect textRegion = SkRect::MakeXYWH( 100.0f, 0.0f, 100.0f, 15.0f );
     canvasHelper.drawText( L"Çï·Î¿ì, ¿ùµå!", textRegion, AUITextVertAlign::kCenter, AUITextHorzAlign::kCenter, true, textPaint );
@@ -70,6 +69,17 @@ void AUISkiaExampleWidget::OnDraw( SkCanvas * const canvas )
     //////////////////////////////////////////////////////////////////////////
     canvas->translate( 0.0f, 20.0f );
 
+    //////////////////////////////////////////////////////////////////////////
+    // Font Family Test
+    SkPaint textFontChange;
+    textFontChange.setColor(kAUIColorRed);
+    textFontChange.setAntiAlias(true);
+    textFontChange.setTextSize(13.0f);
+    textFontChange.setTextEncoding(SkPaint::kUTF16_TextEncoding);
+    canvasHelper.drawText(L"1st Milestone", 0.0f, 15.0f, textFontChange);
+    // Text by bound
+    //////////////////////////////////////////////////////////////////////////
+    canvas->translate(0.0f, 20.0f);
 
     //////////////////////////////////////////////////////////////////////////
     // Rectangle shape

@@ -4,6 +4,8 @@
 #include "AUIStringConvert.h"
 #include "AUIStringUtil.h"
 #include "AUIStyleSheetUtil.h"
+#include "AUIApplication.h"
+#include "AUIFontManager.h"
 
 namespace {
     constexpr wchar_t DefaultCaption[] = L"Label";
@@ -17,7 +19,9 @@ namespace {
     constexpr SkScalar DefaultCaptionSize = 13.0f;
     constexpr AUITextHorzAlign DefaultHorzAlign = AUITextHorzAlign::kLeft;
     constexpr AUITextVertAlign DefaultVertAlign = AUITextVertAlign::kCenter;
-    constexpr SkColor DefaultCaptionColor = SkColorSetRGB( 17, 17, 17 );
+    constexpr SkColor TrueStateCaptionColor = SkColorSetRGB( 201, 211, 219 );
+    constexpr SkColor FalseStateCaptionColor = SkColorSetRGB( 137, 144, 148 );
+
 }
 
 AUITextWidget::AUITextWidget()
@@ -29,8 +33,8 @@ AUITextWidget::AUITextWidget()
     , m_iMaxLines( ( std::numeric_limits< int >::max )( ) )
     , m_iLines( 0 )
     , m_bUseMultiline(false)
-    , m_mapTrueStateCaptionColor{ {AUIState::kDefault, DefaultCaptionColor} }
-    , m_mapFalseStateCaptionColor{ {AUIState::kDefault, DefaultCaptionColor} }
+    , m_mapTrueStateCaptionColor{ {AUIState::kDefault, TrueStateCaptionColor} }
+    , m_mapFalseStateCaptionColor{ {AUIState::kDisabled, FalseStateCaptionColor} }
 {
     SetCaptionHorzAlign( DefaultHorzAlign );
     SetCaptionVertAlign( DefaultVertAlign );
@@ -49,8 +53,8 @@ AUITextWidget::AUITextWidget( const std::wstring& caption )
     , m_iMaxLines( ( std::numeric_limits< int >::max )( ) )
     , m_iLines( 0 )
     , m_bUseMultiline( false )
-    , m_mapTrueStateCaptionColor{ {AUIState::kDefault, DefaultCaptionColor} }
-    , m_mapFalseStateCaptionColor{ {AUIState::kDefault, DefaultCaptionColor} }
+    , m_mapTrueStateCaptionColor{ {AUIState::kDefault, TrueStateCaptionColor} }
+    , m_mapFalseStateCaptionColor{ {AUIState::kDisabled, FalseStateCaptionColor} }
 {
     SetCaptionHorzAlign( DefaultHorzAlign );
     SetCaptionVertAlign( DefaultVertAlign );
@@ -385,24 +389,54 @@ void AUITextWidget::GetCaptionPaint( SkPaint& paint ) const
                 paint.setColor( GetCaptionColor( AUIState::kMouseHovered, true ) );
             }
         }
-
     }
 
     // Setup font
     static auto pFontMgr = SkFontMgr::RefDefault();
+    static std::map<std::wstring, sk_sp<SkTypeface>> s_mapFontName2Typeface;
+
     AUIAssert(pFontMgr);
     static SkString defaultFontName;
     if (defaultFontName.isEmpty())
     {
         SkTypeface::MakeDefault()->getFamilyName(&defaultFontName);
+        
+        const auto wsAppDir = AUIStringUtil::ToLowerCase(AUIApplication::Instance().GetApplicationDirectory());
+        std::wstring appDir;
+        appDir = appDir.assign(wsAppDir.begin(), wsAppDir.end());
+        auto tempFilePath = appDir + L"\\fonts\\*.ttf";
+
+        CFileFind finder;
+        bool bWorking = finder.FindFile(tempFilePath.c_str());
+        while (bWorking)
+        {
+            bWorking = finder.FindNextFile();
+            auto wsFontPath = appDir + L"\\fonts\\" + (LPCTSTR)finder.GetFileName();
+            std::string sFontPath;
+            sFontPath.assign(wsFontPath.begin(), wsFontPath.end());
+            auto cFontName = finder.GetFileName();
+            cFontName = cFontName.Mid(0, cFontName.GetLength() - 4);
+            auto pNewfont = pFontMgr->makeFromFile(sFontPath.c_str());
+            std::wstring wsFontName = cFontName.operator LPCWSTR();
+            wsFontName = AUIStringUtil::ToLowerCase(wsFontName);
+            s_mapFontName2Typeface[wsFontName] = pNewfont;
+        }
     }
     const auto kDefaultFontStyle = SkFontStyle::Normal();
     if (GetCaptionFontName().empty() == false )
     {
-        const auto fontName = AUIStringConvert::WCSToUTF8(GetCaptionFontName().c_str());
+        auto fontName = AUIStringConvert::WCSToUTF8(GetCaptionFontName().c_str());
         sk_sp<SkTypeface> pTypeface(pFontMgr->matchFamilyStyle(fontName.c_str(), GetCaptionStyle()));
         if (nullptr == pTypeface)
-            pTypeface.reset(pFontMgr->matchFamilyStyle(defaultFontName.c_str(), GetCaptionStyle()));
+        {
+            std::wstring wsFontName(fontName.begin(), fontName.end());
+            wsFontName.pop_back();
+            auto fontItr = s_mapFontName2Typeface.find(AUIStringUtil::ToLowerCase(wsFontName));
+            if (fontItr != s_mapFontName2Typeface.end())
+                pTypeface = fontItr->second;
+            else
+                pTypeface.reset(pFontMgr->matchFamilyStyle(defaultFontName.c_str(), GetCaptionStyle()));
+        }
         paint.setTypeface(pTypeface);
     }
     else if (!(m_captionStyle == kDefaultFontStyle))
@@ -410,9 +444,7 @@ void AUITextWidget::GetCaptionPaint( SkPaint& paint ) const
         sk_sp<SkTypeface> pTypeface(pFontMgr->matchFamilyStyle(defaultFontName.c_str(), GetCaptionStyle()));
         paint.setTypeface(pTypeface);
     }
-
 }
-
 
 SkColor AUITextWidget::GetCaptionColor( AUIState::Index idx, bool state ) const
 {

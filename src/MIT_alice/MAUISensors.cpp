@@ -33,7 +33,7 @@ bool MAUISensorUtil::IsIntersectLine(const glm::vec3& vRayOrg, const glm::vec3& 
         auto disp = abs(glm::dot((vRayOrg - (glm::vec3)line.pos[0]), n));
         if (disp < fRayRad)
         {
-            if (glm::dot((vRayOrg - (glm::vec3)line.pos[0]), n2) / glm::dot(vRayDir, n2) > 0.0f)
+            if (glm::dot((vRayOrg - (glm::vec3)line.pos[0]), n2) / glm::dot(dir, n2) > 0.0f)
             {
                 fHitDistance = (glm::dot(((glm::vec3)line.pos[0] - vRayOrg), n1) / glm::dot(vRayDir, n1));
                 return true;
@@ -50,7 +50,7 @@ bool MAUISensorUtil::IsIntersectLine(const glm::vec3& vRayOrg, const glm::vec3& 
 
 bool MAUISensorUtil::IsIntersectCircle(const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fRayRad, const ShapeCircle& circle, OUT float& fHitDistance)
 {
-    glm::dvec3 dir;
+    glm::dvec3 dir(0.f);
     if (glm::distance(circle.norm, glm::dvec3(1.0f, 0.0f, 0.0f)) < glm::epsilon<double>())
         dir = glm::normalize(glm::cross(circle.norm, glm::dvec3(0.0f, 1.0f, 0.0f)));
     else
@@ -105,10 +105,10 @@ bool MAUISensorUtil::IsIntersectEllipseArc(const glm::vec3& vRayOrg, const glm::
 }
 
 
-bool MAUISphereSensor::UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir)
+bool MAUISphereSensor::UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fScale)
 {
-    auto vLocalEyePos = glm::vec3(m_matSensorInv * glm::vec4(vRayOrg, 1));
-    auto vLocalEyeDir = glm::vec3(m_matSensorInv * glm::vec4(vRayDir, 0));
+    auto vLocalEyePos = glm::vec3(glm::vec4(vRayOrg, 1));
+    auto vLocalEyeDir = glm::vec3(glm::vec4(vRayDir, 0));
     if (!glm::intersectRaySphere(vLocalEyePos, vLocalEyeDir, m_vSpherePos, m_fSphereRadius, m_fHitDistance))
     {
         //그랩중에는 이런경우엔 문제가 발생할지도.  일단 m_vHitDir는 유지하게 둔다.
@@ -119,7 +119,7 @@ bool MAUISphereSensor::UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRay
     return true;
 }
 
-bool MAUICircleBoundarySensor::UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir)
+bool MAUICircleBoundarySensor::UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fScale)
 {
     auto vLocalEyePos = glm::vec3(m_matSensorInv * glm::vec4(vRayOrg, 1));
     auto vLocalEyeDir = glm::vec3(m_matSensorInv * glm::vec4(vRayDir, 0));
@@ -139,55 +139,66 @@ bool MAUICircleBoundarySensor::UpdateHit(const glm::vec3& vRayOrg, const glm::ve
     return true;
 }
 
-bool MAUILinesSensor::UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir)
+bool MAUILineSensor::UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fScale)
 {
-    auto vLocalEyePos = glm::vec3(m_matSensorInv * glm::vec4(vRayOrg, 1));
-    auto vLocalEyeDir = glm::vec3(m_matSensorInv * glm::vec4(vRayDir, 0));
-    float fRad = 0.010f;
-    for (auto line : m_arrLines)
-    {
-        if (MAUISensorUtil::IsIntersectLine(vRayOrg, vRayDir, fRad, line, m_fHitDistance))
-        {
-            m_vHitPos = vRayOrg + m_fHitDistance * vRayDir;
-            return true;
-        }
-    }
+    float fRad = fScale * 5.f;   //screen에서의 5pixel;
 
-    for (auto circle : m_arrCircle)
-    {
-        if (MAUISensorUtil::IsIntersectCircle(vRayOrg, vRayDir, fRad, circle, m_fHitDistance))
-        {
-            m_vHitPos = vRayOrg + m_fHitDistance * vRayDir;
-            return true;
-        }
-    }
 
-    for (auto arc : m_arrArc)
+    if (MAUISensorUtil::IsIntersectLine(vRayOrg, vRayDir, fRad, m_line, m_fHitDistance))
     {
-        if (MAUISensorUtil::IsIntersectArc(vRayOrg, vRayDir, fRad, arc, m_fHitDistance))
-        {
-            m_vHitPos = vRayOrg + m_fHitDistance * vRayDir;
-            return true;
-        }
+        m_vHitPos = vRayOrg + m_fHitDistance * vRayDir;
+        return true;
     }
+    //for (auto line : m_arrLines)
+    //{
+    //}
 
-    for (auto ellipse : m_arrEllipse)
+    //for (auto circle : m_arrCircle)
+    //{
+    //    if (MAUISensorUtil::IsIntersectCircle(vRayOrg, vRayDir, fRad, circle, m_fHitDistance))
+    //    {
+    //        m_vHitPos = vRayOrg + m_fHitDistance * vRayDir;
+    //        return true;
+    //    }
+    //}
+
+    //for (auto arc : m_arrArc)
+    //{
+    //    if (MAUISensorUtil::IsIntersectArc(vRayOrg, vRayDir, fRad, arc, m_fHitDistance))
+    //    {
+    //        m_vHitPos = vRayOrg + m_fHitDistance * vRayDir;
+    //        return true;
+    //    }
+    //}
+
+    //for (auto ellipse : m_arrEllipse)
+    //{
+    //    if (MAUISensorUtil::IsIntersectEllipse(vRayOrg, vRayDir, fRad, ellipse, m_fHitDistance))
+    //    {
+    //        m_vHitPos = vRayOrg + m_fHitDistance * vRayDir;
+    //        return true;
+    //    }
+    //}
+
+    //for (auto ellipseArc : m_arrEllipseArc)
+    //{
+    //    if (MAUISensorUtil::IsIntersectEllipseArc(vRayOrg, vRayDir, fRad, ellipseArc, m_fHitDistance))
+    //    {
+    //        m_vHitPos = vRayOrg + m_fHitDistance * vRayDir;
+    //        return true;
+    //    }
+    //}
+
+    return false;
+}
+
+bool mit::alice::MAUIArcSensor::UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fScale)
+{
+    float fRad = fScale * 5.f;   //screen에서의 5pixel;
+    if (MAUISensorUtil::IsIntersectArc(vRayOrg, vRayDir, fRad, m_arc, m_fHitDistance))
     {
-        if (MAUISensorUtil::IsIntersectEllipse(vRayOrg, vRayDir, fRad, ellipse, m_fHitDistance))
-        {
-            m_vHitPos = vRayOrg + m_fHitDistance * vRayDir;
-            return true;
-        }
+        m_vHitPos = vRayOrg + m_fHitDistance * vRayDir;
+        return true;
     }
-
-    for (auto ellipseArc : m_arrEllipseArc)
-    {
-        if (MAUISensorUtil::IsIntersectEllipseArc(vRayOrg, vRayDir, fRad, ellipseArc, m_fHitDistance))
-        {
-            m_vHitPos = vRayOrg + m_fHitDistance * vRayDir;
-            return true;
-        }
-    }
-
     return false;
 }

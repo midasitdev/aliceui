@@ -225,6 +225,16 @@ void AUIForm::SetMaxSize(int width, int height)
     GetHandle()->SetMaxSize(width, height);
 }
 
+void AUIForm::SetSubWindowType(const SUB_WINDOW_TYPE& type)
+{
+    GetHandle()->SetSubWindowType(type);
+}
+
+SUB_WINDOW_TYPE AUIForm::GetSubWindowType() const
+{
+    return GetHandle()->GetSubWindowType();
+}
+
 void AUIForm::SetTransparent(bool val)
 {
     GetHandle()->SetTransparent(val);

@@ -22,9 +22,11 @@ public:
     void ClearScreen();
     void SetMaxListSize(size_t size);
     void SetMultilineType(AUITextLineFeed multilineType);
-    AUITextLineFeed GetMultilineType() const {
-        return m_MultilineType;
-    }
+    AUITextLineFeed GetMultilineType() const { return m_MultilineType; }
+
+protected:
+    void OnSetDefaultSize(const AUIScalar2& size) override;
+
 private:
     void OnEditReturn(AUIWidget*);
     std::shared_ptr< AUIScrollableWidget > m_pScroll;

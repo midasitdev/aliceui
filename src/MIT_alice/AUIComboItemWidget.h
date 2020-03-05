@@ -7,6 +7,7 @@ class ALICEUI_API AUIComboItemWidget : public AUIAbsoluteLayoutWidget
     typedef AUIAbsoluteLayoutWidget SuperWidget;
 public:
     AUIComboItemWidget();
+    AUIComboItemWidget(const std::wstring& bgPath);
     virtual ~AUIComboItemWidget();
 
     //////////////////////////////////////////////////////////////////////////

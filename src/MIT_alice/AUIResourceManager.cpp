@@ -49,7 +49,12 @@ std::wstring AUIFileResourceLoader::LoadText(const std::wstring& path)
 #if defined(_WIN32)
 #   pragma warning(push)
 #   pragma warning(disable: 4996)
-    std::unique_ptr<FILE, decltype(&fclose)> pFile(_wfopen(path.c_str(), L"r"), &fclose);
+	// from 오르비스
+	// 숫자 18이 저장될 때 1과 8의 아스키 코드값이 저장됨(49, 56)
+	// text mode   -> 모든 데이터를 문자 형태로 기록, 읽을 때 if 18 -> "18" (문자열)
+	// binary mode -> 메모리에 있는 내용 그대로 기록, 읽을 때 if 18 -> 49 * 256(2번째 바이트이므로) + 56 = 12600
+	// text mode로 명시적으로 설정, default가 text mode인데.. 왜 binary로.. 될까.. 후..
+    std::unique_ptr<FILE, decltype(&fclose)> pFile(_wfopen(path.c_str(), L"rt"), &fclose);
 #   pragma warning(pop)
     if (pFile)
     {
@@ -65,7 +70,7 @@ std::wstring AUIFileResourceLoader::LoadText(const std::wstring& path)
     }
 #else
     auto utf8Path = AUIStringConvert::WCSToUTF8(path);
-    std::unique_ptr<FILE, decltype(&fclose)> pFile(fopen(utf8Path.c_str(), "r"), &fclose);
+    std::unique_ptr<FILE, decltype(&fclose)> pFile(fopen(utf8Path.c_str(), "rt"), &fclose);
     if (pFile)
     {
         std::wstringstream wss;

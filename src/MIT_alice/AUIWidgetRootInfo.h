@@ -25,5 +25,5 @@ public:
     }
 private:
     AUICoordSpace m_eTargetCoord = AUICoordSpace::kScreenSpace;
-    glm::mat4 m_matRoot;
+    glm::mat4 m_matRoot = glm::mat4(1.f);
 };

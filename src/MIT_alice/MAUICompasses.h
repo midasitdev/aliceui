@@ -12,7 +12,7 @@ namespace mit::alice
         ~MAUISphereCompass() override = default;
 
         void CalcControlPosition(const glm::vec3& vRayOrg, const glm::vec3& vRayDir) override;
-        glm::vec3 GetPosition() const override {
+        const glm::vec3 GetPosition() const override {
             return m_vCurrPosition;
         }
 
@@ -34,7 +34,7 @@ namespace mit::alice
         ~MAUIStraightLineCompass() override = default;
 
         void CalcControlPosition(const glm::vec3& vRayOrg, const glm::vec3& vRayDir) override;
-        glm::vec3 GetPosition() const override {
+        const glm::vec3 GetPosition() const override {
             return m_CurPos;
         }
 
@@ -42,9 +42,7 @@ namespace mit::alice
             m_vPos = pos;
             m_vDir = dir;
         }
-        glm::vec3 GetCurrentPosition() const {
-            return m_CurPos;
-        }
+        
         float GetCurrentDisp() const {
             return m_fDisp;
         }
@@ -62,7 +60,7 @@ namespace mit::alice
         ~MAUICircleBoundaryCompass() override = default;
 
         void CalcControlPosition(const glm::vec3& vRayOrg, const glm::vec3& vRayDir) override;
-        glm::vec3 GetPosition() const override {
+        const glm::vec3 GetPosition() const override {
             return m_center;    // Bad..?
         }
 

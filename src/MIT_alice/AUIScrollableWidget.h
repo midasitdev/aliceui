@@ -47,10 +47,7 @@ private:
 public:
     void SetShowThumbOnHit(bool show);
     bool IsShowThumbOnHit() const;
-protected:
-    AUIScrollableBarWidget* GetScrollBarWidget() const {
-        return m_pScrollBar.get();
-    }
+    AUIScrollableBarWidget* GetScrollBarWidget() const { return m_pScrollBar.get(); }
 private:
     std::shared_ptr< AUIScrollableBarWidget > m_pScrollBar;
 

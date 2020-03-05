@@ -29,7 +29,7 @@ void MAUICircleBoundaryCompass::CalcControlPosition(const glm::vec3& vRayOrg, co
         if (!glm::intersectRayPlane(vRayOrg, vRayDir, m_center, -m_norm, fHitDistance))
         {
             ASSERT(0);
-            m_curDir = glm::vec3();
+            m_curDir = glm::vec3(0.f);
             return;
         }
     }
@@ -38,7 +38,7 @@ void MAUICircleBoundaryCompass::CalcControlPosition(const glm::vec3& vRayOrg, co
         if (!glm::intersectRayPlane(vRayOrg, vRayDir, m_center, m_norm, fHitDistance))
         {
             ASSERT(0);
-            m_curDir = glm::vec3();
+            m_curDir = glm::vec3(0.f);
             return;
         }
     }

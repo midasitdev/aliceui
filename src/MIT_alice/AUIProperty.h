@@ -11,9 +11,9 @@ typedef size_t AUIRuntimeID;
 
 enum class AUISizePolicy
 {
-    kContent = 0,
-    kFixed,
-    kParent
+    kContent = 0, // 내용물에 최적화
+    kFixed,	// 자신의 Default Size에 고정
+    kParent	//Parent의 크기에 맞춤
 };
 
 //////////////////////////////////////////////////////////////////////////

@@ -76,42 +76,28 @@ AUIButtonWidget::AUIButtonWidget()
     : AUITextWidget( DefaultCaption )
 {
     SetClickable( true );
-
     SetFocusable( DefaultFocusable );
-
-
-
-
-
-
     SetBackgroundDrawable( ::GetButtonDrawable() );
-
 
     SetCaptionColor( AUIState::kDefault, true, SkColorSetRGB( 201, 211, 219 ) );
     SetCaptionColor( AUIState::kDefault, false, SkColorSetRGB( 201, 211, 219 ) );
     SetCaptionColor( AUIState::kMouseHovered, true, SkColorSetRGB( 201, 211, 219 ) );
     SetCaptionColor( AUIState::kPressed, true, SkColorSetRGB( 201, 211, 219 ) );
     SetCaptionColor( AUIState::kDisabled, true, SkColorSetRGB( 137, 144, 148 ) );
-
 }
 
 AUIButtonWidget::AUIButtonWidget( const std::wstring& caption )
     : AUITextWidget( caption )
 {
     SetClickable( true );
-
     SetFocusable( DefaultFocusable );
-
-
     SetBackgroundDrawable( ::GetButtonDrawable() );
-
 
     SetCaptionColor( AUIState::kDefault, true, SkColorSetRGB( 201, 211, 219 ) );
     SetCaptionColor( AUIState::kDefault, false, SkColorSetRGB( 201, 211, 219 ) );
     SetCaptionColor( AUIState::kMouseHovered, true, SkColorSetRGB( 201, 211, 219 ) );
     SetCaptionColor( AUIState::kPressed, true, SkColorSetRGB( 201, 211, 219 ) );
     SetCaptionColor( AUIState::kDisabled, true, SkColorSetRGB( 137, 144, 148 ) );
-
 }
 
 AUIButtonWidget::~AUIButtonWidget()
@@ -136,7 +122,6 @@ bool AUIButtonWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
     SuperWidget::OnMouseLBtnDown( flag );
     Invalidate();
     return true;
-
 }
 
 bool AUIButtonWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
@@ -147,17 +132,13 @@ bool AUIButtonWidget::OnMouseLBtnUp( MAUIMouseEvent::EventFlag flag )
         return ret;
 
     Invalidate();
-
     return true;
 }
 
 bool AUIButtonWidget::OnMouseLBtnDblClk( MAUIMouseEvent::EventFlag flag )
 {
     SuperWidget::OnMouseLBtnDblClk( flag );
-
-
     Invalidate();
-
     return true;
 }
 
@@ -169,6 +150,5 @@ bool AUIButtonWidget::OnMouseMove( MAUIMouseEvent::EventFlag flag )
         return ret;
 
     Invalidate();
-
     return true;
 }

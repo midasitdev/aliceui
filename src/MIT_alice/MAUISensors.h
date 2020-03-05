@@ -22,19 +22,22 @@ namespace mit::alice
         MAUISphereSensor() = default;
         ~MAUISphereSensor() override = default;
 
-        void SetMatrix(const glm::mat4& matSensor) override {
-            m_matSensorInv = glm::inverse(matSensor);
+        inline void GetBoundingSphere(glm::vec3& c, float& r) const override
+        {
+            c = m_vSpherePos;
+            r = m_fSphereRadius;
+
         }
-        bool UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir) override;
+        inline bool UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fScale = 1.0f) override;
         float GetHitDistance() const override {
             return m_fHitDistance;
         }
-        glm::vec3 GetHitPos() const override {
+        glm::vec3 GetHitPos() const  {
             return m_vHitPos;
         }
-        void SetAABB(float left, float top, float right, float bottom, float front, float back) override {
-            // TODO
-        }
+        //void SetAABB(float left, float top, float right, float bottom, float front, float back) override {
+        //    // TODO
+        //}
 
         glm::vec3 GetHidDir() const {
             return m_vHitDir;
@@ -42,10 +45,10 @@ namespace mit::alice
         void SetSphere(const glm::vec3& pos, float radius) {
             m_vSpherePos = pos;
             m_fSphereRadius = radius;
+            Invalidate();
         }
     private:
         glm::vec3 m_vHitDir;
-        glm::mat4 m_matSensorInv;
         glm::vec3 m_vSpherePos;
         glm::vec3 m_vHitPos;
         float m_fHitDistance = 0.0f;
@@ -58,135 +61,103 @@ namespace mit::alice
         MAUICircleBoundarySensor() = default;
         ~MAUICircleBoundarySensor() override = default;
 
-        void SetMatrix(const glm::mat4& matSensor) override {
-            m_matSensorInv = glm::inverse(matSensor);
+        inline void GetBoundingSphere(glm::vec3& c, float& r) const override
+        {
+            c = glm::vec3(m_matSensor[3]);
+            r = m_fRadius;
+
         }
-        bool UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir) override;
+        void SetMatrix(const glm::mat4& matSensor)  {
+            m_matSensor = matSensor;
+            m_matSensorInv = glm::inverse(matSensor);
+            Invalidate();
+        }
+        inline bool UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fScale = 1.0f) override;
         float GetHitDistance() const override {
             return m_fHitDistance;
-        };
-        glm::vec3 GetHitPos() const override {
+        }
+        glm::vec3 GetHitPos() const  {
             return m_vHitPos;
         }
-        void SetAABB(float left, float top, float right, float bottom, float front, float back) override {
-            // TODO
-        }
+        //void SetAABB(float left, float top, float right, float bottom, float front, float back) override {
+        //    // TODO
+        //}
 
         void SetCircle(float radius) {
             m_fRadius = radius;
+            Invalidate();
         }
     private:
-        glm::mat4 m_matSensorInv;
+        glm::mat4 m_matSensor = glm::mat4(1.f);
+        glm::mat4 m_matSensorInv = glm::mat4(1.f);
         glm::vec3 m_vHitPos;
         float m_fRadius = 0.0f;
         float m_fBoundarySize = 5.0f;
         float m_fHitDistance = 0.0f;
     };
 
-    class MITALICE_API MAUILinesSensor : public AUISensor
+    class MITALICE_API MAUILineSensor : public AUISensor
     {
     public:
-        MAUILinesSensor() = default;
-        ~MAUILinesSensor() override = default;
+        MAUILineSensor() = default;
+        ~MAUILineSensor() override = default;
 
-        void SetMatrix(const glm::mat4& matSensor) override {
-            m_matSensorInv = glm::inverse(matSensor);
+        inline void GetBoundingSphere(glm::vec3& c, float& r) const override
+        {
+            c = (m_line.pos[1] + m_line.pos[0]) * 0.5;
+            r = float(glm::length(m_line.pos[1] - m_line.pos[0]) * 0.5);
         }
-        bool UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir) override;
+        inline bool UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fScale = 1.0f) override;
         float GetHitDistance() const override {
             return m_fHitDistance;
         }
-        glm::vec3 GetHitPos() const override {
+        glm::vec3 GetHitPos() const  {
             return m_vHitPos;
         }
-        void SetAABB(float left, float top, float right, float bottom, float front, float back) override {
-            this->SetBox({ left, top, front }, { right, bottom, back });
-        }
 
-        void SetBox(glm::vec3 minBox, glm::vec3 maxBox)
+        void SetLine(const ShapeLine& Line)
         {
-            //todo
-        }
-
-        void SetLine(const std::vector< ShapeLine >& arrLines)
-        {
-            m_arrLines = arrLines;
-        }
-        void AddLine(const ShapeLine& Line)
-        {
-            m_arrLines.emplace_back(Line);
-        }
-        void AddLine(const glm::dvec3 pos1, const glm::dvec3 pos2)
-        {
-            m_arrLines.emplace_back(ShapeLine::MakePos(pos1, pos2));
-        }
-        void ClearLine()
-        {
-            m_arrLines.clear();
-        }
-
-        void SetCircle(const std::vector< ShapeCircle >& arrCircles)
-        {
-            m_arrCircle = arrCircles;
-        }
-        void AddCircle(const ShapeCircle& Circle)
-        {
-            m_arrCircle.emplace_back(Circle);
-        }
-        void ClearCircle()
-        {
-            m_arrCircle.clear();
-        }
-
-        void SetArc(const std::vector< ShapeArc >& arrArcs)
-        {
-            m_arrArc = arrArcs;
-        }
-        void AddArc(const ShapeArc& Arc)
-        {
-            m_arrArc.emplace_back(Arc);
-        }
-        void ClearArc()
-        {
-            m_arrArc.clear();
-        }
-
-        void SetEllipse(const std::vector< ShapeEllipse >& arrEllipses)
-        {
-            m_arrEllipse = arrEllipses;
-        }
-        void AddEllipse(const ShapeEllipse& Ellipse)
-        {
-            m_arrEllipse.emplace_back(Ellipse);
-        }
-        void ClearEllipse()
-        {
-            m_arrEllipse.clear();
-        }
-
-        void SetEllipseArc(const std::vector< ShapeEllipseArc >& arrEllipseArcs)
-        {
-            m_arrEllipseArc = arrEllipseArcs;
-        }
-        void AddEllipseArc(const ShapeEllipseArc& EllipseArc)
-        {
-            m_arrEllipseArc.emplace_back(EllipseArc);
-        }
-        void ClearEllipseArc()
-        {
-            m_arrEllipseArc.clear();
+            m_line = Line;
+            Invalidate();
         }
 
     private:
-        std::vector< ShapeLine > m_arrLines;
-        std::vector< ShapeCircle > m_arrCircle;
-        std::vector< ShapeArc > m_arrArc;
-        std::vector< ShapeEllipse > m_arrEllipse;
-        std::vector< ShapeEllipseArc > m_arrEllipseArc;
 
-        mit::alice::ShapeLine m_lines;
+        mit::alice::ShapeLine m_line;
         glm::vec3 m_vHitPos;
-        glm::mat4 m_matSensorInv;
+        float m_fHitDistance = 0.0f;
+    };
+
+
+    class MITALICE_API MAUIArcSensor : public AUISensor
+    {
+    public:
+        MAUIArcSensor() = default;
+        ~MAUIArcSensor() override = default;
+
+        inline void GetBoundingSphere(glm::vec3& c, float& r) const override
+        {
+            c = m_arc.pos;
+            r = (float)m_arc.radius;
+        }
+        inline bool UpdateHit(const glm::vec3& vRayOrg, const glm::vec3& vRayDir, float fScale = 1.0f) override;
+        float GetHitDistance() const override {
+            return m_fHitDistance;
+        }
+        glm::vec3 GetHitPos() const {
+            return m_vHitPos;
+        }
+
+        void SetArc(const ShapeArc& arc)
+        {
+            m_arc = arc;
+            Invalidate();
+        }
+
+    private:
+
+        mit::alice::ShapeArc m_arc;
+        glm::vec3 m_vHitPos;
         float m_fHitDistance = 0.0f;
     };
 }

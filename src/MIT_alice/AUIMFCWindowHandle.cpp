@@ -44,6 +44,16 @@ void AUIMFCWindowHandle::SetRootWidget( const std::shared_ptr< AUIWidget >& pWid
     }
 }
 
+void AUIMFCWindowHandle::SetSubWindowType(const SUB_WINDOW_TYPE& type)
+{
+    m_wnd.SetSubWindowType(type);
+}
+
+SUB_WINDOW_TYPE AUIMFCWindowHandle::GetSubWindowType() const
+{
+    return m_wnd.GetSubWindowType();
+}
+
 void AUIMFCWindowHandle::SetTransparent(bool val)
 {
     m_wnd.SetLayeredWindow(val);

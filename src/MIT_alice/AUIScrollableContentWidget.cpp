@@ -24,7 +24,6 @@ void AUIScrollableContentWidget::OnScrolling(float delta)
 
 bool AUIScrollableContentWidget::OnMouseWheel( MAUIMouseEvent::EventFlag flag, float delta )
 {
-
     if ( IsMouseHover() )
     {
         if ( !!( flag & MAUIMouseEvent::kShift_EventFlag ) )

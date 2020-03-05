@@ -73,7 +73,7 @@ void AUITab::SetButtonStyleSheet(std::shared_ptr<const AUIWidgetStyle> style)
 	}
 }
 
-void AUITab::SetTextStyleSheet(std::shared_ptr<const AUIWidgetStyle> style)
+void AUITab::SetImageStyleSheet(std::shared_ptr<const AUIWidgetStyle> style)
 {
 	if (auto pBtnWidget = GetTabButtonWidget())
 	{
@@ -85,7 +85,7 @@ void AUITab::SetTextStyleSheet(std::shared_ptr<const AUIWidgetStyle> style)
 
 }
 
-void AUITab::SetImageStyleSheet(std::shared_ptr<const AUIWidgetStyle> style)
+void AUITab::SetTextStyleSheet(std::shared_ptr<const AUIWidgetStyle> style)
 {
 	if (auto pBtnWidget = GetTabButtonWidget())
 	{

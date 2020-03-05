@@ -13,8 +13,8 @@ AUIConsoleWidget::AUIConsoleWidget()
     SetSizePolicy(AUISizePolicy::kFixed, AUISizePolicy::kFixed);
     SetDefaultSize( 600.0f, 400.0f );
 
-    m_pScroll->SetDefaultHeight( 350.0f );
-    m_pScroll->SetSizePolicyHeight( AUISizePolicy::kFixed );
+    m_pScroll->SetDefaultHeight(350.0f);
+    m_pScroll->SetSizePolicyHeight( AUISizePolicy::kFixed);
     m_pEdit->SetSizePolicyWidth( AUISizePolicy::kParent );
 
     AddChild( m_pScroll );
@@ -60,6 +60,11 @@ size_t AUIConsoleWidget::SubWidgetCount() const
     return 0;
 }
 
+void AUIConsoleWidget::OnSetDefaultSize(const AUIScalar2& size)
+{
+    m_pScroll->SetDefaultHeight(size.fY - 100.0f);
+}
+
 void AUIConsoleWidget::OnEditReturn( AUIWidget* )
 {
     const auto caption = m_pEdit->GetCaption();
@@ -86,7 +91,6 @@ void AUIConsoleWidget::AddText( const std::wstring& text, const SkColor& color )
     pText->SetMinimumHeight( 20.0f );
     pText->SetSizePolicyHeight( AUISizePolicy::kContent );
     pText->SetSizePolicyWidth( AUISizePolicy::kParent );
-
 	if (AUITextLineFeed::kNone != m_MultilineType)
 	{
 		pText->SetUseMultiline(true);

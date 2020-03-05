@@ -14,6 +14,12 @@
 
 #include <optional>
 #include "AUIDebug.h"
+#include "AUISensorManager.h"
+#include "AUIWidgetRootInfo.h"
+#include "AUIScreenSensorManager.h"
+#include "AUIWorldPanelSensorManager.h"
+#include "AUIWorldSensorManager.h"
+#include "AUISteadyScaleSensorManager.h"
 
 
 AUIWidgetManager::AUIWidgetManager()
@@ -28,7 +34,17 @@ AUIWidgetManager::AUIWidgetManager()
     , m_TooltipOffsetY( 20 )
     , m_bDirty( false )
 {
-    AUIApplication::Instance().AttachWidgetManager( this );
+    AUIApplication::Instance().AttachWidgetManager(this);
+    m_aSensorManager[(size_t)AUICoordSpace::kScreenSpace] = std::make_unique<AUIScreenSensorManager>();
+    m_aSensorManager[(size_t)AUICoordSpace::kWorldPanel] = std::make_unique<AUIWorldPanelSensorManager>();
+    m_aSensorManager[(size_t)AUICoordSpace::kWorld] = std::make_unique<AUIWorldSensorManager>();
+    m_aSensorManager[(size_t)AUICoordSpace::kSteadyScale] = std::make_unique<AUISteadyScaleSensorManager>();
+
+    for (auto i = 0; i < AUICoordSpaceNum; i++)
+    {
+        if(auto pSensorManager = m_aSensorManager[i].get())
+            pSensorManager->SetWidgetManager(this);
+    }
 }
 
 AUIWidgetManager::~AUIWidgetManager()
@@ -64,29 +80,39 @@ bool AUIWidgetManager::SendMouseEvent( const MAUIMouseEvent& evt )
     m_MousePosX = evt.fX;
     m_MousePosY = evt.fY;
 
+    const auto vp = GetViewport();
+    const auto matProj = GetProjectionMatrix();
+    const auto matView = GetViewingMatrix();
+
+    glm::vec4 vECOrg, vECDir;	//Eye좌표계 기준 Mouse Point Ray 시작점과 방향
+    if (matProj[3][2] == 0.f)//is orthogonal
+    {
+        vECOrg = glm::vec4(glm::unProject(glm::vec3(m_MousePosX, vp[3] - m_MousePosY - 1.0f, 0.0), glm::mat4(1.f), matProj, vp), 1);
+        vECDir = glm::vec4(0, 0, -1, 0);
+    }
+    else
+    {
+        vECOrg = glm::vec4(0, 0, 0, 1);
+        vECDir = glm::vec4(glm::unProject(glm::vec3(m_MousePosX, vp[3] - m_MousePosY - 1.0f, 0.5), glm::mat4(1.f), matProj, vp), 0);
+    }
+    const auto matInv = glm::inverse(matView);
+    m_MouseOrg = glm::dvec3(matInv * vECOrg);
+    m_MouseDir = glm::normalize(glm::dvec3(matInv * vECDir));
+
+
     // Update Hit Test Buffer
     if (evt.fType == MAUIMouseEvent::kMove_EventType || evt.fType == MAUIMouseEvent::kWheel_EventType)
     {
         // NOTE : DO NOT UPDATE ON OTHER EVENTS (e.g. Popup focus will regenerate all hit test state)
         //mit::lib::MDebugProfiler _hitTestProfiler(L"Refresh Hit Test");
+        //if(!IsGrabMouseEvent())
         RefreshHitTestBuffer(evt.fX, evt.fY);
     }
 
-    decltype(m_Instances) currentInstances;
-    do
-    {
-        std::lock_guard< std::recursive_mutex > guard( m_mtxInstances );
-        currentInstances.reserve( m_Instances.size() );
-        currentInstances.assign( m_Instances.begin(), m_Instances.end() );
-    } while ( false );
-
     // Last drawn is topmost, thus event goes inverse order
-    for (auto itrInst = currentInstances.rbegin() ; itrInst != currentInstances.rend() ; ++itrInst)
-    {
-        // Hover event
-        auto pInstance = (*itrInst).get();
-        hovered |= SendMouseHoverEventToWidget( pInstance, evt );
-    }
+
+    hovered |= SendMouseHoverEventToWidget(evt);
+
 
 
     if ( IsGrabMouseEvent() )
@@ -190,62 +216,131 @@ bool AUIWidgetManager::SendMouseEvent( const MAUIMouseEvent& evt )
     return handled || hovered;
 }
 
-bool AUIWidgetManager::SendMouseHoverEventToWidget( AUIInstance* const pInstance, const MAUIMouseEvent& evt ) // 받은 Mouse Hover Event를 Widget에 전달
+bool AUIWidgetManager::SendMouseHoverEventToWidget( const MAUIMouseEvent& evt ) // 받은 Mouse Hover Event를 Widget에 전달
 {
-    if ( pInstance == nullptr )
-    {
-        AUIAssertFailReason("Invalid instance");
-        return false;
-    }
-
-    const auto& widgettree = AUIApplication::Instance().GetWidgetTree();
-
-    auto pWidget = pInstance->GetWidget();
-    if ( pWidget->IsInstanced() == false )
-        return false;
-    if ( widgettree.IsVisibleByParent( pWidget ) == false )
-        return false;
-    if ( widgettree.IsFreezedByParent( pWidget ) )
-        return false;
-    if ( widgettree.IsIgnoredByParent( pWidget ) )
-        return false;
-
     bool hovered = false;
-
-    // By hit
-    if ( pInstance->IsHit() )
+    auto aHoverInstance = m_HoverInstances;
+    if (evt.fType == MAUIMouseEvent::kLeave_EventType)
     {
-        if ( evt.fType == MAUIMouseEvent::kLeave_EventType )
+        // Leave all
+        for (auto wpInstance : aHoverInstance)
         {
-            // Leave all
-            if ( pWidget->IsMouseHover() )
+            auto pInstance = wpInstance.lock();
+            if (!pInstance)
+                continue;
+            auto pWidget = pInstance->GetWidget();
+            if (pWidget->IsMouseHover())
             {
                 pWidget->MouseLeave();
             }
+     //       else
+        //        assert(0);
         }
-        else
-        {
-            // Newly hovered
-            if ( pWidget->IsMouseHover() == false )
-            {
-                pWidget->MouseEnter();
-            }
-            // Hover Event
-            pWidget->MouseHover();
-
-            hovered = true;
-        }
+        m_HoverInstances.clear();
+        return hovered;
     }
-    else
+
+
+
+    auto tmpHitTestBuffer = m_HitTestBuffer;
+    m_HoverInstances.clear();
+    for (auto itr = tmpHitTestBuffer.begin(); itr != tmpHitTestBuffer.end(); ++itr)
     {
-        // Leave all
-        if ( pWidget->IsMouseHover() )
+        // Hover event
+        auto wpInstance = (*itr).fInstance;
+        auto pInstance = wpInstance.lock();
+        if (!pInstance)
+            continue;
+        auto pWidget = pInstance->GetWidget();
+
+        // Newly hovered
+        if (pWidget->IsMouseHover() == false)
+        {
+            pWidget->MouseEnter();
+        }
+        // Hover Event
+        pWidget->MouseHover();
+        hovered |= true;
+        m_HoverInstances.push_back(wpInstance);
+    }
+
+    for (auto wpInstance : aHoverInstance)
+    {
+        auto pInstance = wpInstance.lock();
+        if (!pInstance)
+            continue;
+        if (pInstance->IsHit())
+            continue;
+        auto pWidget = pInstance->GetWidget();
+        if (pWidget->IsMouseHover())
         {
             pWidget->MouseLeave();
         }
+     //   else
+      //      assert(0);
     }
 
     return hovered;
+    //bool hovered = false;
+    //decltype(m_Instances) currentInstances;
+    //do
+    //{
+    //    std::lock_guard< std::recursive_mutex > guard(m_mtxInstances);
+    //    currentInstances.reserve(m_Instances.size());
+    //    currentInstances.assign(m_Instances.begin(), m_Instances.end());
+    //} while (false);
+    //const auto& widgettree = AUIApplication::Instance().GetWidgetTree();
+    //for (auto itrInst = currentInstances.rbegin(); itrInst != currentInstances.rend(); ++itrInst)
+    //{
+    //    // Hover event
+    //    auto pInstance = (*itrInst).get();
+    //    if (pInstance == nullptr)
+    //    {
+    //        AUIAssertFailReason("Invalid instance");
+    //        continue;
+    //    }
+    //    auto pWidget = pInstance->GetWidget();
+    //    if (pWidget->IsInstanced() == false)
+    //        continue;
+    //    if (widgettree.IsVisibleByParent(pWidget) == false)
+    //        continue;
+    //    if (widgettree.IsFreezedByParent(pWidget))
+    //        continue;
+    //    if (widgettree.IsIgnoredByParent(pWidget))
+    //        continue;
+    //    // By hit
+    //    if (pInstance->IsHit())
+    //    {
+    //        if (evt.fType == MAUIMouseEvent::kLeave_EventType)
+    //        {
+    //            // Leave all
+    //            if (pWidget->IsMouseHover())
+    //            {
+    //                pWidget->MouseLeave();
+    //            }
+    //        }
+    //        else
+    //        {
+    //            // Newly hovered
+    //            if (pWidget->IsMouseHover() == false)
+    //            {
+    //                pWidget->MouseEnter();
+    //            }
+    //            // Hover Event
+    //            pWidget->MouseHover();
+    //            hovered |= true;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        // Leave all
+    //        if (pWidget->IsMouseHover())
+    //        {
+    //            pWidget->MouseLeave();
+    //        }
+    //    }
+    //}
+    //return hovered;
 }
 
 bool AUIWidgetManager::SendMouseEventToWidget( AUIInstance* const pInstance, const MAUIMouseEvent& evt )
@@ -465,6 +560,15 @@ bool AUIWidgetManager::SendSetCursorEventToWidget( AUIInstance* const pInstance,
     return handled;
 }
 
+void AUIWidgetManager::InvalidateCamera()
+{
+    for (auto i = 0; i < AUICoordSpaceNum; i++)
+    {
+        if (auto pSensorManager = m_aSensorManager[i].get())
+            pSensorManager->_invliadate_camera();
+    }
+}
+
 void AUIWidgetManager::SetFocusTarget( const std::weak_ptr< AUIWidget >& pWidget ) // Parameter에 들어온 Widget을 Focus하도록 변경
 {
     if ( auto pPrevFocusedWidget = m_pFocusWidget.lock() )
@@ -474,6 +578,13 @@ void AUIWidgetManager::SetFocusTarget( const std::weak_ptr< AUIWidget >& pWidget
 
     if ( auto pNextFocusedWidget = pWidget.lock() )
         pNextFocusedWidget->FocusIn();
+}
+
+void AUIWidgetManager::InvalidateSensor(AUIWidget* pWidget)
+{
+    auto rootcoord = pWidget->GetRootTargetCoord();
+     if(auto pSensorManager = GetSensorManager(rootcoord))
+            pSensorManager->_invalidate_sensor(pWidget->shared_from_this());
 }
 
 bool AUIWidgetManager::UpdateAllInstance()
@@ -511,7 +622,9 @@ bool AUIWidgetManager::UpdateAllInstance()
                 AUIWidget::CallMeasureAndUpdateSize( pWidget );
         }
         if ( pWidget->IsNeedUpdateChildPosition() )
-            AUIWidget::CallOnUpdateChildPosition( pWidget );
+            AUIWidget::CallOnUpdateChildPosition(pWidget);
+        if (pWidget->m_bDefault2DSensor)
+            pWidget->UpdateDefault2DSensorSize();
 
         if ( pWidget->IsDirty() )
         {
@@ -643,31 +756,11 @@ const AUIInstance* const AUIWidgetManager::FindInstance( AUIWidget* const pWidge
 
 void AUIWidgetManager::RefreshHitTestBuffer( int x, int y )
 {
-    const auto vp = GetViewport();
-    const auto matProj = GetProjectionMatrix();
-    const auto matView = GetViewingMatrix();
 
-    glm::vec4 vECOrg, vECDir;	//Eye좌표계 기준 Mouse Point Ray 시작점과 방향
-    if (matProj[3][2] == 0.f)//is orthogonal
-    {	
-        vECOrg = glm::vec4(glm::unProject(glm::vec3(x, vp[3] - y - 1.0f, 0.0), glm::mat4(), matProj, vp), 1);
-        vECDir = glm::vec4(0, 0, -1, 0);
-    }
-    else
-    {
-        vECOrg = glm::vec4(0, 0, 0, 1);
-        vECDir = glm::vec4(glm::unProject(glm::vec3(x, vp[3] - y - 1.0f, 0.5), glm::mat4(), matProj, vp), 0);
-    }
-    auto matInv = glm::inverse(matView);
-    m_MouseOrg = matInv * vECOrg;
-    m_MouseDir = glm::normalize(glm::vec3(matInv * vECDir));
 
     //std::unordered_map< AUIWidget*, bool > mapVisualHit;
-
-
     //std::vector<std::pair<AUIWidget*, bool>> arrVisualHit;
     //arrVisualHit.reserve(m_Instances.size());
-
     //auto funcFindVisualHit = [&arrVisualHit](AUIWidget* _widget) -> std::optional<bool> {
     //    const auto found = std::find_if(std::begin(arrVisualHit), std::end(arrVisualHit), [_widget](const std::pair<AUIWidget*, bool>& _data) -> bool {
     //        return _data.first == _widget;
@@ -677,29 +770,88 @@ void AUIWidgetManager::RefreshHitTestBuffer( int x, int y )
     //    return { found->second };
     //};
 
+    std::vector<std::weak_ptr<AUIInstance>> aHitInstance;
+    decltype(m_Instances) currentInstances;
+    do
+    {
+        std::lock_guard< std::recursive_mutex > guard(m_mtxInstances);
+        currentInstances.reserve(m_Instances.size());
+        currentInstances.assign(m_Instances.begin(), m_Instances.end());
+    } while (false);
+    for (auto itr : currentInstances)
+    {
+        if (auto pInstance = itr.get())
+            pInstance->SetNotHit();
+    }
+    for (auto i = 0; i < AUICoordSpaceNum; i++)
+    {
+        if (auto pSensorManager = m_aSensorManager[i].get())
+        {
+            if(!pSensorManager->CheckSensors())
+                continue;
+            aHitInstance = pSensorManager->HitInstances();
+            break;
+        }
+    }
+
+
+
     std::unordered_set<AUIWidget*> setVisualHitTrue;
     std::unordered_set<AUIWidget*> setVisualHitFalse;
     setVisualHitTrue.reserve(m_Instances.size());
     setVisualHitFalse.reserve(m_Instances.size());
 
 
-    decltype(m_Instances) arrValidInstances;
-    arrValidInstances.reserve(m_Instances.size());
+    //decltype(m_Instances) arrValidInstances;
+    //std::vector<bool> arrHit;
+    //arrValidInstances.reserve(m_Instances.size());
+    //arrHit.resize(m_Instances.size());
+    //const auto& widgettree = AUIApplication::Instance().GetWidgetTree();
+    //auto inst_size = m_Instances.size();
+    //constexpr int OpenMPThreshold = 1;
 
+
+
+
+    //for (auto i = 0; i < inst_size; i++)
+    //{
+    //    auto& pInstance = m_Instances[i];
+    //    AUIAssert(pInstance);
+    //    auto pWidget = pInstance->GetWidget();
+    //    AUIAssert(pWidget);
+
+    //    // Prune invisible objects
+    //    if (widgettree.IsVisibleByParent(pWidget) == false)
+    //        arrHit[i] = false;
+    //    else
+    //        arrHit[i] = true;
+    //}
+
+    //for (auto i=0; i< inst_size;i++)
+    //{
+    //    auto& pInstance = m_Instances[i];
+    //    AUIAssert(pInstance);
+    //    if (arrHit[i] == false)
+    //        continue;
+    //    pInstance->UpdateHitData(x, y);
+    //    arrHit[i] = pInstance->IsHit();
+    //}
+
+    decltype(aHitInstance) arrValidInstances;
+    arrValidInstances.reserve(aHitInstance.size());
     const auto& widgettree = AUIApplication::Instance().GetWidgetTree();
+    auto inst_size = aHitInstance.size();
+    constexpr int OpenMPThreshold = 1;
 
-    for ( auto& pInstance : m_Instances)
+
+    for (auto i = 0; i < inst_size ; i++)
     {
+        auto pInstance = aHitInstance[i].lock();
         AUIAssert(pInstance);
         auto pWidget = pInstance->GetWidget();
         AUIAssert(pWidget);
 
-        // Prune invisible objects
-        if (widgettree.IsVisibleByParent(pWidget) == false)
-            continue;
-
-        pInstance->UpdateHitData( x, y );
-        if (false == pInstance->IsHit())
+        if (pInstance->IsHit() == false)
             continue;
 
         // Non-Drawable based widget
@@ -714,9 +866,9 @@ void AUIWidgetManager::RefreshHitTestBuffer( int x, int y )
         }
         else
         {
-            if (pWidget->IsHitTestAffectedByParent())
+            auto pParentWidget = pWidget->GetParent();
+            if (pParentWidget && pParentWidget->IsHitTestAffectToChild())
             {
-                auto pParentWidget = pWidget->GetParent();
                 AUIAssert(pParentWidget);
 
                 const auto foundTrue = setVisualHitTrue.find(pParentWidget);
@@ -760,7 +912,7 @@ void AUIWidgetManager::RefreshHitTestBuffer( int x, int y )
     // Last drawn is topmost, thus event goes inverse order
     for (auto itrInst = arrValidInstances.rbegin() ; itrInst != arrValidInstances.rend() ; ++itrInst)
     {
-        auto& pInstance = *itrInst;
+        auto pInstance = (*itrInst).lock();
         AUIAssert(pInstance);
         AUIAssert(pInstance->IsHit());
 
@@ -870,6 +1022,18 @@ void AUIWidgetManager::RegisterWidget( const std::shared_ptr< AUIWidget >& pWidg
     } while ( false );      // For mutex guard
     AUIAssert( m_Instances.size() == m_mapWidget2Instance.size() );
 
+
+
+    //////////////////////////////////////////////////////////////
+    // Add To SensorManager
+    //////////////////////////////////////////////////////////////
+    auto rootc_info =  pWidget->GetRootCoordInfo();
+    auto rootc_type = (size_t)rootc_info->GetTargetCoord();
+    if (auto pSensorManager = m_aSensorManager[rootc_type].get())
+        pSensorManager->_invalidate_buffer();
+
+
+
     OnPostRegisterWidget();
 
     pWidget->UpdateSize();
@@ -913,6 +1077,14 @@ void AUIWidgetManager::UnregisterWidget( const std::shared_ptr< AUIWidget >& pWi
     } while ( false );      // For mutex guard
 
     OnPreUnregisterWidget();
+
+    //////////////////////////////////////////////////////////////
+    // Remove From SensorManager
+    //////////////////////////////////////////////////////////////
+    auto rootc_info = pWidget->GetRootCoordInfo();
+    auto rootc_type = (size_t)rootc_info->GetTargetCoord();
+    if (auto pSensorManager = m_aSensorManager[rootc_type].get())
+        m_aSensorManager[rootc_type]->_invalidate_buffer();
 
     pWidget->Destroy();
     pWidget->m_LifeState.SetCurWidgetManager( nullptr );

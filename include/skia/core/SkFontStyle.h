@@ -66,6 +66,9 @@ public:
     static constexpr SkFontStyle Bold() {
         return SkFontStyle(kBold_Weight,   kNormal_Width, kUpright_Slant);
     }
+	static constexpr SkFontStyle SemiBold() {
+		return SkFontStyle(kSemiBold_Weight, kNormal_Width, kUpright_Slant);
+	}
     static constexpr SkFontStyle Italic() {
         return SkFontStyle(kNormal_Weight, kNormal_Width, kItalic_Slant );
     }

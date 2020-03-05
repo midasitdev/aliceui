@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AUIScrollableBarWidget.h"
 #include "AUIJsonDrawableParser.h"
+#include "AUICompass.h"
 
 namespace
 {
@@ -22,6 +23,9 @@ AUIScrollableBarWidget::AUIScrollableBarWidget()
     , m_bShowThumbOnHit( false )
 {
     SetSizePolicy( AUISizePolicy::kParent, AUISizePolicy::kParent );
+    m_pPlaneCompass = std::make_shared<AUIPlaneCompass>();
+    AddCompass(m_pPlaneCompass);
+    m_pPlaneCompass->SetPlane(glm::vec3(0, 0, 0), glm::vec3(0, 0, 1), glm::vec3(1, 0, 0));
     //Freeze();
     m_ThumbState.SetClickable( true );
 }
@@ -85,10 +89,12 @@ void AUIScrollableBarWidget::OnMouseHover()
 
 void AUIScrollableBarWidget::OnMouseLeave()
 {
-    m_ThumbState.ResetMouse();
-    m_ThumbState.SetPressed( false );
-    //m_ThumbState.SetMouseHovered( false );
-    Invalidate();
+    if (IsDragging())
+    {
+        m_ThumbState.ResetMouse();
+        m_ThumbState.SetPressed(false);
+        Invalidate();
+    }
 }
 
 bool AUIScrollableBarWidget::OnMouseLBtnDblClk( MAUIMouseEvent::EventFlag flag )
@@ -115,9 +121,11 @@ bool AUIScrollableBarWidget::OnMouseLBtnDown( MAUIMouseEvent::EventFlag flag )
     const auto thumbRect = GetThumbRect();
     const auto mousePtX = GetMouseLocPosX();
     const auto mousePtY = GetMouseLocPosY();
+
+
     if (AUISkiaUtil::IsInRect( thumbRect, SkPoint::Make( mousePtX, mousePtY ) ) )
     {
-        m_PrevLDownPos = GetMouseAbsPos();
+        m_PrevLDownPos = m_pPlaneCompass->GetCurrentPlanePosition();
         m_ThumbState.SetPressed( true );
         Invalidate();
 
@@ -178,19 +186,21 @@ bool AUIScrollableBarWidget::OnMouseMove( MAUIMouseEvent::EventFlag flag )
     bool retval = false;
     if ( m_ThumbState.IsPressed() )
     {
-        const auto mouseCurPos = GetMouseAbsPos();
+
+        const auto mouseCurPos = m_pPlaneCompass->GetCurrentPlanePosition();
         const auto diffPos = mouseCurPos - m_PrevLDownPos;
 
-        const auto diffY = diffPos.y();
+        const auto diffY = diffPos.y;
 
-        const auto myHeight = GetHeight();
+        //const auto myHeight = GetHeight();
         SkScalar diffWeight = 1.0f;
-        if ( myHeight > 0.0f )
-            diffWeight = diffY / myHeight;
+        //if (myHeight > 0.0f)
+        //    diffWeight = diffY / myHeight;
+        diffWeight = diffY / -2.f;
 
         m_PrevLDownPos = mouseCurPos;
 
-        ThumbScrollSignal.Send( diffWeight );
+        ThumbScrollSignal.Send(diffWeight);
 
         retval = true;
     }

@@ -29,7 +29,7 @@ AUILayoutWidget::AUILayoutWidget()
 
     LoadDefault2DSensor();
 
-    SetHitTestAffectedByParent(true);
+    SetHitTestAffectToChild(true);
 }
 
 AUILayoutWidget::~AUILayoutWidget()

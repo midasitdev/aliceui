@@ -10,14 +10,13 @@
 #include "AUIWindowTitleBarWidget.h"
 
 namespace {
+    constexpr wchar_t kDefaultBackground[] = L"ui_frame/window/window_BG.9.png";
+    constexpr SkScalar DefaultWidth = 640.0f;
+    constexpr SkScalar DefaultHeight = 480.0f;
+
     constexpr SkScalar DefaultTitleBarHeight = 29.0f;
     constexpr SkScalar DefaultSystemButtonWidth = 24.0f;
     constexpr SkScalar DefaultSystemButtonHeight = 24.0f;
-
-    constexpr wchar_t kDefaultBackground[] = L"ui_frame/window/window_BG.9.png";
-
-    constexpr SkScalar DefaultWidth = 640.0f;
-    constexpr SkScalar DefaultHeight = 480.0f;
 }
 
 
@@ -68,7 +67,7 @@ AUISignal< void( AUIWidget* ) >& AUIWindowWidget::GetDragEndSignal() const
     return m_pTitleBar->DragReleaseSignal;
 }
 
-AUISignal< void(AUIWidget*, float, float ) >& AUIWindowWidget::GetDraggingSignal() const
+AUISignal< void(AUIWidget* ) >& AUIWindowWidget::GetDraggingSignal() const
 {
 
     return m_pTitleBar->DragMoveSignal;
@@ -100,6 +99,21 @@ void AUIWindowWidget::SetTitle( const std::wstring& caption )
 std::wstring AUIWindowWidget::GetTitle() const
 {
     return m_pTitleBar->GetTitleTextWidget()->GetCaption();
+}
+
+void AUIWindowWidget::SetTitleColor(const SkColor& titleColor)
+{
+    m_pTitleBar->GetTitleTextWidget()->SetCaptionColor(titleColor);
+}
+
+void AUIWindowWidget::SetTitleStyle(const SkFontStyle& titleStyle)
+{
+    m_pTitleBar->GetTitleTextWidget()->SetCaptionStyle(titleStyle);
+}
+
+void AUIWindowWidget::SetTitleFontName(const std::wstring& fontName)
+{
+    m_pTitleBar->GetTitleTextWidget()->SetCaptionFontName(fontName);
 }
 
 void AUIWindowWidget::SetIgnoreSysButton( bool ignore)
